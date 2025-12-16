@@ -1,0 +1,266 @@
+Here is the updated plan.txt reflecting the robust, type-safe, and industry-standard architecture we implemented, along with the detailed Changelog explaining the deviations.
+
+Step-by-Step Implementation Plan: Industry Standard i18n (v2.0)
+Phase 1: Foundation & Configuration
+1. Install Dependencies
+code
+Bash
+download
+content_copy
+expand_less
+npm install next-intl
+npx shadcn@latest add select
+2. Setup Centralized Routing
+
+We create a Master Configuration here. This serves as the single source of truth for Locales, Native Labels, and Flag Codes.
+
+File: i18n/routing.ts
+
+code
+TypeScript
+download
+content_copy
+expand_less
+import {defineRouting} from 'next-intl/routing';
+import {createNavigation} from 'next-intl/navigation';
+
+// Master Config: Single Source of Truth
+export const localesConfig = {
+  en: { label: "English", country: "US" },
+  bn: { label: "বাংলা", country: "BD" },
+  es: { label: "Español", country: "ES" },
+} as const;
+
+export const routing = defineRouting({
+  locales: Object.keys(localesConfig),
+  defaultLocale: 'en'
+});
+
+export const {Link, redirect, usePathname, useRouter} = createNavigation(routing);
+3. Setup Request Handler (Type-Safe)
+
+Configures how messages are loaded. Includes strict TypeScript checks and explicit locale return.
+
+File: i18n/request.ts
+
+code
+TypeScript
+download
+content_copy
+expand_less
+import {getRequestConfig} from 'next-intl/server';
+import {routing} from './routing';
+
+export default getRequestConfig(async ({requestLocale}) => {
+  let locale = await requestLocale;
+
+  // Strict check casting routing.locales to generic string array
+  if (!locale || !(routing.locales as readonly string[]).includes(locale)) {
+    locale = routing.defaultLocale;
+  }
+
+  return {
+    locale, // Explicit return required
+    messages: (await import(`../messages/${locale}.json`)).default
+  };
+});
+4. Create Robust Middleware
+
+Handles root redirection (/ -> /en), language detection, and prevents 404s on invalid paths.
+
+File: middleware.ts (Project Root)
+
+code
+TypeScript
+download
+content_copy
+expand_less
+import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
+ 
+export default createMiddleware(routing);
+ 
+export const config = {
+  // Matcher ignores internal Next.js/API paths but catches root '/'
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+};
+5. Create Dictionary Files
+
+File: messages/en.json (Project Root)
+
+code
+JSON
+download
+content_copy
+expand_less
+{
+  "HomePage": { "title": "Hello World", "description": "Welcome" },
+  "Common": { "header": "Header", "footer": "Footer" }
+}
+6. Configure Next.js
+
+File: next.config.mjs
+
+code
+JavaScript
+download
+content_copy
+expand_less
+import createNextIntlPlugin from 'next-intl/plugin';
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+export default withNextIntl({});
+Phase 2: Structural Migration
+7. Move and Update Root Layout
+
+Move app/layout.tsx to app/[lang]/layout.tsx.
+
+File: app/[lang]/layout.tsx
+
+code
+Tsx
+download
+content_copy
+expand_less
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "../../globals.css"; 
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { routing } from '../../i18n/routing';
+import { ThemeProvider } from "../../components/providers/theme-provider";
+
+// Font definitions...
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({lang: locale}));
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}>) {
+  const { lang } = await params;
+
+  // Enable Static Rendering
+  setRequestLocale(lang);
+  const messages = await getMessages();
+
+  return (
+    <html lang={lang} suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Pass 'locale' prop to sync Client/Server context */}
+        <NextIntlClientProvider messages={messages} locale={lang}>
+          <ThemeProvider attribute={'class'} defaultTheme="system" enableSystem disableTransitionOnChange>
+             {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
+Phase 3: Components & Features
+8. Language Switcher (Shadcn UI + Persistent)
+
+Implements Shadcn Select, Flag Icons, and a "Hard Reload" strategy to handle Cookies (NEXT_LOCALE) correctly.
+
+File: components/buttons/lang-switcher.tsx
+
+code
+Tsx
+download
+content_copy
+expand_less
+'use client';
+import { useLocale } from 'next-intl';
+import { usePathname, routing, localesConfig } from '../../../i18n/routing'; 
+import { useTransition } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+export default function LocalSwitcher() {
+  const [isPending, startTransition] = useTransition();
+  const localActive = useLocale();
+  const pathname = usePathname(); 
+
+  const onSelectChange = (nextLocale: string) => {
+    startTransition(() => {
+      // Set Cookie & Hard Reload to clear Router State
+      document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      window.location.href = `/${nextLocale}${pathname}`;
+    });
+  };
+
+  return (
+    <Select value={localActive} onValueChange={onSelectChange} disabled={isPending}>
+      <SelectTrigger className="w-[160px] bg-transparent">
+        <SelectValue placeholder="Select Language" />
+      </SelectTrigger>
+      <SelectContent>
+        {routing.locales.map((locale) => {
+          const info = localesConfig[locale as keyof typeof localesConfig];
+          return (
+            <SelectItem key={locale} value={locale}>
+              <div className="flex items-center gap-3">
+                <img src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${info.country}.svg`} 
+                     alt={info.label} className="w-6 h-4 object-cover shadow-sm" />
+                <span className="text-sm font-medium">{info.label}</span>
+              </div>
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
+    </Select>
+  );
+}
+Changelog: Why we deviated from the Initial Plan
+1. Routing API Update
+
+Initial Plan: Used createSharedPathnamesNavigation.
+
+Actual: Used createNavigation.
+
+Reason: The API was deprecated in newer versions of next-intl.
+
+2. Removal of notFound() in Layout
+
+Initial Plan: Checked if (!locale) notFound() inside RootLayout.
+
+Actual: Removed this check.
+
+Reason: Runtime Crash. Next.js strictly forbids throwing notFound() errors inside the Root Layout. We moved this safeguard logic to middleware.ts matchers instead.
+
+3. Middleware Matcher Strategy
+
+Initial Plan: Simple regex /(en|es)/:path*.
+
+Actual: Negative lookahead regex /((?!api|_next|...).*).
+
+Reason: The simple regex caused 404 errors on the root path (/) and failed to catch invalid languages (like /german). The new matcher captures everything except assets, ensuring robust redirects.
+
+4. Centralized Configuration (localesConfig)
+
+Initial Plan: Hardcoded labels in the Switcher component.
+
+Actual: Created localesConfig in routing.ts.
+
+Reason: DRY Principle. We needed the language labels ("বাংলা") and country codes ("BD") in multiple places. Hardcoding them in UI components makes adding new languages error-prone.
+
+5. Hard Reload in Switcher
+
+Initial Plan: Standard router.replace().
+
+Actual: window.location.href = ....
+
+Reason: Cookie Persistence. When switching languages, we wanted to set the NEXT_LOCALE cookie so the browser remembers the user's choice. A hard reload ensures the server reads the new cookie immediately and renders the correct language from the start.
+
+6. Strict Types in Request Handler
+
+Initial Plan: Used as any loosely.
+
+Actual: Cast to readonly string[].
+
+Reason: ESLint compliance. no-explicit-any errors blocked the build process. The new approach satisfies TypeScript strict mode.
