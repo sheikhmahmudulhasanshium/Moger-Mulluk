@@ -1,6 +1,8 @@
 {
-  "HomePage": {
-    "title": "Hola Mundo",
-    "description": "Bienvenido"
-  }
+  "Logo": { "brandName": "Moguer Muluk" },
+  "HomePage": { "title": "Inicio" },
+  "AboutPage": { "title": "Nosotros" },
+  "FAQPage": { "title": "FAQ" },
+  "ProfilePage": { "profileTitle": "Perfil" },
+  "NoticePage": { "title": "Aviso" }
 }

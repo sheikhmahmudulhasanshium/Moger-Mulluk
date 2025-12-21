@@ -1,7 +1,6 @@
 'use client';
 
 import { useLocale } from 'next-intl';
-// 👇 Import the Master Config
 import { usePathname, routing, localesConfig } from '../../../i18n/routing'; 
 import { useTransition } from 'react';
 import {
@@ -12,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Image from 'next/image';
+import { Languages } from 'lucide-react';
 
 export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition();
@@ -25,9 +25,8 @@ export default function LocalSwitcher() {
     });
   };
 
-  // Helper to get type-safe config
-  // We cast 'localActive' because we know it exists in our config
-  const currentLocaleInfo = localesConfig[localActive as keyof typeof localesConfig];
+  const currentLocaleInfo =
+    localesConfig[localActive as keyof typeof localesConfig];
 
   return (
     <Select 
@@ -35,16 +34,28 @@ export default function LocalSwitcher() {
       onValueChange={onSelectChange} 
       disabled={isPending}
     >
-      <SelectTrigger className="w-40 sm:w-26 bg-transparent border-slate-300 dark:border-slate-700">
+      <SelectTrigger className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50">
         <SelectValue placeholder="Select Language">
-           {/* Show Label in Trigger (Optional) */}
-           {currentLocaleInfo?.label}
+          <div className="flex items-center gap-2">
+            {/* xs / sm → icon */}
+            <Languages className="h-4 w-4 md:hidden text-amber-950/50" />
+
+            {/* md → language code */}
+            <span className="hidden md:inline lg:hidden text-sm font-semibold uppercase">
+              {currentLocaleInfo?.label ?? localActive}
+            </span>
+
+            {/* lg+ → full name */}
+            <span className="hidden lg:inline text-sm font-medium">
+              {currentLocaleInfo?.label}
+            </span>
+          </div>
         </SelectValue>
       </SelectTrigger>
       
+      {/* 🔒 CONTENT UNCHANGED */}
       <SelectContent>
         {routing.locales.map((locale) => {
-          // Access the Master Config directly
           const info = localesConfig[locale as keyof typeof localesConfig];
 
           return (
@@ -53,7 +64,9 @@ export default function LocalSwitcher() {
                 <Image
                   src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${info.country}.svg`}
                   alt={info.label}
-                  className="w-6 h-4 object-cover shadow-sm" width={100} height={100}
+                  className="w-6 h-4 object-cover shadow-sm"
+                  width={100}
+                  height={100}
                 />
                 <span className="text-sm font-medium">{info.label}</span>
               </div>

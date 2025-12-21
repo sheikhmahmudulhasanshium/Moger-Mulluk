@@ -1,6 +1,8 @@
 {
-  "HomePage": {
-    "title": "হ্যালো ওয়ার্ল্ড",
-    "description": "আমার অ্যাপে স্বাগতম"
-  }
+  "Logo": { "brandName": "মগের মুল্লুক" },
+  "HomePage": { "title": "হোম" },
+  "AboutPage": { "title": "আমাদের কথা" },
+  "FAQPage": { "title": "জিজ্ঞাসা" },
+  "ProfilePage": { "profileTitle": "প্রোফাইল" },
+  "NoticePage": { "title": "নোটিশ" }
 }

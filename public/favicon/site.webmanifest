@@ -1,0 +1,21 @@
+{
+  "name": "মগের মুল্লুক   - আড্ডার রাজত্ব",
+  "short_name": "মগের মুল্লুক",
+  "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#e7d8a1",
+  "background_color": "#672402",
+  "display": "standalone"
+}

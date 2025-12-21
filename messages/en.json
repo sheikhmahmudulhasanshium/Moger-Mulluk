@@ -1,6 +1,8 @@
 {
-  "HomePage": {
-    "title": "Hello World",
-    "description": "Welcome to my app"
-  }
+  "Logo": { "brandName": "Moger Mulluk" },
+  "HomePage": { "title": "Home" },
+  "AboutPage": { "title": "About" },
+  "FAQPage": { "title": "FAQ" },
+  "ProfilePage": { "profileTitle": "Profile" },
+  "NoticePage": { "title": "Notice" }
 }
