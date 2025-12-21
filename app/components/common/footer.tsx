@@ -5,15 +5,15 @@ const Footer = () => {
     return (
         <footer className="flex flex-col w-full justify-between items-center min-h-[60svh] bg-accent">
             <div>
-                <Image src={'../logo/group 1.svg'} alt={""} height={400} width={400}/>
+                <Image src={'../logo/Group 1.svg'} alt={""} height={400} width={400}/>
 
             </div>
             <div>
-                <Image src={'../logo/frame 1.svg'} alt={""} height={100} width={300}/>
+                <Image src={'../logo/Frame 1.svg'} alt={""} height={100} width={300}/>
 
             </div>
             <div>
-                <Image src={'../logo/frame 2.svg'} alt={""} height={100} width={300}/>
+                <Image src={'../logo/Frame 2.svg'} alt={""} height={100} width={300}/>
 
             </div>
             
