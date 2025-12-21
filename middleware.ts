@@ -8,9 +8,10 @@ export const config = {
     // Enable a redirect to a matching locale at the root
     '/',
 
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    '/((?!api|_next|_vercel|.*\\..*).*)'
+    // Match all pathnames except for:
+    // 1. /api, /_next, /_vercel
+    // 2. /logo, /favicon (your static asset folders)
+    // 3. Files with dots (favicon.ico, logo.svg, etc.)
+    '/((?!api|_next|_vercel|logo|favicon|.*\\..*).*)'
   ]
 };
