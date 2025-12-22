@@ -1,8 +1,31 @@
 {
   "Logo": { "brandName": "Moger Mulluk" },
-  "HomePage": { "title": "Home" },
-  "AboutPage": { "title": "About" },
-  "FAQPage": { "title": "FAQ" },
-  "ProfilePage": { "profileTitle": "Profile" },
-  "NoticePage": { "title": "Notice" }
+
+  "HomePage": { "title": "Home", "link": "/" },
+  "AboutPage": { "title": "About", "link": "/about" },
+  "FAQPage": { "title": "FAQ", "link": "/faq" },
+  "ProfilePage": { "profileTitle": "Profile", "link": "/profile" },
+  "NoticePage": { "title": "Notice", "link": "/notice" },
+
+  "Navigation": {
+    "menu": "Menu",
+    "preOrder": "Pre-Order",
+    "locations": "Our Locations",
+    "offers": "Special Offers",
+    "gallery": "Gallery"
+  },
+
+  "Footer": {
+    "tagline": "The Realm of Conversations",
+    "description": "Moger Mulluk is a cozy café for tea, coffee, and relaxed hangouts. Enjoy quality drinks at affordable prices, pre-order online, or spend quality time with friends in a warm, welcoming space.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Us",
+    "address": "Dhaka, Bangladesh",
+    "copyright": "© 2025 Moger Mulluk. All Rights Reserved."
+  },
+
+  "CTA": {
+    "orderNow": "Order Now",
+    "bookTable": "Book a Table"
+  }
 }

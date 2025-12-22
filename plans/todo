@@ -1,0 +1,10 @@
+1. Add custom descriptions and links in /messages/bd.json.  
+2. Rename /messages to more appropriate name like menu, data, ...
+3. Add new file to store the options
+4. Create new data for notices and faq using mongodb 
+5. Create new backend API 
+6. Connect API
+7. Create animated loader
+8. Make optimizations
+9. Develop sitemaps
+10. Complete seo

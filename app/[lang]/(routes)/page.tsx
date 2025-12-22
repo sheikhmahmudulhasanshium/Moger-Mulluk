@@ -18,8 +18,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default function HomePage() {
-  
+export default async function HomePage() {
+    await new Promise(resolve => setTimeout(resolve, 3000)); // Forces 3s loading state
+
   return (
     <>
       <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>

@@ -1,8 +1,31 @@
 {
   "Logo": { "brandName": "मोगेर मुल्लुक" },
-  "HomePage": { "title": "होम" },
-  "AboutPage": { "title": "परिचय" },
-  "FAQPage": { "title": "जिज्ञासा" },
-  "ProfilePage": { "profileTitle": "प्रोफ़ाइल" },
-  "NoticePage": { "title": "सूचना" }
+
+  "HomePage": { "title": "होम", "link": "/" },
+  "AboutPage": { "title": "परिचय", "link": "/about" },
+  "FAQPage": { "title": "जिज्ञासा", "link": "/faq" },
+  "ProfilePage": { "profileTitle": "प्रोफ़ाइल", "link": "/profile" },
+  "NoticePage": { "title": "सूचना", "link": "/notice" },
+
+  "Navigation": {
+    "menu": "मेन्यू",
+    "preOrder": "अग्रिम ऑर्डर",
+    "locations": "हमारी शाखाएं",
+    "offers": "विशेष ऑफर",
+    "gallery": "गैलरी"
+  },
+
+  "Footer": {
+    "tagline": "गपशप का साम्राज्य",
+    "description": "मोगेर मुल्लुक एक आरामदायक कैफ़े है जहाँ आप किफायती दामों में चाय और कॉफ़ी का आनंद ले सकते हैं। दोस्तों के साथ समय बिताएँ या अग्रिम ऑर्डर देकर आसानी से पिक-अप करें।",
+    "quickLinks": "ज़रूरी लिंक",
+    "contact": "संपर्क करें",
+    "address": "ढाका, बांग्लादेश",
+    "copyright": "© 2025 मोगेर मुल्लुक। सर्वाधिकार सुरक्षित।"
+  },
+
+  "CTA": {
+    "orderNow": "अभी ऑर्डर करें",
+    "bookTable": "टेबल बुक करें"
+  }
 }

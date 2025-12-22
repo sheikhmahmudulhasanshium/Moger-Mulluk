@@ -1,0 +1,101 @@
+﻿Project Map for: \AIUB\Personal_project\E-commerce-fullstack\v2\front-end
+
+🌳 Intelligent Tree (hiding noise):
+front-end/
+├── 📁 app
+│   ├── 📁 components
+│   │   ├── 📁 buttons
+│   │   │   ├── 📄 lang-switcher.tsx
+│   │   │   └── 📄 theme-toggle.tsx
+│   │   ├── 📁 common
+│   │   │   ├── 📄 footer.tsx
+│   │   │   ├── 📄 header.tsx
+│   │   │   ├── 📄 navbar.tsx
+│   │   │   └── 📄 sidebar.tsx
+│   │   ├── 📁 contexts
+│   │   ├── 📁 hooks
+│   │   ├── 📁 providers
+│   │   │   ├── 📄 page-provider.tsx
+│   │   │   └── 📄 theme-provider.tsx
+│   │   └── 📄 types.tsx
+│   ├── 📁 [lang]
+│   ├── 📄 favicon.ico
+│   └── 📄 globals.css
+├── 📁 components
+│   └── 📁 ui
+│       ├── 📄 button.tsx
+│       ├── 📄 dropdown-menu.tsx
+│       └── 📄 select.tsx
+├── 📁 i18n
+│   ├── 📄 request.ts
+│   └── 📄 routing.ts
+├── 📁 lib
+│   ├── 📄 data.tsx
+│   ├── 📄 menu.tsx
+│   └── 📄 utils.ts
+├── 📁 messages
+│   ├── 📄 bn.json
+│   ├── 📄 en.json
+│   ├── 📄 es.json
+│   └── 📄 hi.json
+├── 📁 plans
+│   └── 📄 plan-1.txt
+├── 📁 public
+│   ├── 📁 favicon
+│   │   ├── 📄 apple-touch-icon.png
+│   │   ├── 📄 favicon-96x96.png
+│   │   ├── 📄 favicon.ico
+│   │   ├── 📄 favicon.svg
+│   │   ├── 📄 favicon.zip
+│   │   ├── 📄 site.webmanifest
+│   │   ├── 📄 web-app-manifest-192x192.png
+│   │   └── 📄 web-app-manifest-512x512.png
+│   └── 📁 logo
+│       ├── 📄 A pencil color sketc.png
+│       ├── 📄 Frame 1.svg
+│       ├── 📄 Frame 2 .tsx
+│       ├── 📄 Frame 2.svg
+│       ├── 📄 Group 1.svg
+│       ├── 📄 logo.svg
+│       ├── 📄 WhatsApp Image 2025-12-20 at 10.31.43 PM.jpeg
+│       ├── 📄 মগের মুল্লুক 2-1 copy.txt
+│       ├── 📄 মগের মুল্লুক 2-1.png
+│       ├── 📄 মগের মুল্লুক 2-1.svg
+│       ├── 📄 মগের মুল্লুক transparent copy 2.tsx
+│       ├── 📄 মগের মুল্লুক transparent copy.txt
+│       ├── 📄 মগের মুল্লুক transparent.png
+│       └── 📄 মগের মুল্লুক transparent.svg
+├── 📄 .env
+├── 📄 .gitignore
+├── 📄 components.json
+├── 📄 eslint.config.mjs
+├── 📄 middleware.ts
+├── 📄 next-env.d.ts
+├── 📄 next.config.ts
+├── 📄 package.json
+├── 📄 pnpm-workspace.yaml
+├── 📄 postcss.config.mjs
+├── 📄 README.md
+└── 📄 tsconfig.json
+
+
+--- SCRIPT EXECUTION LOG ---
+[2025-12-21 19:31:02] [START] Script started. Awaiting user input for project path.
+[2025-12-21 19:31:55] [INPUT] User raw input for path: "F:\AIUB\Personal_project\E-commerce-fullstack\v2\front-end"
+[2025-12-21 19:31:55] [PROCESS] Sanitized path: '\AIUB\Personal_project\E-commerce-fullstack\v2\front-end'
+[2025-12-21 19:31:55] [SUCCESS] Path validation successful: '\AIUB\Personal_project\E-commerce-fullstack\v2\front-end' is a valid directory.
+[2025-12-21 19:32:04] [INPUT] User selected map intensity: '2'
+[2025-12-21 19:32:04] [INFO] Starting user configuration for filters.
+[2025-12-21 19:32:11] [INPUT] User input for directory ignore list confirmation: 'y'
+[2025-12-21 19:32:20] [INPUT] User input for file ignore list confirmation: 'y'
+[2025-12-21 19:33:30] [INPUT] User input for included extensions: '.tsx,.json,.ts'
+[2025-12-21 19:33:31] [CONFIG] Final filter configuration created: IgnoreDirs                           Ignore
+                                     Files 
+----------                           ------
+{node_modules, .git, dist, build...} {pa...
+[2025-12-21 19:33:33] [INPUT] User input for max depth: ''
+[2025-12-21 19:33:33] [CONFIG] Max depth for tree traversal set to: 99
+[2025-12-21 19:33:33] [PROCESS] Starting project map generation...
+[2025-12-21 19:33:33] [OUTPUT] Generated 'Tree' output successfully.
+[2025-12-21 19:34:15] [INPUT] User input for save filename: 'current_map.txt'
+[2025-12-21 19:34:15] [PROCESS] Preparing final output for saving to '\AIUB\Personal_project\E-commerce-fullstack\v2\front-end\current_map.txt'.
