@@ -2,7 +2,7 @@ import Link from "next/link";
 //import { useMessages } from "next-intl";
 import { Button } from "@/components/ui/button"; // shadcn button
 import { Coffee, Utensils } from "lucide-react"; // icons for OrderNow & BookTable
-import DynamicLogo from "@/public/logo/dynamic-header-logo";
+import DynamicLogo from "@/app/components/common/dynamic-header-logo";
 import { useMessages } from "next-intl";
 
 const Header = () => {

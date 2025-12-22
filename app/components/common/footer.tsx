@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useTranslations, useMessages } from "next-intl";
+import DynamicFooterLogo from "./dynamic-footer-logo";
 
 interface PageLink {
   title: string;
@@ -18,15 +19,13 @@ const Footer = () => {
   ].filter(Boolean) as PageLink[];
 
   return (
-    <footer className="flex flex-col w-full items-center justify-between min-h-[60svh] bg-accent px-4 py-10">
-      
-      {/* Tagline */}
-      <h2 className="text-xl font-semibold mb-4">
-        {t("tagline")}
-      </h2>
+    <footer className="flex flex-col w-full items-center justify-between min-h-[60svh] py-10 px-4">
+            <div className="w-full overflow-hidden">
 
+      <DynamicFooterLogo/>
+      </div>
       {/* Description */}
-      <p className="max-w-xl text-center text-sm opacity-80 mb-6">
+      <p className="max-w-xl text-center text-sm opacity-80 mb-6 mt-4">
         {t("description")}
       </p>
 

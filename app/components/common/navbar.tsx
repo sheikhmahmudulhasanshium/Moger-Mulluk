@@ -26,9 +26,9 @@ const Navbar = () => {
   ].filter((item) => item.title);
 
   return (
-    <nav className="flex justify-between py-2 px-12 items-center w-full ">
+    <nav className="flex justify-between py-2 px-12 items-center w-full gap-6">
       {/* Desktop links */}
-      <div className="hidden md:flex gap-6">
+      <div className="hidden md:flex gap-6 overflow-x-auto overflow-y-hidden">
         {pages.map((page) => (
           <Link key={page.link} href={page.link} className=" flex justify-between md:w-auto">
             <Button variant={'outline'} className="hover:bg-amber-950 hover:text-white">
@@ -39,7 +39,7 @@ const Navbar = () => {
 
         {/* Added the mapping for navmenu items as requested */}
         {navmenu.map((item) => (
-          <Link key={item.link} href={item.link} className=" flex justify-between md:w-auto">
+          <Link key={item.link} href={item.link} className=" flex justify-between md:w-auto ">
             <Button variant={'outline'} className="hover:bg-amber-950 hover:text-white">
               {item.title}
             </Button>

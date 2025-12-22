@@ -23,7 +23,7 @@ const Sidebar = () => {
     ].filter((item) => item.title);
 
     return ( 
-        <aside className="flex justify-between items-center gap-2 w-full  py-4 ">
+        <aside className="flex justify-between items-center gap-2 w-full  h-20">
             <DropdownMenu >
                 <DropdownMenuTrigger className="items-start flex">
                     <MenuIcon/>
@@ -40,7 +40,7 @@ const Sidebar = () => {
 
                 </DropdownMenuContent>
             </DropdownMenu>
-            <div className="flex justify-between gap-4">
+            <div className="flex justify-between gap-4 overflow-x-auto overflow-y-hidden ">
                 {navmenu.map((item) => (
           <Link key={item.link} href={item.link} className=" flex justify-between md:w-auto">
             <Button variant={'outline'} className="hover:bg-amber-950 hover:text-white">
