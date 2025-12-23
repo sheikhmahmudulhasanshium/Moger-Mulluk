@@ -1,0 +1,72 @@
+The world of tea and coffee is incredibly diverse, categorized by the plant species, the processing methods, and how they are eventually prepared.
+🍵 Variants of Tea
+All "true" tea comes from the same plant, Camellia sinensis. The variation comes from how much the leaves are oxidized (exposed to air). Anything not from this plant is technically a Tisane (herbal infusion).
+1. The 7 Main "True" Teas
+ * Black Tea: Fully oxidized. Strong, bold, and high in caffeine.
+ * Green Tea: Unoxidized. Fresh, grassy, and rich in antioxidants.
+ * White Tea: Minimally processed. Very delicate, light, and slightly sweet.
+ * Oolong Tea: Partially oxidized. Falls between green and black; often floral or woody.
+ * Pu-erh Tea: Fermented and aged. Earthy, deep, and often sold in pressed "cakes."
+ * Yellow Tea: Rare and processed similarly to green tea but with a slow "smothering" phase.
+ * Purple Tea: A rare Kenyan variety with purple leaves; high in unique antioxidants.
+2. Popular Varieties & Regional Specialties
+ * Matcha: Stone-ground Japanese green tea powder whisked into a froth.
+ * Darjeeling: The "Champagne of teas" from India; light and muscatel.
+ * Earl Grey: Black tea flavored with oil from the bergamot orange.
+ * Lapsang Souchong: A smoke-dried black tea with a campfire-like aroma.
+ * Masala Chai: Indian black tea brewed with milk, sugar, and spices (ginger, cardamom, cloves).
+ * Moroccan Mint: Green tea (Gunpowder) steeped with fresh mint and sugar.
+ * Yerba Mate: A South American herbal drink known for its high caffeine and earthy taste.
+☕ Variants of Coffee
+Coffee is primarily defined by the bean species, the roast level, and the brewing method.
+1. The 4 Main Coffee Beans
+ * Arabica: The most popular (60-70% of world production). Sweet, acidic, and complex.
+ * Robusta: Stronger, more bitter, and has double the caffeine. Great for crema in espresso.
+ * Liberica: Rare, with a smoky, floral, and "woody" flavor profile.
+ * Excelsa: A sub-variety of Liberica with a tart, fruity, dark-fruit character.
+2. Common Coffee Drinks
+| Type | Composition |
+|---|---|
+| Espresso | A concentrated "shot" of coffee under high pressure. |
+| Americano | Espresso diluted with hot water. |
+| Latte | Espresso with a lot of steamed milk and a thin layer of foam. |
+| Cappuccino | Equal parts espresso, steamed milk, and milk foam. |
+| Flat White | Like a latte, but with a higher coffee-to-milk ratio and "microfoam." |
+| Macchiato | Espresso "marked" with a tiny dollop of foam. |
+| Mocha | A latte with chocolate syrup or powder added. |
+| Cold Brew | Coffee grounds steeped in cold water for 12–24 hours (low acidity). |
+3. Specialty & Luxury Variants
+ * Geisha (Gesha): One of the world's most expensive beans, known for tea-like floral notes.
+ * Kopi Luwak: Beans partially digested by a civet; known for an ultra-smooth, non-bitter taste.
+ * Blue Mountain: A prestigious Jamaican coffee prized for its mildness and lack of bitterness.
+ * Turkish Coffee: Very finely ground beans boiled in a cezve, served unfiltered with the grounds.
+4. Roast Levels
+ * Light Roast: High acidity, light body, retains the most "origin" flavor.
+ * Medium Roast: Balanced flavor, acidity, and aroma (most common).
+ * Dark Roast: Bitter, smoky, or oily; the original bean flavor is mostly replaced by roast notes.
+
+
+
+create a JSON menu for a cafe serving various variety of drinks and non alcoholic beverages.
+
+format: for each language 
+
+id: same unique id for each language of product
+
+name: 
+descriptions:
+additional_info:{
+health_benefit:
+origin:
+fun_fact:
+....
+},....
+invoice:
+stock:
+unit:
+unit_price:
+discount:
+tax:
+vat:
+terrific:
+grand total:
