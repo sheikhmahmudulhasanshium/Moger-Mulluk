@@ -4,6 +4,7 @@ import Navbar from "@/app/components/common/navbar";
 import Sidebar from "@/app/components/common/sidebar";
 import PageProvider from "@/app/components/providers/page-provider";
 import { getTranslations } from "next-intl/server";
+import Body from "./body";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -23,9 +24,7 @@ export async function generateMetadata({ params }: Props) {
 const MenuPage = () => {
     return ( 
         <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>
-            <div>
-                Menu page
-            </div>
+            <Body/>
         </PageProvider>
      );
 }

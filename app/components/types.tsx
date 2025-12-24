@@ -11,3 +11,26 @@ export interface AppMessages {
     gallery: string;
   };
 }
+
+export interface MItem { 
+    id: string; 
+    priceBDT: number; 
+    stock: number; 
+    unit_price: number; 
+    tax: number; 
+    vat: number; 
+    export_price: number; 
+    grand_total: number; 
+    invoice: string; 
+    uKey: 'c' | 'g'; 
+}
+
+export interface LData { 
+    c: string; 
+    g: string; 
+    vs: string; 
+    fans: string; 
+    ctaOrder: string; 
+    ctaBook: string; 
+    items: Record<string, { t: string; d: string; hb: string; o: string; f: string; }>; 
+}
