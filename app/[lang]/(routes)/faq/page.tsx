@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { MasterFAQ } from "@/lib/data"; // Import your FAQ data
+import { MasterFAQ } from "@/lib/data"; // Make sure this path is correct
 import PageProvider from "../../../components/providers/page-provider";
 import Footer from "@/app/components/common/footer";
 import Header from "@/app/components/common/header";
@@ -11,18 +11,31 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const t = await getTranslations({ locale: lang, namespace: 'FAQPage' });
   const brand = await getTranslations({ locale: lang, namespace: 'Logo' });
+  
+  // Get the actual data for this language
+  const activeFAQ = MasterFAQ[lang.toUpperCase()] || MasterFAQ.EN;
+  
+  // 1. THE WHATSAPP HACK: 
+  // We take the first 3 questions and join them into a string
+  const questionPreview = activeFAQ.items
+    .slice(0, 3)
+    .map(item => `• ${item.question}`)
+    .join(' ');
+
+  // Create a combined description for social media
+  const socialDescription = `${t('description')} Questions covered: ${questionPreview}`;
 
   return {
     title: t('title'),
-    description: t('description'),
+    description: socialDescription, // This helps WhatsApp see the questions
     openGraph: {
       title: `${t('title')} | ${brand('brandName')}`,
-      description: t('description'),
+      description: socialDescription,
       url: `https://moger-mulluk.vercel.app/${lang}/faq`,
       siteName: brand('brandName'),
       images: [
         {
-          url: '/favicon/apple-touch-icon.png', // Or your specific OG image
+          url: '/favicon/apple-touch-icon.png', 
           width: 800,
           height: 600,
         },
@@ -33,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     twitter: {
       card: 'summary_large_image',
       title: t('title'),
-      description: t('description'),
+      description: socialDescription,
     },
   };
 }
@@ -42,7 +55,7 @@ export default async function FAQs({ params }: { params: Promise<{ lang: string 
   const { lang } = await params;
   const activeFAQ = MasterFAQ[lang.toUpperCase()] || MasterFAQ.EN;
 
-  // This is the MAGIC for Amazon-style search results (Structured Data)
+  // JSON-LD for GOOGLE (Amazon Style)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -58,7 +71,6 @@ export default async function FAQs({ params }: { params: Promise<{ lang: string 
 
   return (
     <>
-      {/* Injecting the Schema into the page head */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
