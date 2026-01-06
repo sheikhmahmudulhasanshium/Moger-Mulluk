@@ -1,12 +1,19 @@
 {
   "Logo": { "brandName": "Moguer Muluk" },
-
   "HomePage": { "title": "Inicio", "link": "/" },
   "AboutPage": { "title": "Nosotros", "link": "/about" },
-  "FAQPage": { "title": "FAQ", "link": "/faq" },
+  "FAQPage": { 
+    "title": "FAQ", 
+    "link": "/faq",
+    "description": "Respuestas a sus preguntas más curiosas sobre Moguer Muluk.",
+    "helpTitle": "¿Aún necesitas ayuda?",
+    "liveChat": "Chat en vivo",
+    "callUs": "Llámanos",
+    "emailUs": "Correo",
+    "availability": "Nuestro equipo está disponible 24/7"
+  },
   "ProfilePage": { "profileTitle": "Perfil", "link": "/profile" },
   "NoticePage": { "title": "Aviso", "link": "/notice" },
-
   "Navigation": {
     "menu": "Menú",
     "preOrder": "Pedido anticipado",
@@ -14,7 +21,6 @@
     "offers": "Ofertas especiales",
     "gallery": "Galería"
   },
-
   "Footer": {
     "tagline": "El Imperio de la Tertulia",
     "description": "Moguer Muluk es un café acogedor donde puedes disfrutar té y café a precios accesibles. Relájate con amigos, haz tu pedido anticipado y disfruta de un ambiente cómodo y amigable.",
@@ -23,7 +29,6 @@
     "address": "Dhaka, Bangladesh",
     "copyright": "© 2025 Moguer Muluk. Todos los derechos reservados."
   },
-
   "CTA": {
     "orderNow": "Pedir ahora",
     "bookTable": "Reservar mesa"

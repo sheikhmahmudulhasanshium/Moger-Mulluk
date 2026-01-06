@@ -34,3 +34,14 @@ export interface LData {
     ctaBook: string; 
     items: Record<string, { t: string; d: string; hb: string; o: string; f: string; }>; 
 }
+
+export interface FAQItem {
+    id: string;
+    question: string;
+    answer: string;
+}
+
+export interface FAQData {
+    title: string;
+    items: FAQItem[];
+}
