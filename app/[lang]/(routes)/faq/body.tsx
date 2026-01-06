@@ -11,19 +11,16 @@ const Body = () => {
     const searchParams = useSearchParams();
     const sharedId = searchParams.get('id');
     
-    // Create a map to hold references to all <details> elements
     const faqRefs = useRef<Map<string, HTMLDetailsElement>>(new Map());
 
     useEffect(() => {
         if (sharedId) {
             const element = faqRefs.current.get(sharedId);
             if (element) {
-                // Manually open the question and scroll to it
                 element.open = true;
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         } else {
-            // If no ID, ensure we start at the top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [sharedId]);
@@ -44,7 +41,6 @@ const Body = () => {
 
     return (
         <section className="max-w-4xl mx-auto w-full px-4 py-12 md:py-20 text-foreground">
-            {/* Header */}
             <div className="text-center mb-12">
                 <h1 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter">
                     {activeFAQ.title}
@@ -52,13 +48,11 @@ const Body = () => {
                 <div className="h-1.5 w-20 bg-foreground mx-auto mt-2 rounded-full" />
             </div>
 
-            {/* FAQ Accordion */}
             <div className="grid gap-4 mb-16">
                 {activeFAQ.items.map((item) => (
                     <details 
                         key={item.id} 
                         id={item.id}
-                        // Use a ref callback to store the element in our map
                         ref={(el) => {
                             if (el) faqRefs.current.set(item.id, el);
                             else faqRefs.current.delete(item.id);
@@ -94,7 +88,6 @@ const Body = () => {
                 ))}
             </div>
 
-            {/* E-commerce Support Hub */}
             <div className="border-t-2 border-border pt-16 text-center">
                 <h2 className="text-xl md:text-2xl font-black uppercase italic mb-8">
                     {t('helpTitle')}

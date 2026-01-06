@@ -1,3 +1,4 @@
+import { Suspense } from "react"; // Added Suspense
 import { getTranslations } from 'next-intl/server';
 import { MasterFAQ } from "@/lib/data";
 import PageProvider from "../../../components/providers/page-provider";
@@ -68,7 +69,10 @@ export default async function FAQs({ params }: {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>
-        <Body/>  
+        {/* Wrapped Body in Suspense to fix the build error */}
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Body/>  
+        </Suspense>
       </PageProvider>
     </>
   );
