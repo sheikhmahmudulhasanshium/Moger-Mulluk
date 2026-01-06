@@ -21,7 +21,7 @@ const Sidebar = () => {
         { title: messages.Navigation.offers, link: "/offers" },
         { title: messages.Navigation.gallery, link: "/gallery" },
     ].filter((item) => item.title);
-
+    
     return ( 
         <aside className="flex justify-between items-center gap-2 w-full  h-20">
             <DropdownMenu >
