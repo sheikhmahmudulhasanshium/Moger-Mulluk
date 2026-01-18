@@ -208,7 +208,7 @@ const Body = () => {
                     </div>
                     <div className="bg-green-50 p-6 rounded-2xl border-2 border-green-800/10">
                         <p className="font-black text-green-800 uppercase text-xs mb-1">Team Tea</p>
-                        <p className="text-sm font-bold leading-tight text-black/75">Contains L-theanine which promotes relaxation without drowsiness, leading to a state of &ldquo;calm alertness.&rdquo;</p>
+                        <p className="text-sm font-bold leading-tight text-black/75 ">Contains L-theanine which promotes relaxation without drowsiness, leading to a state of &ldquo;calm alertness.&rdquo;</p>
                     </div>
                 </div>
             </div>

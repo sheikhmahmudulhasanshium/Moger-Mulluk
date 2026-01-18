@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react'; // Added useState
+import { useState, useTransition } from 'react';
 import { useLocale } from 'next-intl';
-import { usePathname, routing, localesConfig } from '../../../i18n/routing'; 
+import { usePathname, routing, localesConfig } from '@/i18n/routing'; 
 import {
   Select,
   SelectContent,
@@ -12,44 +12,44 @@ import {
 } from "@/components/ui/select";
 import Image from 'next/image';
 import { Languages } from 'lucide-react';
-import Loading from '../common/loading'; 
+import Loading from '../common/loading';
 
 export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition();
-  const [isManualLoading, setIsManualLoading] = useState(false); // Track the artificial delay
+  const [targetLanguage, setTargetLanguage] = useState(""); 
   const localActive = useLocale();
   const pathname = usePathname(); 
 
   const onSelectChange = (nextLocale: string) => {
-    // 1. Show the loader immediately
-    setIsManualLoading(true);
+    // Find the label for the new language (e.g., "বাংলা")
+    const nextLabel = localesConfig[nextLocale as keyof typeof localesConfig]?.label;
+    setTargetLanguage(nextLabel || nextLocale);
 
     startTransition(() => {
-      // 2. Set the cookie immediately
       document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
       
-      // 3. Wait for 1.5 seconds before triggering the page reload
       setTimeout(() => {
         window.location.href = `/${nextLocale}${pathname}`;
-      }, 500); // 1500ms = 1.5 seconds
+      }, 500); 
     });
   };
 
-  const currentLocaleInfo =
-    localesConfig[localActive as keyof typeof localesConfig];
+  const currentLocaleInfo = localesConfig[localActive as keyof typeof localesConfig];
 
   return (
     <>
-      {/* Show loader if transition is starting OR if we are in our 1.5s delay */}
-      {(isPending || isManualLoading) && <Loading />}
+      {/* Show dynamic message when switching languages */}
+      {(isPending || !!targetLanguage) && (
+        <Loading message={`Switching to ${targetLanguage}`} />
+      )}
 
       <Select 
         value={localActive} 
         onValueChange={onSelectChange} 
-        disabled={isPending || isManualLoading}
+        disabled={isPending || !!targetLanguage}
       >
         <SelectTrigger className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50 dark:text-amber-800">
-          <SelectValue placeholder="Select Language">
+          <SelectValue>
             <div className="flex items-center gap-2">
               <Languages className="h-4 w-4 md:hidden" />
               <span className="hidden md:inline lg:hidden text-sm font-semibold uppercase">

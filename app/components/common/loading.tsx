@@ -1,31 +1,34 @@
+"use client";
 import Image from "next/image";
-import logo from '../../../public/logo/-4-ezgif.com-effects.webp'
+import logo from '@/public/logo/-4-ezgif.com-effects.webp';
+import { useEffect } from "react";
 
-const Loading = () => {
+interface LoadingProps {
+  message?: string;
+}
+
+const Loading = ({ message = "Establishing Connection" }: LoadingProps) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, []);
+
   return (
-    /* 
-       1. Changed z-9999 to z-[9999] (The brackets are required for custom numbers)
-       2. Changed h-screen to h-svh (Small Viewport Height) for better mobile support
-    */
     <div className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black w-screen h-svh">
-      
-      {/* 
-         On small screens (phones), w-64 is safer. 
-         On md and up, it grows to w-96.
-      */}
-      <div className="relative w-64 h-64 md:w-96 md:h-96">
+      <div className="relative w-48 h-48 md:w-64 md:h-64">
         <Image 
           src={logo} 
-          alt="loading..." 
-          fill
-          className="object-contain mix-blend-screen"
+          alt="Moger Mulluk" 
+          fill 
+          className="object-contain mix-blend-screen" 
           priority 
-          unoptimized // HIGHLY recommended for animated WebP on mobile browsers
+          unoptimized 
         />
       </div>
-
-      <p className="mt-4 text-zinc-400 text-sm tracking-widest animate-pulse font-medium">
-        PLEASE WAIT...
+      
+      {/* Dynamic text based on prop */}
+      <p className="mt-2 text-yellow-400 text-[14px] md:text-[18px] tracking-[0.2em] animate-pulse font-light uppercase text-center px-4">
+        {message}
       </p>
     </div>
   );

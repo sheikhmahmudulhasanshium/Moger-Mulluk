@@ -45,3 +45,35 @@ export interface FAQData {
     title: string;
     items: FAQItem[];
 }
+
+export interface SeoData {
+  keywords: string[];
+  ogImage: string;
+  isNoIndex: boolean;
+}
+
+export interface PageData {
+  key: string;
+  title: string;
+  description: string;
+  link: string;
+  icon: string;
+  video: string;
+  seo: SeoData;
+  /**
+   * FIX: We replace 'any' with a union of the types 
+   * returned by your NestJS transform service.
+   * Your dynamic content labels are always strings.
+   */
+  [key: string]: string | SeoData | boolean | string[] | undefined;
+}
+
+/**
+ * Specifically for your HomePage to get 
+ * autocompletion without type errors.
+ */
+export interface HomePageData extends PageData {
+  heroTagline: string;
+  ctaExplore: string;
+  icon: string;
+}
