@@ -3,39 +3,201 @@
 import { LData, MItem } from "@/app/components/types";
 
 export const MasterTea: MItem[] = [
-{ id: 'tea-001', priceBDT: 10, stock: 500, unit_price: 8.5, tax: 0.5, vat: 0.5, export_price: 0.1, grand_total: 10, invoice: "INV-TEA-001", uKey: 'c' },
-{ id: 'tea-002', priceBDT: 20, stock: 400, unit_price: 17.0, tax: 1.5, vat: 1.5, export_price: 0.2, grand_total: 20, invoice: "INV-TEA-002", uKey: 'c' },
-{ id: 'tea-003', priceBDT: 15, stock: 300, unit_price: 13.0, tax: 1.0, vat: 1.0, export_price: 0.15, grand_total: 15, invoice: "INV-TEA-003", uKey: 'c' },
-{ id: 'tea-004', priceBDT: 40, stock: 150, unit_price: 35.0, tax: 2.5, vat: 2.5, export_price: 0.4, grand_total: 40, invoice: "INV-TEA-004", uKey: 'g' },
-{ id: 'tea-005', priceBDT: 25, stock: 200, unit_price: 21.0, tax: 2.0, vat: 2.0, export_price: 0.25, grand_total: 25, invoice: "INV-TEA-005", uKey: 'c' },
-{ id: 'tea-006', priceBDT: 15, stock: 350, unit_price: 13.0, tax: 1.0, vat: 1.0, export_price: 0.15, grand_total: 15, invoice: "INV-TEA-006", uKey: 'c' },
-{ id: 'tea-007', priceBDT: 80, stock: 50, unit_price: 70.0, tax: 5.0, vat: 5.0, export_price: 0.8, grand_total: 80, invoice: "INV-TEA-007", uKey: 'g' },
-{ id: 'tea-008', priceBDT: 30, stock: 250, unit_price: 26.0, tax: 2.0, vat: 2.0, export_price: 0.3, grand_total: 30, invoice: "INV-TEA-008", uKey: 'c' },
-{ id: 'tea-009', priceBDT: 35, stock: 100, unit_price: 30.0, tax: 2.5, vat: 2.5, export_price: 0.35, grand_total: 35, invoice: "INV-TEA-009", uKey: 'c' }
+{
+    id: 'tea-001', priceBDT: 10, stock: 500, unit_price: 8.5, tax: 0.5, vat: 0.5, export_price: 0.1, grand_total: 10, invoice: "INV-TEA-001", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-002', priceBDT: 20, stock: 400, unit_price: 17.0, tax: 1.5, vat: 1.5, export_price: 0.2, grand_total: 20, invoice: "INV-TEA-002", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-003', priceBDT: 15, stock: 300, unit_price: 13.0, tax: 1.0, vat: 1.0, export_price: 0.15, grand_total: 15, invoice: "INV-TEA-003", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-004', priceBDT: 40, stock: 150, unit_price: 35.0, tax: 2.5, vat: 2.5, export_price: 0.4, grand_total: 40, invoice: "INV-TEA-004", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-005', priceBDT: 25, stock: 200, unit_price: 21.0, tax: 2.0, vat: 2.0, export_price: 0.25, grand_total: 25, invoice: "INV-TEA-005", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-006', priceBDT: 15, stock: 350, unit_price: 13.0, tax: 1.0, vat: 1.0, export_price: 0.15, grand_total: 15, invoice: "INV-TEA-006", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-007', priceBDT: 80, stock: 50, unit_price: 70.0, tax: 5.0, vat: 5.0, export_price: 0.8, grand_total: 80, invoice: "INV-TEA-007", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-008', priceBDT: 30, stock: 250, unit_price: 26.0, tax: 2.0, vat: 2.0, export_price: 0.3, grand_total: 30, invoice: "INV-TEA-008", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'tea-009', priceBDT: 35, stock: 100, unit_price: 30.0, tax: 2.5, vat: 2.5, export_price: 0.35, grand_total: 35, invoice: "INV-TEA-009", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+}
 ];
 
 export const MasterCoffee: MItem[] = [
-{ id: 'cof-001', priceBDT: 60, stock: 200, unit_price: 54, tax: 3, vat: 3, export_price: 0.6, grand_total: 60, invoice: "INV-COF-001", uKey: 'c' },
-{ id: 'cof-002', priceBDT: 120, stock: 120, unit_price: 100, tax: 10, vat: 10, export_price: 1.2, grand_total: 120, invoice: "INV-COF-002", uKey: 'c' },
-{ id: 'cof-003', priceBDT: 150, stock: 100, unit_price: 130, tax: 10, vat: 10, export_price: 1.5, grand_total: 150, invoice: "INV-COF-003", uKey: 'g' },
-{ id: 'cof-004', priceBDT: 80, stock: 180, unit_price: 70, tax: 5, vat: 5, export_price: 0.8, grand_total: 80, invoice: "INV-COF-004", uKey: 'c' },
-{ id: 'cof-005', priceBDT: 130, stock: 150, unit_price: 110, tax: 10, vat: 10, export_price: 1.3, grand_total: 130, invoice: "INV-COF-005", uKey: 'c' },
-{ id: 'cof-006', priceBDT: 140, stock: 100, unit_price: 120, tax: 10, vat: 10, export_price: 1.4, grand_total: 140, invoice: "INV-COF-006", uKey: 'c' },
-{ id: 'cof-007', priceBDT: 90, stock: 200, unit_price: 75, tax: 7.5, vat: 7.5, export_price: 0.9, grand_total: 90, invoice: "INV-COF-007", uKey: 'c' },
-{ id: 'cof-008', priceBDT: 160, stock: 80, unit_price: 140, tax: 10, vat: 10, export_price: 1.6, grand_total: 160, invoice: "INV-COF-008", uKey: 'c' },
-{ id: 'cof-009', priceBDT: 135, stock: 110, unit_price: 115, tax: 10, vat: 10, export_price: 1.35, grand_total: 135, invoice: "INV-COF-009", uKey: 'c' },
+{
+    id: 'cof-001', priceBDT: 60, stock: 200, unit_price: 54, tax: 3, vat: 3, export_price: 0.6, grand_total: 60, invoice: "INV-COF-001", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-002', priceBDT: 120, stock: 120, unit_price: 100, tax: 10, vat: 10, export_price: 1.2, grand_total: 120, invoice: "INV-COF-002", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-003', priceBDT: 150, stock: 100, unit_price: 130, tax: 10, vat: 10, export_price: 1.5, grand_total: 150, invoice: "INV-COF-003", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-004', priceBDT: 80, stock: 180, unit_price: 70, tax: 5, vat: 5, export_price: 0.8, grand_total: 80, invoice: "INV-COF-004", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-005', priceBDT: 130, stock: 150, unit_price: 110, tax: 10, vat: 10, export_price: 1.3, grand_total: 130, invoice: "INV-COF-005", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-006', priceBDT: 140, stock: 100, unit_price: 120, tax: 10, vat: 10, export_price: 1.4, grand_total: 140, invoice: "INV-COF-006", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-007', priceBDT: 90, stock: 200, unit_price: 75, tax: 7.5, vat: 7.5, export_price: 0.9, grand_total: 90, invoice: "INV-COF-007", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-008', priceBDT: 160, stock: 80, unit_price: 140, tax: 10, vat: 10, export_price: 1.6, grand_total: 160, invoice: "INV-COF-008", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'cof-009', priceBDT: 135, stock: 110, unit_price: 115, tax: 10, vat: 10, export_price: 1.35, grand_total: 135, invoice: "INV-COF-009", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
 ];
 
 export const MasterOtherBev: MItem[] = [
-{ id: 'bev-001', priceBDT: 180, stock: 100, unit_price: 160, tax: 10, vat: 10, export_price: 1.8, grand_total: 180, invoice: "INV-BEV-001", uKey: 'g' },
-{ id: 'bev-002', priceBDT: 200, stock: 80, unit_price: 180, tax: 10, vat: 10, export_price: 2.0, grand_total: 200, invoice: "INV-BEV-002", uKey: 'g' },
-{ id: 'bev-003', priceBDT: 150, stock: 90, unit_price: 130, tax: 10, vat: 10, export_price: 1.5, grand_total: 150, invoice: "INV-BEV-003", uKey: 'g' },
-{ id: 'bev-004', priceBDT: 220, stock: 150, unit_price: 200, tax: 10, vat: 10, export_price: 2.2, grand_total: 220, invoice: "INV-BEV-004", uKey: 'g' },
-{ id: 'bev-005', priceBDT: 250, stock: 100, unit_price: 230, tax: 10, vat: 10, export_price: 2.5, grand_total: 250, invoice: "INV-BEV-005", uKey: 'g' },
-{ id: 'bev-006', priceBDT: 350, stock: 50, unit_price: 320, tax: 15, vat: 15, export_price: 3.5, grand_total: 350, invoice: "INV-BEV-006", uKey: 'g' },
-{ id: 'bev-007', priceBDT: 280, stock: 60, unit_price: 250, tax: 15, vat: 15, export_price: 2.8, grand_total: 280, invoice: "INV-BEV-007", uKey: 'g' },
-{ id: 'bev-008', priceBDT: 120, stock: 200, unit_price: 100, tax: 10, vat: 10, export_price: 1.2, grand_total: 120, invoice: "INV-BEV-008", uKey: 'c' },
-{ id: 'bev-009', priceBDT: 300, stock: 40, unit_price: 270, tax: 15, vat: 15, export_price: 3.0, grand_total: 300, invoice: "INV-BEV-009", uKey: 'c' },
+{
+    id: 'bev-001', priceBDT: 180, stock: 100, unit_price: 160, tax: 10, vat: 10, export_price: 1.8, grand_total: 180, invoice: "INV-BEV-001", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-002', priceBDT: 200, stock: 80, unit_price: 180, tax: 10, vat: 10, export_price: 2.0, grand_total: 200, invoice: "INV-BEV-002", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-003', priceBDT: 150, stock: 90, unit_price: 130, tax: 10, vat: 10, export_price: 1.5, grand_total: 150, invoice: "INV-BEV-003", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-004', priceBDT: 220, stock: 150, unit_price: 200, tax: 10, vat: 10, export_price: 2.2, grand_total: 220, invoice: "INV-BEV-004", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-005', priceBDT: 250, stock: 100, unit_price: 230, tax: 10, vat: 10, export_price: 2.5, grand_total: 250, invoice: "INV-BEV-005", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-006', priceBDT: 350, stock: 50, unit_price: 320, tax: 15, vat: 15, export_price: 3.5, grand_total: 350, invoice: "INV-BEV-006", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-007', priceBDT: 280, stock: 60, unit_price: 250, tax: 15, vat: 15, export_price: 2.8, grand_total: 280, invoice: "INV-BEV-007", uKey: 'g',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-008', priceBDT: 120, stock: 200, unit_price: 100, tax: 10, vat: 10, export_price: 1.2, grand_total: 120, invoice: "INV-BEV-008", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
+{
+    id: 'bev-009', priceBDT: 300, stock: 40, unit_price: 270, tax: 15, vat: 15, export_price: 3.0, grand_total: 300, invoice: "INV-BEV-009", uKey: 'c',
+    media: {
+        thumbnail: "",
+        gallery: []
+    }
+},
 ];
 
 export const Trans: Record<string, LData> = {

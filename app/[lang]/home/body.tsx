@@ -1,7 +1,9 @@
 // app/[lang]/home/body.tsx
 'use client';
 
-import { HomePageData } from "@/app/components/types";
+import UploadMediaForm from "@/app/components/forms/upload-media-form";
+import MediaGallery from "@/app/components/media/media-gallery";
+import { HomePageData, MediaPurpose } from "@/app/components/types";
 import Image from "next/image";
 
 interface HomeBodyProps {
@@ -63,7 +65,9 @@ const Body = ({ data }: HomeBodyProps) => {
           {data.ctaExplore}
         </button>
       </div>
-
+         <MediaGallery purpose={MediaPurpose.GALLERY} limit={100}/>
+          <UploadMediaForm/>
+ 
     </div>
   );
 };

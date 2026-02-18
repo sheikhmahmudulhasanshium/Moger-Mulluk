@@ -23,6 +23,10 @@ export interface MItem {
     grand_total: number; 
     invoice: string; 
     uKey: 'c' | 'g'; 
+    media:{
+      thumbnail:string;
+      gallery:string[];
+    }
 }
 
 export interface LData { 
@@ -76,4 +80,50 @@ export interface HomePageData extends PageData {
   heroTagline: string;
   ctaExplore: string;
   icon: string;
+}
+
+
+export enum MediaPurpose {
+  ANNOUNCEMENT = 'announcement',
+  METADATA = 'metadata',
+  LOGO = 'logo',
+  BANNER = 'banner',
+  EQUIPMENT = 'equipment',
+  MENU_ITEM = 'menu-item',
+  PROFILE = 'profile',
+  MESSAGE = 'message',
+  INVENTORY = 'inventory',
+  EMPLOYEE = 'employee',
+  ORDER = 'order',
+  PRODUCT = 'product',
+  CATEGORY = 'category',
+  FEEDBACK = 'feedback',
+  LEGAL = 'legal',
+  GENERAL = 'general',
+  GALLERY= 'gallery',
+}
+
+export interface Media {
+  _id: string;
+  name: string;
+  url: string;
+  publicId: string;
+  format: string;
+  resourceType: 'image' | 'video' | 'raw';
+  width: number;
+  height: number;
+  aspectRatio: number;
+  bytes: number;
+  purpose: MediaPurpose;
+  createdAt: string;
+}
+
+export interface MediaPaginatedResponse {
+  data: Media[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }

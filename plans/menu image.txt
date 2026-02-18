@@ -1,0 +1,62 @@
+Based on your JSON file, here are the specific Liquid Color Hex Codes for each item. You can use these for the "Liquid Ellipse" you created in Figma to make your 400x400 menu cards look accurate.
+
+1. The Tea Collection
+Item Name	Hex Code (Liquid)	Visual Description
+Plain Tea	#8B4513	Strong reddish-brown (Liquor)
+Milk Tea	#C29B6D	Classic creamy "Dudh Cha" tan
+Lemon Tea	#D4AF37	Golden translucent amber
+Ice Tea	#B5845E	Light, chilled tea brown
+Green Tea	#BEB97B	Pale, organic yellow-green
+Ginger Tea	#9B6B43	Warm, spiced amber
+7 Color Tea	Gradient	See Figma Tip below
+Spice Tea	#A0522D	Deep, warm Masala Chai brown
+Malai Tea	#EBDCCB	Very pale, rich milky cream
+2. The Coffee Collection
+Item Name	Hex Code (Liquid)	Visual Description
+Espresso	#1B1008	Intense, nearly black-brown
+Americano	#351E10	Dark coffee, slightly transparent
+Cappuccino	#D2B48C	Light brown (top with white foam)
+Caffè Latte	#E3C5A8	Silky, milky coffee tan
+Caffè Mocha	#3D2314	Dark chocolate coffee brown
+Dark Roast	#0D0705	The darkest "smokey" black
+Caramel Macchiato	#C68E17	Rich caramel-tinted liquid
+Flat White	#D9B99B	Balanced, smooth milky tan
+Keto Coffee	#6F4E37	Buttery, oily coffee brown
+Almond Latte	#E5D3B3	Nutty, pale non-dairy tan
+Cold Coffee	#8E7051	Blended, iced coffee brown
+3. Juices & Shakes (Beverages)
+Item Name	Hex Code (Liquid)	Visual Description
+Orange Juice	#FFA500	Bright, fresh citrus orange
+Mango Juice	#FF8200	Deep, thick tropical mango
+Pineapple Juice	#F2D16B	Pale, cloudy yellow
+Chocolate Shake	#4E3629	Creamy milk-chocolate
+Oreo Shake	#2D2926	Dark greyish-black (add white dots)
+Protein Shake	#F5F5DC	Off-white / Banana cream
+Almond Shake	#FDF5E6	Rich, nutty white
+Mineral Water	#E0F7FA	Very pale "Crystal" blue
+Figma Tips for Specialty Items:
+
+1. The "7 Color Tea" (The Signature):
+Since this is a visual marvel, don't use a solid color. In Figma, use a Linear Gradient for the ellipse:
+
+Top: #3E2723 (Dark)
+
+Middle 1: #8D6E63 (Tan)
+
+Middle 2: #D7CCC8 (Cream)
+
+Bottom: #5D4037 (Amber)
+
+Add 7 stops in total to mimic the layers.
+
+2. The "Edible Cookie Mug":
+
+Since the mug itself is a snack, use a Warm Brown (#6F4E37) for the PNG mug color to make it look like a biscuit.
+
+For the liquid inside, use the Espresso code (#1B1008).
+
+3. Visual Differentiation:
+
+For "Sparkling Water", use the Mineral Water hex (#E0F7FA) but add 5-6 tiny white circles (1px to 2px) on top with 50% opacity to represent the bubbles.
+
+For "Malai Tea", place a slightly smaller, lighter-colored ellipse (#FFF9F0) inside your liquid ellipse to represent the "Malai" (clotted cream) layer on top.

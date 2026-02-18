@@ -6,6 +6,7 @@ images: {
 remotePatterns: [
 { protocol: 'https', hostname: 'youtube.com' },
 { protocol: 'https', hostname: 'i.ytimg.com' },
+{ protocol: 'https', hostname: 'res.cloudinary.com' },
 ],
 },
 };
