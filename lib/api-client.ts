@@ -12,6 +12,7 @@ export async function apiRequest<T>(
   const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const fullUrl = `${cleanBase}${cleanEndpoint}`;
+  console.log(`🚀 Fetching: ${fullUrl}`); 
 
   try {
     const headers = new Headers(options.headers);

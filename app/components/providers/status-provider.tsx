@@ -18,30 +18,55 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   const checkHealth = useCallback(async () => {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    // 1. Check if the Environment Variable is missing
+    if (!baseUrl) {
+      console.error("STATUS_CHECK: NEXT_PUBLIC_API_URL is not defined in .env");
+      setStatus("offline");
+      if (isInitialLoading) setIsInitialLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/status`, { 
+      // Clean the URL to prevent double slashes (e.g. http://localhost:3001//status)
+      const cleanUrl = `${baseUrl.replace(/\/$/, "")}/status`;
+
+      const res = await fetch(cleanUrl, { 
         cache: 'no-store',
+        // signal: AbortSignal.timeout(8000) is fine for modern browsers, 
+        // but we ensure it's wrapped in this try/catch
         signal: AbortSignal.timeout(8000) 
       });
+      
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}`);
+      }
+
       const data = await res.json();
-      setStatus(data.status === "Online" ? "online" : "degraded");
-    } catch {
+      
+      const isHealthy = 
+        data.status?.toLowerCase() === "online" || 
+        data.status?.toLowerCase() === "ok";
+      
+      setStatus(isHealthy ? "online" : "degraded");
+    } catch (err) {
+      // 2. This catches "Failed to fetch" (Network error/CORS/Server Down)
+      // and "TimeoutError" (Signal timeout)
+      console.warn("Health Check Failed:", err instanceof Error ? err.message : err);
       setStatus("offline");
     } finally {
       if (isInitialLoading) {
-        // Smooth transition out of the splash screen
         setTimeout(() => setIsInitialLoading(false), 1200);
       }
     }
   }, [isInitialLoading]);
 
   useEffect(() => {
-    // 1. Handlers for API Client events (triggers when any of your 20+ endpoints fail)
     const goOnline = () => setStatus("online");
     const goDegraded = () => setStatus("degraded");
     const goOffline = () => setStatus("offline");
 
-    // 2. Handlers for Native Browser events (Physical internet connection)
     const handleBrowserOnline = () => checkHealth();
     const handleBrowserOffline = () => setStatus("offline");
 
@@ -69,10 +94,6 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StatusContext.Provider value={{ status }}>
-      {/* 
-        BRANDED SPLASH SCREEN 
-        Passing the specific message to the updated Loading component
-      */}
       {isInitialLoading && <Loading message="Establishing Connection" />}
 
       {/* CONNECTIVITY BAND */}
@@ -97,7 +118,6 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
       <div className={cn(
         "transition-all duration-700",
         isInitialLoading ? "opacity-0 invisible scale-95" : "opacity-100 visible scale-100",
-        // mt-6 (24px) creates space exactly for the band when it appears
         status !== "online" && !isInitialLoading ? "mt-6" : "mt-0"
       )}>
         {children}

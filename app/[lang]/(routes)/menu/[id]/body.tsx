@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import { productApi, ProductDetail } from "@/app/components/hooks/product-api";
-import { Loader2, ArrowLeft, ShoppingBag, Sparkles } from "lucide-react";
+import { Loader2, ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 
@@ -54,7 +54,7 @@ const Body = ({ id, lang }: BodyProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         <div className="relative aspect-square w-full rounded-4xl overflow-hidden border shadow-2xl">
           <Image 
-            src={product.media?.thumbnail||''} 
+            src={product.media?.thumbnail||'/logo/-4-ezgif.com-effects.webp'} 
             alt={product.title} 
             fill 
             className="object-cover"

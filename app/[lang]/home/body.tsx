@@ -1,10 +1,12 @@
 // app/[lang]/home/body.tsx
 'use client';
 
-import UploadMediaForm from "@/app/components/forms/upload-media-form";
-import MediaGallery from "@/app/components/media/media-gallery";
-import { HomePageData, MediaPurpose } from "@/app/components/types";
+import AssetMaintenance from "@/app/components/admin/asset-maintenance";
+//import UploadMediaForm from "@/app/components/forms/upload-media-form";
+//import MediaGallery from "@/app/components/media/media-gallery";
+import { HomePageData,  } from "@/app/components/types";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HomeBodyProps {
   data: HomePageData; 
@@ -61,13 +63,17 @@ const Body = ({ data }: HomeBodyProps) => {
         </p>
 
         {/* DYNAMIC CTA */}
-        <button className="px-12 py-5 bg-amber-900 hover:bg-amber-950 text-white rounded-full font-bold text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">
+        <Link href={'/menu'} className="px-12 py-5 bg-amber-900 hover:bg-amber-950 text-white rounded-full font-bold text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">
           {data.ctaExplore}
-        </button>
+        </Link>
       </div>
+      {/**
+       * 
          <MediaGallery purpose={MediaPurpose.GALLERY} limit={100}/>
           <UploadMediaForm/>
- 
+       * 
+       */}
+    <AssetMaintenance/>
     </div>
   );
 };

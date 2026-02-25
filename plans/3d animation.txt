@@ -1,0 +1,106 @@
+This plan will transform your Paint 3D models into a high-end, cinematic loop. Because you are in the Three.js Editor, we will use a "Pivot" technique to ensure the mug stays perfectly centered while the camera moves.
+
+The "Master Hero Shot" Plan
+1. The Scene Setup (Realism)
+
+To get a "Realistic Render," the most important thing is the Environment Map (HDRI).
+
+Lights: In the Editor, go to Add > AmbientLight (Intensity 0.5) and Add > DirectionalLight (Intensity 1.0, move it to the top-right).
+
+Environment:
+
+Go to the Scene tab (top right).
+
+Find the Background and Environment slots.
+
+Click the "None" button in Environment and upload a high-quality .hdr or .jpg of a studio or kitchen. This creates the "reflections" on the mug and kettle that make them look real.
+
+2. The Stationary Mug & Tilted Kettle
+
+Mug: Keep it at Position: 0, 0, 0. Ensure it is perfectly vertical.
+
+Kettle:
+
+Position it above and slightly to the side of the mug.
+
+Tilt: Set Rotation Z to approximately -0.6 to -0.8 (radians).
+
+Aspect Ratio: Never use the "Scale" tool handles. Only type numbers into the X, Y, Z scale boxes (e.g., 1, 1, 1 or 1.5, 1.5, 1.5) to ensure they don't look stretched.
+
+3. The 160° Camera Spin (The "Pivot" Trick)
+
+To make the camera rotate 160 degrees perfectly around the mug:
+
+Add Group: Go to Add > Group. Rename it "CameraPivot". Set its position to 0,0,0 (same as the mug).
+
+Parent Camera: Drag your Camera object inside the CameraPivot group in the Scene tree.
+
+Position Camera: Set the Camera's position inside the group to Z: 5 and Y: 2. Point it at the mug.
+
+The Loop Script:
+
+Select CameraPivot.
+
+Go to the Script tab > New > name it "OrbitLoop".
+
+Use this code for a seamless 160-degree "Ping-Pong" loop:
+
+code
+JavaScript
+download
+content_copy
+expand_less
+function update( event ) {
+    const time = event.time * 0.5; // Adjust speed here
+    // This rotates the pivot back and forth between roughly -80 and +80 degrees
+    this.rotation.y = Math.sin(time) * (Math.PI * 160 / 360); 
+}
+4. The Liquid Pour (Visual Logic)
+
+The Stream: Add > Cylinder. Make it very thin (Radius 0.05).
+
+Position it so it starts at the kettle spout and ends inside the mug.
+
+Give it a "Liquid" material (Brownish, high Roughness: 0, Metalness: 0.2).
+
+The Surface: Add > Cylinder. Place it inside the mug.
+
+Animate the Position Y or Scale Y if you want the mug to actually fill up during the video.
+
+5. Handling the 30 PNGs (The "Dynamic" Setup)
+
+Instead of 30 scenes, do this:
+
+Select the Mug mesh.
+
+In the Material tab, set a "Name" for the material (e.g., "MugSurface").
+
+When you want a different product, you only swap the Map texture in that material.
+
+To recreate later: Simply save the Scene JSON. You can open that JSON in a text editor and see the "images" section to manually swap links if needed.
+
+6. Exporting the Seamless Video
+
+Three.js Editor doesn't "Record" video. To get the seamless loop for presentation:
+
+Hide UI: Press the Play button in the editor. This opens a clean preview window.
+
+Screen Record: Use a tool like OBS Studio or QuickTime.
+
+The Cut: Because we used Math.sin() in the script, the camera will naturally slow down at the edges of the 160 degrees and speed up in the middle.
+
+Start your recording.
+
+In your video editor, cut the clip exactly when the camera hits the furthest left point and end it exactly when it hits the furthest left point again. This creates the infinite loop.
+
+Summary for Recreation:
+
+Pivot Group: Controls the 160° spin (keeps mug stationary).
+
+Environment Map: Essential for the "Realistic Render."
+
+Texture Map: Swap your 30 Figma PNGs here.
+
+Math.sin Script: Ensures the movement is smooth and loopable.
+
+Safety Check: Before you close the tab, go to File > Export Scene and File > Export Project. Keep these two files in a folder called "Mug_Project_Backups."
