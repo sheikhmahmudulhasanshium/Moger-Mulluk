@@ -7,6 +7,7 @@ import AssetMaintenance from "@/app/components/admin/asset-maintenance";
 import { HomePageData,  } from "@/app/components/types";
 import Image from "next/image";
 import Link from "next/link";
+import OrbitingHero from "./hero";
 
 interface HomeBodyProps {
   data: HomePageData; 
@@ -32,7 +33,7 @@ const Body = ({ data }: HomeBodyProps) => {
             <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
         </div>
       )}
-
+      <OrbitingHero/>
       {/* 2. DYNAMIC CONTENT CONTAINER (Padding handles script height differences) */}
       <div className="relative z-10 w-full max-w-5xl px-6 py-20 flex flex-col items-center text-center">
         

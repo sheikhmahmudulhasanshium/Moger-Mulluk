@@ -1,8 +1,14 @@
 import { apiRequest } from "@/lib/api-client";
 
 /** 
- * ADMIN INTERFACES 
+ * INTERFACES 
  */
+export interface GalleryCategory {
+  _id: string;
+  thumbnails: string[];
+  count: number;
+}
+
 export interface CreateProductDto {
   shortId?: string;
   position: number;
@@ -25,10 +31,7 @@ export interface CreateProductDto {
 
 export interface Product extends CreateProductDto {
   _id: string;
-  media?: {
-    thumbnail: string;
-    gallery: string[];
-  };
+  media?: { thumbnail: string; gallery: string[]; };
   createdAt: string;
   updatedAt: string;
 }
@@ -39,9 +42,6 @@ export interface ProductStats {
   timestamp: string;
 }
 
-/** 
- * PUBLIC INTERFACES (Transformed by Backend) 
- */
 export interface ProductCard {
   shortId: string;
   category: string;
@@ -57,30 +57,20 @@ export interface ProductDetail {
   description: string;
   price: number;
   unit: string;
-  media: {
-    thumbnail: string;
-    gallery: string[];
-  };
+  media: { thumbnail: string; gallery: string[]; };
 }
 
 export interface PaginatedResponse<T> {
   data: T[];
-  meta: {
-    totalItems: number;
-    currentPage: number;
-  };
+  meta: { totalItems: number; currentPage: number; };
 }
 
 export const productApi = {
   /**
    * ADMIN & SYSTEM ENDPOINTS
    */
-
   async create(dto: CreateProductDto): Promise<Product> {
-    return apiRequest<Product>('/products', {
-      method: 'POST',
-      body: JSON.stringify(dto),
-    });
+    return apiRequest<Product>('/products', { method: 'POST', body: JSON.stringify(dto) });
   },
 
   async getStats(): Promise<ProductStats> {
@@ -96,23 +86,16 @@ export const productApi = {
   },
 
   async update(id: string, dto: Partial<CreateProductDto>): Promise<Product> {
-    return apiRequest<Product>(`/products/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(dto),
-    });
+    return apiRequest<Product>(`/products/${id}`, { method: 'PATCH', body: JSON.stringify(dto) });
   },
 
   async remove(id: string): Promise<void> {
-    return apiRequest<void>(`/products/${id}`, {
-      method: 'DELETE',
-    });
+    return apiRequest<void>(`/products/${id}`, { method: 'DELETE' });
   },
 
   /**
    * MEDIA & ASSET ENDPOINTS
    */
-
-  // 1. Link an external URL (Remote)
   async uploadMediaLink(id: string, url: string): Promise<Product> {
     return apiRequest<Product>(`/products/${id}/media-link`, {
       method: 'PATCH',
@@ -120,18 +103,28 @@ export const productApi = {
     });
   },
 
-  // 2. Upload Binary Files (Local)
-  // Refactored to use apiRequest to maintain System Status monitoring
   async uploadMedia(id: string, thumbnail?: File, gallery?: File[]): Promise<Product> {
     const formData = new FormData();
     if (thumbnail) formData.append('thumbnail', thumbnail);
     if (gallery && gallery.length > 0) {
       gallery.forEach((file) => formData.append('gallery', file));
     }
+    return apiRequest<Product>(`/products/${id}/media`, { method: 'PATCH', body: formData });
+  },
 
-    return apiRequest<Product>(`/products/${id}/media`, {
+  async uploadGalleryFile(id: string, file: File): Promise<Product> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return apiRequest<Product>(`/products/${id}/gallery/upload`, { 
+      method: 'PATCH', 
+      body: formData 
+    });
+  },
+
+  async uploadGalleryLink(id: string, url: string): Promise<Product> {
+    return apiRequest<Product>(`/products/${id}/gallery/link`, {
       method: 'PATCH',
-      body: formData,
+      body: JSON.stringify({ url }),
     });
   },
 
@@ -145,6 +138,9 @@ export const productApi = {
   /**
    * PUBLIC ENDPOINTS
    */
+  async getGallery(): Promise<GalleryCategory[]> {
+    return apiRequest<GalleryCategory[]>('/products/gallery');
+  },
 
   async search(lang: string, q: string, cat?: string, page = 1, limit = 10): Promise<PaginatedResponse<ProductCard>> {
     const params = new URLSearchParams({ q, page: page.toString(), limit: limit.toString() });
@@ -165,10 +161,8 @@ export const productApi = {
   /**
    * MAINTENANCE HELPERS
    */
-
   async getIncompleteProducts(): Promise<Product[]> {
     const res = await this.getAdminProducts(1, 100);
-    // Filters items that either have no media object or have an empty thumbnail string
     return res.data.filter(p => !p.media?.thumbnail || p.media.thumbnail === "");
   },
 

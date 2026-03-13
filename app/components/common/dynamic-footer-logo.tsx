@@ -37,7 +37,7 @@ export default function DynamicFooterLogo() {
       */}
       <svg
         viewBox="0 0 100 110"
-        className="w-full h-auto max-h-[300px] overflow-visible"
+        className="w-full h-auto max-h-75 overflow-visible"
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* 1. THE DOME WITH INFINITE WINGS 
