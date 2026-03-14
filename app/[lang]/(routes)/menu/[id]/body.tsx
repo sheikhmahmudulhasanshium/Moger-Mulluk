@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import Image from "next/image";
+import { useEffect, useState } from 'react';
 import { productApi, ProductDetail } from "@/app/components/hooks/product-api";
 import { Loader2, ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
+import UploadProductPhotoForm from '@/app/components/forms/upload-product-photo';
+import ProductGallery, { ProductGalleryData } from './gallery';
 
 interface BodyProps {
   id: string;
@@ -52,15 +53,7 @@ const Body = ({ id, lang }: BodyProps) => {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-        <div className="relative aspect-square w-full rounded-4xl overflow-hidden border shadow-2xl">
-          <Image 
-            src={product.media?.thumbnail||'/logo/-4-ezgif.com-effects.webp'} 
-            alt={product.title} 
-            fill 
-            className="object-cover"
-            priority 
-          />
-        </div>
+        <ProductGallery product={product as ProductGalleryData}/>
 
         <div className="flex flex-col justify-center gap-6">
           <div className="space-y-2">
@@ -83,6 +76,9 @@ const Body = ({ id, lang }: BodyProps) => {
                     Order Now
                 </Button>
             </Link>
+          </div>
+          <div>
+            <UploadProductPhotoForm productId={id}/>
           </div>
         </div>
       </div>
