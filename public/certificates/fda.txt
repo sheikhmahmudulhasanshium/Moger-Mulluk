@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="20" width="90" height="60" rx="5" fill="#f8f9fa" stroke="#003366" stroke-width="3"/>
+  <text x="50" y="45" font-family="Georgia, serif" font-size="22" fill="#003366" text-anchor="middle" font-weight="bold">FDA</text>
+  <line x1="20" y1="52" x2="80" y2="52" stroke="#003366" stroke-width="1"/>
+  <text x="50" y="68" font-family="Arial, sans-serif" font-size="7" fill="#003366" text-anchor="middle" font-weight="bold">REGISTERED FACILITY</text>
+</svg>

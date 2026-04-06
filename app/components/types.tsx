@@ -5,6 +5,7 @@ export interface AppMessages {
   FAQPage: { title: string; link: string };
   NoticePage: { title: string; link: string };
   Navigation: {
+    stepInside: string;
     menu: string;
     locations: string;
     offers: string;

@@ -19,15 +19,21 @@ export async function apiRequest<T>(
 
     const res = await fetch(fullUrl, { ...options, headers });
 
-    // SSR SAFE WINDOW CHECK
-    if (typeof window !== 'undefined') {
-      if (res.ok) window.dispatchEvent(new CustomEvent("api-online"));
-      else if (res.status >= 500) window.dispatchEvent(new CustomEvent("api-degraded"));
-    }
-
+    // Handle Server Error Responses
     if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || `Status ${res.status}`);
+        
+        // NestJS returns validation errors in errorData.message (often as an array)
+        const serverMessage = Array.isArray(errorData.message) 
+            ? errorData.message.join(", ") 
+            : errorData.message;
+
+        throw new Error(serverMessage || `Error ${res.status}: ${res.statusText}`);
+    }
+
+    // SSR SAFE WINDOW CHECK
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent("api-online"));
     }
 
     return await res.json();

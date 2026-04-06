@@ -19,7 +19,9 @@
     "preOrder": "Pre-Order",
     "locations": "Our Locations",
     "offers": "Special Offers",
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+     "stepInside": "Step Inside"
+
   },
   "Footer": {
     "tagline": "The Realm of Conversations",

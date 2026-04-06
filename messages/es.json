@@ -19,7 +19,9 @@
     "preOrder": "Pedido anticipado",
     "locations": "Nuestras sucursales",
     "offers": "Ofertas especiales",
-    "gallery": "Galería"
+    "gallery": "Galería",
+    "stepInside": "Entrar"
+
   },
   "Footer": {
     "tagline": "El Imperio de la Tertulia",

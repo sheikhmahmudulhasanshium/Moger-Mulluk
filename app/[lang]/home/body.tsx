@@ -1,13 +1,17 @@
 // app/[lang]/home/body.tsx
 'use client';
 
-import AssetMaintenance from "@/app/components/admin/asset-maintenance";
+//import AssetMaintenance from "@/app/components/admin/asset-maintenance";
 //import UploadMediaForm from "@/app/components/forms/upload-media-form";
-//import MediaGallery from "@/app/components/media/media-gallery";
-import { HomePageData,  } from "@/app/components/types";
+import MediaGallery from "@/app/[lang]/home/media-gallery";
+import { HomePageData, MediaPurpose,  } from "@/app/components/types";
 import Image from "next/image";
 import Link from "next/link";
 import OrbitingHero from "./hero";
+import GlobalTrace from "./global-trace";
+import ThePulse from "./pulse";
+import TheStandard from "./certificates";
+import TheDispatch from "./news";
 
 interface HomeBodyProps {
   data: HomePageData; 
@@ -18,22 +22,11 @@ const Body = ({ data }: HomeBodyProps) => {
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center">
       
       {/* 1. BACKGROUND VIDEO (Ambient placeholder) */}
-      {data.video && (
-        <div className="absolute inset-0 z-0 pointer-events-none">
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              className="w-full h-full object-cover opacity-20"
-            >
-              <source src={data.video} type="video/mp4" />
-            </video>
-            {/* Overlay to ensure text readability */}
-            <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
-        </div>
-      )}
+      
       <OrbitingHero/>
+      {/* NEW SECTION HERE */}
+      <GlobalTrace /> 
+
       {/* 2. DYNAMIC CONTENT CONTAINER (Padding handles script height differences) */}
       <div className="relative z-10 w-full max-w-5xl px-6 py-20 flex flex-col items-center text-center">
         
@@ -68,13 +61,18 @@ const Body = ({ data }: HomeBodyProps) => {
           {data.ctaExplore}
         </Link>
       </div>
+      <ThePulse/>
+
+      <TheStandard/>
+      <TheDispatch/>
+      <MediaGallery purpose={MediaPurpose.GALLERY} limit={100}/>
       {/**
        * 
-         <MediaGallery purpose={MediaPurpose.GALLERY} limit={100}/>
           <UploadMediaForm/>
+              <AssetMaintenance/>
+
        * 
        */}
-    <AssetMaintenance/>
     </div>
   );
 };

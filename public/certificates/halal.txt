@@ -1,0 +1,7 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#2E7D32" stroke-width="4"/>
+  <circle cx="50" cy="50" r="42" fill="#2E7D32"/>
+  <text x="50" y="45" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">حلال</text>
+  <text x="50" y="65" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="bold">HALAL</text>
+  <text x="50" y="80" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle">CERTIFIED</text>
+</svg>

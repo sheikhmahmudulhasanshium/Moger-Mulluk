@@ -23,14 +23,12 @@ const UploadProductPhotoForm = ({ productId, onSuccess }: Props) => {
     const [purpose, setPurpose] = useState<UploadPurpose>("thumbnail");
     const [source, setSource] = useState<UploadSource>("local");
     const [file, setFile] = useState<File | null>(null);
-    
-    // FIX 1: Initialize with "" to prevent "uncontrolled to controlled" error
     const [url, setUrl] = useState<string>(""); 
-    
     const [isPending, setIsPending] = useState(false);
 
     const handleConfirm = async () => {
-        if (source === "url" && !url.trim()) return alert("Please enter a valid URL");
+        const targetUrl = url.trim();
+        if (source === "url" && !targetUrl) return alert("Please enter a valid URL");
         if (source === "local" && !file) return alert("Please select a file");
 
         setIsPending(true);
@@ -42,21 +40,22 @@ const UploadProductPhotoForm = ({ productId, onSuccess }: Props) => {
                     await productApi.uploadGalleryFile(productId, file!);
                 }
             } else {
-                // This calls apiRequest with a JSON body
                 if (purpose === "thumbnail") {
-                    await productApi.uploadMediaLink(productId, url);
+                    await productApi.uploadMediaLink(productId, targetUrl);
                 } else {
-                    await productApi.uploadGalleryLink(productId, url);
+                    await productApi.uploadGalleryLink(productId, targetUrl);
                 }
             }
             
             alert("Upload successful");
-            setUrl(""); // Reset
+            setUrl(""); 
             setFile(null);
             onSuccess?.();
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Upload Error:", error);
-            alert("Failed to connect to server. Check CORS settings or Server status.");
+            // Extraction of the specific error message from api-client
+            const msg = error instanceof Error ? error.message : "Connection failed";
+            alert(`Upload Failed: ${msg}`);
         } finally {
             setIsPending(false);
         }
@@ -76,38 +75,40 @@ const UploadProductPhotoForm = ({ productId, onSuccess }: Props) => {
                         <ImagePlusIcon/> Media Upload
                     </SheetTitle>
                     <SheetDescription>
-                        Select the media type and source.
+                        Select the media type and source for the product asset.
                     </SheetDescription>
                 </SheetHeader>
 
                 <div className="grid gap-4 py-4">
-                    <Select value={purpose} onValueChange={(v) => setPurpose(v as UploadPurpose)}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="thumbnail">Thumbnail</SelectItem>
-                            <SelectItem value="gallery">Gallery</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <div className="grid grid-cols-2 gap-2">
+                        <Select value={purpose} onValueChange={(v) => setPurpose(v as UploadPurpose)}>
+                            <SelectTrigger><SelectValue placeholder="Purpose" /></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="thumbnail">Thumbnail</SelectItem>
+                                <SelectItem value="gallery">Gallery</SelectItem>
+                            </SelectContent>
+                        </Select>
 
-                    <Select value={source} onValueChange={(v) => setSource(v as UploadSource)}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="local">Local File</SelectItem>
-                            <SelectItem value="url">Remote URL</SelectItem>
-                        </SelectContent>
-                    </Select>
+                        <Select value={source} onValueChange={(v) => setSource(v as UploadSource)}>
+                            <SelectTrigger><SelectValue placeholder="Source" /></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="local">Local File</SelectItem>
+                                <SelectItem value="url">Remote URL</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                     {source === "local" ? (
                         <Input 
                             type="file" 
+                            accept="image/*"
                             onChange={(e) => setFile(e.target.files?.[0] || null)} 
                         />
                     ) : (
                         <Input 
-                            type="text"
-                            placeholder="https://..."
-                            // FIX 2: Fallback to "" to ensure it's always controlled
-                            value={url || ""} 
+                            type="url"
+                            placeholder="https://images.unsplash.com/photo-..."
+                            value={url} 
                             onChange={(e) => setUrl(e.target.value)}
                         />
                     )}
@@ -116,7 +117,7 @@ const UploadProductPhotoForm = ({ productId, onSuccess }: Props) => {
                 <SheetFooter>
                     <Button onClick={handleConfirm} disabled={isPending} className="w-full">
                         {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Confirm
+                        {isPending ? "Processing..." : "Confirm Upload"}
                     </Button>
                 </SheetFooter>
             </SheetContent>

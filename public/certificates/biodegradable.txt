@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 15 L60 35 H40 Z" fill="#8BC34A" />
+  <path d="M50 35 V85" stroke="#8BC34A" stroke-width="4" />
+  <path d="M50 55 Q75 40 85 60 Q75 80 50 85 Q25 80 15 60 Q25 40 50 55" fill="#DCEDC8" />
+  <text x="50" y="95" font-family="Arial" font-size="8" fill="#33691E" text-anchor="middle" font-weight="bold">BIODEGRADABLE</text>
+</svg>

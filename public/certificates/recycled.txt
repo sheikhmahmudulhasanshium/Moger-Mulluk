@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 20 L65 40 H35 Z" fill="#388E3C"/>
+  <path d="M70 50 L85 70 H55 Z" fill="#388E3C" transform="rotate(120 70 50)"/>
+  <path d="M30 50 L45 70 H15 Z" fill="#388E3C" transform="rotate(-120 30 50)"/>
+  <text x="50" y="92" font-family="Arial" font-size="9" fill="#1B5E20" text-anchor="middle" font-weight="bold">100% RECYCLED</text>
+</svg>
