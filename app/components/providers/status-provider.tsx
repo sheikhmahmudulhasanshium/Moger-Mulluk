@@ -4,6 +4,15 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import Loading from "../common/loading";
 import { cn } from "@/lib/utils";
 import { WifiOff, AlertCircle } from "lucide-react";
+import { useLocale } from "next-intl"; // Import this
+
+// Custom Messages for "Establishing Connection"
+const CONNECTION_MESSAGES: Record<string, string> = {
+  hi: "कनेक्शन स्थापित किया जा रहा है",
+  bn: "সংযোগ স্থাপন করা হচ্ছে",
+  en: "Establishing Connection",
+  es: "Estableciendo conexión",
+};
 
 type ConnectionStatus = "online" | "degraded" | "offline";
 
@@ -16,11 +25,13 @@ const StatusContext = createContext<StatusContextType | undefined>(undefined);
 export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   const [status, setStatus] = useState<ConnectionStatus>("online");
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  
+  const locale = useLocale(); // Get current language
+  const connectionMsg = CONNECTION_MESSAGES[locale as keyof typeof CONNECTION_MESSAGES] || CONNECTION_MESSAGES.en;
 
   const checkHealth = useCallback(async () => {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    // 1. Check if the Environment Variable is missing
     if (!baseUrl) {
       console.error("STATUS_CHECK: NEXT_PUBLIC_API_URL is not defined in .env");
       setStatus("offline");
@@ -29,30 +40,18 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     try {
-      // Clean the URL to prevent double slashes (e.g. http://localhost:3001//status)
       const cleanUrl = `${baseUrl.replace(/\/$/, "")}/status`;
-
       const res = await fetch(cleanUrl, { 
         cache: 'no-store',
-        // signal: AbortSignal.timeout(8000) is fine for modern browsers, 
-        // but we ensure it's wrapped in this try/catch
         signal: AbortSignal.timeout(8000) 
       });
       
-      if (!res.ok) {
-        throw new Error(`Server responded with ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
 
       const data = await res.json();
-      
-      const isHealthy = 
-        data.status?.toLowerCase() === "online" || 
-        data.status?.toLowerCase() === "ok";
-      
+      const isHealthy = data.status?.toLowerCase() === "online" || data.status?.toLowerCase() === "ok";
       setStatus(isHealthy ? "online" : "degraded");
     } catch (err) {
-      // 2. This catches "Failed to fetch" (Network error/CORS/Server Down)
-      // and "TimeoutError" (Signal timeout)
       console.warn("Health Check Failed:", err instanceof Error ? err.message : err);
       setStatus("offline");
     } finally {
@@ -66,16 +65,12 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
     const goOnline = () => setStatus("online");
     const goDegraded = () => setStatus("degraded");
     const goOffline = () => setStatus("offline");
-
     const handleBrowserOnline = () => checkHealth();
     const handleBrowserOffline = () => setStatus("offline");
 
-    // Custom API Listeners
     window.addEventListener("api-online", goOnline);
     window.addEventListener("api-degraded", goDegraded);
     window.addEventListener("api-offline", goOffline);
-
-    // Native Browser Listeners
     window.addEventListener("online", handleBrowserOnline);
     window.addEventListener("offline", handleBrowserOffline);
 
@@ -94,9 +89,9 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StatusContext.Provider value={{ status }}>
-      {isInitialLoading && <Loading message="Establishing Connection" />}
+      {/* Dynamic multi-language message */}
+      {isInitialLoading && <Loading message={connectionMsg} />}
 
-      {/* CONNECTIVITY BAND */}
       {!isInitialLoading && status !== "online" && (
         <div className={cn(
           "fixed top-0 left-0 w-full z-100 flex items-center justify-center py-1 text-[10px] md:text-xs font-bold tracking-wider animate-in slide-in-from-top duration-300",
@@ -114,7 +109,6 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
         </div>
       )}
 
-      {/* MAIN APP CONTENT */}
       <div className={cn(
         "transition-all duration-700",
         isInitialLoading ? "opacity-0 invisible scale-95" : "opacity-100 visible scale-100",

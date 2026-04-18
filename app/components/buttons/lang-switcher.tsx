@@ -14,20 +14,25 @@ import Image from 'next/image';
 import { Languages } from 'lucide-react';
 import Loading from '../common/loading';
 
+const SWITCHING_MESSAGES: Record<string, string> = {
+  hi: "हिंदी में परिवर्तन किया जा रहा है",
+  bn: "বাংলায় পরিবর্তন করা হচ্ছে",
+  en: "Switching to English",
+  es: "Cambiando al español",
+};
+
 export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition();
-  const [targetLanguage, setTargetLanguage] = useState(""); 
+  const [loadingMessage, setLoadingMessage] = useState(""); 
   const localActive = useLocale();
   const pathname = usePathname(); 
 
   const onSelectChange = (nextLocale: string) => {
-    // Find the label for the new language (e.g., "বাংলা")
-    const nextLabel = localesConfig[nextLocale as keyof typeof localesConfig]?.label;
-    setTargetLanguage(nextLabel || nextLocale);
+    const customMsg = SWITCHING_MESSAGES[nextLocale] || `Switching to ${nextLocale}...`;
+    setLoadingMessage(customMsg);
 
     startTransition(() => {
       document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
-      
       setTimeout(() => {
         window.location.href = `/${nextLocale}${pathname}`;
       }, 500); 
@@ -38,17 +43,16 @@ export default function LocalSwitcher() {
 
   return (
     <>
-      {/* Show dynamic message when switching languages */}
-      {(isPending || !!targetLanguage) && (
-        <Loading message={`Switching to ${targetLanguage}`} />
+      {(isPending || !!loadingMessage) && (
+        <Loading message={loadingMessage} />
       )}
 
       <Select 
         value={localActive} 
         onValueChange={onSelectChange} 
-        disabled={isPending || !!targetLanguage}
+        disabled={isPending || !!loadingMessage}
       >
-        <SelectTrigger className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50 dark:text-amber-800">
+        <SelectTrigger className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50 dark:text-amber-800 focus:ring-0 focus:ring-offset-0 border-none outline-none">
           <SelectValue>
             <div className="flex items-center gap-2">
               <Languages className="h-4 w-4 md:hidden" />

@@ -1,9 +1,24 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
+import { cn } from "@/lib/utils";
 
-// --- BOLD, HIGH-CONTRAST SVGS (3px STROKES) ---
+// --- TYPES ---
+
+interface CertItem {
+  id: string;
+  name: string;
+  fact: string;
+  icon: React.ComponentType; // Strictly types the SVG component
+}
+
+interface TranslationData {
+  title: string;
+  items: CertItem[];
+}
+
+// --- BOLD, HIGH-CONTRAST SVGS ---
 
 const FoodSafetySVG = () => (
   <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full p-16">
@@ -35,7 +50,7 @@ const EcoPackagingSVG = () => (
   </svg>
 );
 
-const translations = {
+const translations: Record<string, TranslationData> = {
   en: {
     title: "Global \n Accreditation",
     items: [
@@ -74,59 +89,79 @@ const translations = {
   }
 };
 
-export default function TheStandard() {
-  const locale = useLocale() as keyof typeof translations;
-  const t = translations[locale] || translations.en;
+interface FlipCardProps {
+  cert: CertItem;
+  isSouthAsian: boolean;
+}
 
+function FlipCard({ cert, isSouthAsian }: FlipCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const Icon = cert.icon; // Accessing component properly
+
+  return (
+    <div 
+      className="group h-112.5 perspective-distant cursor-pointer"
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <div 
+        className={cn(
+          "relative w-full h-full transition-transform duration-800 transform-3d group-hover:transform-[rotateY(180deg)]",
+          isFlipped && "transform-[rotateY(180deg)]"
+        )}
+      >
+        {/* FRONT */}
+        <div className="absolute inset-0 flex flex-col items-center justify-between p-10 bg-white dark:bg-zinc-900 border-2 border-stone-200 dark:border-zinc-800 backface-hidden">
+          <div className="w-full h-full flex items-center justify-center text-[#512604] dark:text-amber-500">
+            <Icon />
+          </div>
+          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#512604] dark:text-stone-300 border-t-2 border-stone-100 dark:border-zinc-800 pt-6 w-full text-center">
+            {cert.name}
+          </h4>
+        </div>
+
+        {/* BACK */}
+        <div 
+          className="absolute inset-0 flex flex-col items-center justify-center p-12 bg-[#512604] text-white backface-hidden shadow-2xl transform-[rotateY(180deg)]"
+        >
+          <div className="mb-8 p-3 bg-white/10 rounded-full">
+             <Icon />
+          </div>
+          <p className={cn(
+            "text-center font-bold uppercase tracking-wide",
+            isSouthAsian ? 'leading-[1.8] text-[15px]' : 'leading-relaxed text-[12px]'
+          )}>
+            {cert.fact}
+          </p>
+          <div className="mt-10 h-1 w-12 bg-amber-500"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function TheStandard() {
+  const locale = useLocale();
+  const t = translations[locale] || translations.en;
   const isSouthAsian = locale === 'bn' || locale === 'hi';
 
   return (
     <section className="w-full bg-[#fcfaf7] dark:bg-zinc-950 py-32 overflow-hidden border-b border-stone-200 dark:border-zinc-900">
       <div className="max-w-7xl mx-auto px-6">
-        
-        {/* HEADER: High Contrast Brown */}
         <div className="mb-24">
-          <h2 className={`text-[#512604] dark:text-[#e7d9c1] text-6xl md:text-8xl font-black tracking-tighter uppercase whitespace-pre-line ${isSouthAsian ? 'leading-[1.3]' : 'leading-[0.9]'}`}>
+          <h2 className={cn(
+            "text-[#512604] dark:text-[#e7d9c1] text-6xl md:text-8xl font-black tracking-tighter uppercase whitespace-pre-line",
+            isSouthAsian ? 'leading-[1.3]' : 'leading-[0.9]'
+          )}>
             {t.title}
           </h2>
           <div className="mt-8 h-2 w-32 bg-[#8A3D04]"></div>
         </div>
 
-        {/* COIN FLIP GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {t.items.map((cert, idx) => (
-            <div 
-              key={idx} 
-              className="group h-112.5 perspective-distant cursor-pointer"
-            >
-              <div className="relative w-full h-full transition-transform duration-800 transform-3d group-hover:transform-[rotateY(180deg)]">
-                
-                {/* FRONT: BOLD SVG FOCUS */}
-                <div className="absolute inset-0 flex flex-col items-center justify-between p-10 bg-white dark:bg-zinc-900 border-2 border-stone-200 dark:border-zinc-800 backface-hidden">
-                  <div className="w-full h-full flex items-center justify-center text-[#512604] dark:text-amber-500">
-                    <cert.icon />
-                  </div>
-                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#512604] dark:text-stone-300 border-t-2 border-stone-100 dark:border-zinc-800 pt-6 w-full text-center">
-                    {cert.name}
-                  </h4>
-                </div>
-
-                {/* BACK: HIGH CONTRAST FACT REVEAL */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-12 bg-[#512604] text-white backface-hidden transform-[rotateY(180deg)] shadow-2xl">
-                  <div className="mb-8 p-3 bg-white/10 rounded-full">
-                     <cert.icon />
-                  </div>
-                  <p className={`text-center text-sm font-bold uppercase tracking-wide ${isSouthAsian ? 'leading-[1.8] text-[15px]' : 'leading-relaxed text-[12px]'}`}>
-                    {cert.fact}
-                  </p>
-                  <div className="mt-10 h-1 w-12 bg-amber-500"></div>
-                </div>
-
-              </div>
-            </div>
+          {t.items.map((cert) => (
+            <FlipCard key={cert.id} cert={cert} isSouthAsian={isSouthAsian} />
           ))}
         </div>
-
       </div>
     </section>
   );

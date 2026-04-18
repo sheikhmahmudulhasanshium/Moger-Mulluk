@@ -1,6 +1,7 @@
+import "../globals.css"
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css"; 
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
@@ -8,7 +9,6 @@ import { ThemeProvider } from "../components/providers/theme-provider";
 import { StatusProvider } from "../components/providers/status-provider";
 // IMPORT YOUR SERVER HOOK
 import { getPageData } from "@/app/components/hooks/hooks-server";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
