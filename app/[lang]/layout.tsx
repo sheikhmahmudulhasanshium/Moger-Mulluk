@@ -77,7 +77,8 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content={t('brandName')} />
-        <link rel="manifest" href="/favicon/site.webmanifest" />      
+        <link rel="manifest" href="/favicon/site.webmanifest" />    
+        <meta name="google-site-verification" content="XaIlvvAGDWME_Z9oUJnApUDnAKbjEBmmUxhJ_onO0SE" />  
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages} locale={lang}>
