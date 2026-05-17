@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     async rewrites() {
         return[
             {
-                source: '/final-map.xml',
+                source: '/final-sitemap.xml',
                 destination: '/api/xml-sitemap',
             },
         ]
