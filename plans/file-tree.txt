@@ -1,0 +1,65 @@
+📦app
+ ┣ 📂components
+ ┃ ┣ 📂admin
+ ┃ ┃ ┗ 📜asset-maintenance.tsx
+ ┃ ┣ 📂buttons
+ ┃ ┃ ┣ 📜lang-switcher.tsx
+ ┃ ┃ ┗ 📜theme-toggle.tsx
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📜dynamic-footer-logo.tsx
+ ┃ ┃ ┣ 📜dynamic-header-logo.tsx
+ ┃ ┃ ┣ 📜footer.tsx
+ ┃ ┃ ┣ 📜header.tsx
+ ┃ ┃ ┣ 📜loading.tsx
+ ┃ ┃ ┣ 📜navbar.tsx
+ ┃ ┃ ┗ 📜sidebar.tsx
+ ┃ ┣ 📂contexts
+ ┃ ┣ 📂forms
+ ┃ ┃ ┣ 📜create-announcement-form.tsx
+ ┃ ┃ ┣ 📜create-product-form.tsx
+ ┃ ┃ ┣ 📜upload-media-form.tsx
+ ┃ ┃ ┗ 📜upload-product-photo.tsx
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📜announcement-api.ts
+ ┃ ┃ ┣ 📜hooks-server.ts
+ ┃ ┃ ┣ 📜language-api.ts
+ ┃ ┃ ┣ 📜media-api.tsx
+ ┃ ┃ ┗ 📜product-api.ts
+ ┃ ┣ 📂providers
+ ┃ ┃ ┣ 📜page-provider.tsx
+ ┃ ┃ ┣ 📜status-provider.tsx
+ ┃ ┃ ┗ 📜theme-provider.tsx
+ ┃ ┗ 📜types.tsx
+ ┣ 📂[lang]
+ ┃ ┣ 📂(routes)
+ ┃ ┃ ┣ 📂about
+ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂faq
+ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂gallery
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂locations
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂menu
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜gallery.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂notice
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂home
+ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┣ 📜certificates.tsx
+ ┃ ┃ ┣ 📜global-trace.tsx
+ ┃ ┃ ┣ 📜hero.tsx
+ ┃ ┃ ┣ 📜media-gallery.tsx
+ ┃ ┃ ┣ 📜news.tsx
+ ┃ ┃ ┗ 📜pulse.tsx
+ ┃ ┗ 📜layout.tsx
+ ┣ 📜globals.css
+ ┗ 📜globals.d.ts
