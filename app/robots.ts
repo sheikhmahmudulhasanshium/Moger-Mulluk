@@ -12,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://moger-mulluk.vercel.app/sitemap.xml',
+    sitemap: 'https://moger-mulluk.vercel.app/site-map.xml',
   };
 }
