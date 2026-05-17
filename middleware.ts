@@ -12,6 +12,6 @@ export const config = {
     // 1. /api, /_next, /_vercel
     // 2. /logo, /favicon (your static asset folders)
     // 3. Files with dots (favicon.ico, logo.svg, etc.)
-    '/((?!api|_next|_vercel|sitemap\\.xml|logo|favicon|.*\\..*).*)'
+    '/((?!api|_next|_vercel|final-sitemap\\.xml|robots\\.txt|logo|favicon|.*\\..*).*)'
   ]
 };
