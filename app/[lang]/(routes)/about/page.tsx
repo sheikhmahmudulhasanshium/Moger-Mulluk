@@ -1,5 +1,12 @@
-import { getPageData } from "@/app/components/hooks/hooks-server";
 import { Metadata } from "next";
+import { getPageData } from "@/app/components/hooks/hooks-server";
+import { notFound } from "next/navigation";
+import PageProvider from "@/app/components/providers/page-provider";
+import Footer from "@/app/components/common/footer";
+import Header from "@/app/components/common/header";
+import Sidebar from "@/app/components/common/sidebar";
+import Navbar from "@/app/components/common/navbar";
+import Body from "./body"; 
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -11,18 +18,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: data.title,
     description: data.description,
-    // --- ADD THIS SECTION ---
+    // FIX FOR SEARCH CONSOLE: Tells Google exactly which page is the "master" version
     alternates: {
-      canonical: `${baseUrl}/${lang}/about`, // Self-referencing canonical
+      canonical: `${baseUrl}/${lang}/about`,
       languages: {
         'en': `${baseUrl}/en/about`,
         'es': `${baseUrl}/es/about`,
         'bn': `${baseUrl}/bn/about`,
         'hi': `${baseUrl}/hi/about`,
-        'x-default': `${baseUrl}/en/about`, // Default language version
+        'x-default': `${baseUrl}/en/about`,
       },
     },
-    // ------------------------
     openGraph: {
       title: data.title,
       description: data.description,
@@ -34,4 +40,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       images: [data.seo.ogImage],
     }
   };
+}
+
+export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const data = await getPageData(lang, 'about');
+
+  if (!data) notFound();
+
+  return (
+    <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>
+      <Body data={data} />  
+    </PageProvider>
+  );
 }

@@ -97,7 +97,7 @@ export default function Body({ data }: AboutBodyProps) {
         </div>
       </section>
 
-      {/* 5. VALUE PROPOSITIONS (Keep existing UI) */}
+      {/* 5. VALUE PROPOSITIONS */}
       <section className="w-full bg-white dark:bg-stone-900/50 py-24 border-y border-[#FDF2E9] dark:border-stone-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -157,7 +157,7 @@ export default function Body({ data }: AboutBodyProps) {
         </div>
       </section>
 
-      {/* 6. COUNTERS & CTA (Existing UI) */}
+      {/* 6. COUNTERS & CTA */}
       <section className="py-20 px-6 max-w-4xl mx-auto text-center">
          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
