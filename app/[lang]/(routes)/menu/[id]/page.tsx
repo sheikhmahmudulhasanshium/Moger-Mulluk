@@ -10,14 +10,24 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang, id } = await params; // Correctly awaited
+  const { lang, id } = await params;
+  const baseUrl = "https://moger-mulluk.vercel.app";
   
   try {
     const product = await productApi.getDetail(lang, id);
-    
     return {
       title: product.title,
       description: product.description,
+      alternates: {
+        canonical: `${baseUrl}/${lang}/menu/${id}`,
+        languages: {
+          'en': `${baseUrl}/en/menu/${id}`,
+          'bn': `${baseUrl}/bn/menu/${id}`,
+          'es': `${baseUrl}/es/menu/${id}`,
+          'hi': `${baseUrl}/hi/menu/${id}`,
+          'x-default': `${baseUrl}/en/menu/${id}`,
+        },
+      },
       openGraph: {
         title: product.title,
         description: product.description,
@@ -25,13 +35,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { title: "Product | Moger Mulluk" };
   }
 }
 
 const MenuItemPage = async ({ params }: Props) => {
-    const { lang, id } = await params; // Correctly awaited
+    // Correctly using params here
+    const { lang, id } = await params; 
 
     return ( 
         <PageProvider header={<Header/>} footer={<Footer/>}>
