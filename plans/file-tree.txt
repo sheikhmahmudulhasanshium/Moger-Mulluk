@@ -1,4 +1,7 @@
 📦app
+ ┣ 📂api
+ ┃ ┗ 📂xml-sitemap
+ ┃ ┃ ┗ 📜route.ts
  ┣ 📂components
  ┃ ┣ 📂admin
  ┃ ┃ ┗ 📜asset-maintenance.tsx
@@ -12,6 +15,7 @@
  ┃ ┃ ┣ 📜header.tsx
  ┃ ┃ ┣ 📜loading.tsx
  ┃ ┃ ┣ 📜navbar.tsx
+ ┃ ┃ ┣ 📜not-found-visual.tsx
  ┃ ┃ ┗ 📜sidebar.tsx
  ┃ ┣ 📂contexts
  ┃ ┣ 📂forms
@@ -60,6 +64,10 @@
  ┃ ┃ ┣ 📜media-gallery.tsx
  ┃ ┃ ┣ 📜news.tsx
  ┃ ┃ ┗ 📜pulse.tsx
- ┃ ┗ 📜layout.tsx
+ ┃ ┣ 📂[...rest]
+ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📜layout.tsx
+ ┃ ┗ 📜not-found.tsx
  ┣ 📜globals.css
- ┗ 📜globals.d.ts
+ ┣ 📜globals.d.ts
+ ┗ 📜robots.ts
