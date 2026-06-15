@@ -1,4 +1,10 @@
 {
+  "NotFound": {
+    "title": "🚨 This page got arrested by 404 police",
+    "description": "It tried to escape after hearing the whistle… now the barista and the cops are arguing about where it went.",
+    "goBack": "Call the rescue team"
+  
+},
   "Logo": { "brandName": "Moger Mulluk" },
   "HomePage": { "title": "Home", "link": "/" },
   "AboutPage": { "title": "About", "link": "/about" },

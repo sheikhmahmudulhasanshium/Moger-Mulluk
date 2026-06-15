@@ -1,4 +1,10 @@
 {
+  "NotFound": {
+    "title": "🚨 Esta página fue detenida por la policía 404",
+    "description": "Intentó huir al escuchar el silbato… ahora el barista y la policía discuten sobre su última ubicación.",
+    "goBack": "Activar equipo de rescate"
+  }
+,
   "Logo": { "brandName": "Moguer Muluk" },
   "HomePage": { "title": "Inicio", "link": "/" },
   "AboutPage": { "title": "Nosotros", "link": "/about" },
