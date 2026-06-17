@@ -2,10 +2,30 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import { Coffee, Leaf, Globe, Banknote, PlayCircle, Image as ImageIcon } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { Coffee, Leaf, Globe, Banknote } from 'lucide-react';
+import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
 import { PageData } from "@/app/components/types";
 
-// Use PageData type for better TS safety
+// Infographic Counter Component (Rising from 0 every view)
+const Counter = ({ value }: { value: number }) => {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, amount: 0.5 });
+
+  useEffect(() => {
+    if (inView) {
+      const controls = animate(count, value, { duration: 2, ease: "easeOut" });
+      return controls.stop;
+    } else {
+      count.set(0);
+    }
+  }, [inView, value, count]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+};
+
 interface AboutBodyProps {
   data: PageData;
 }
@@ -16,16 +36,19 @@ export default function Body({ data }: AboutBodyProps) {
   const tFooter = useTranslations('Footer');
   const locale = useLocale();
 
+  const getEmbedUrl = (url: unknown): string => {
+    if (typeof url !== 'string' || !url) return '';
+    let videoId = '';
+    if (url.includes('v=')) videoId = url.split('v=')[1]?.split('&')[0] ?? '';
+    else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0] ?? '';
+    else videoId = url.split('/').pop() ?? '';
+    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&rel=0` : '';
+  };
+
   const getFontClass = (weight: 'bold' | 'black' | 'normal' = 'normal') => {
-    const fonts = {
-      bn: 'font-["Noto_Sans_Bengali"]',
-      hi: 'font-["Noto_Sans_Devanagari"]',
-      default: 'font-sans',
-    };
+    const fonts = { bn: 'font-["Noto_Sans_Bengali"]', hi: 'font-["Noto_Sans_Devanagari"]', default: 'font-sans' };
     const font = fonts[locale as keyof typeof fonts] || fonts.default;
-    if (weight === 'black') return `${font} font-black`;
-    if (weight === 'bold') return `${font} font-bold`;
-    return font;
+    return weight === 'black' ? `${font} font-black` : weight === 'bold' ? `${font} font-bold` : font;
   };
 
   const getRegionText = () => {
@@ -37,154 +60,144 @@ export default function Body({ data }: AboutBodyProps) {
     }
   };
 
+  const displayOgImage = data.seo?.ogImage || 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop';
+  const storyVideoUrl = (typeof data.videoUrl === 'string' ? data.videoUrl : null) || (typeof data.video === 'string' ? data.video : null);
+
+  // Typewriter Settings (Trigger every view)
+  const typewriterContainer = {
+    hidden: { opacity: 1 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
+  };
+
+  const letterVariants = {
+    hidden: { opacity: 0, display: 'none' },
+    visible: { opacity: 1, display: 'inline', transition: { duration: 0 } }
+  };
+
   return (
-    <div className="flex flex-col w-full bg-[#FFFBF8] dark:bg-stone-950 pb-20 transition-colors duration-300">
+    <div className="flex flex-col w-full bg-[#FFFBF8] dark:bg-stone-950 pb-20 transition-colors duration-300 overflow-x-hidden">
       
-      {/* 1. HERO BANNER: NOW USES BACKEND VIDEO/IMG */}
-      <section className="relative w-full h-[35vh] md:h-[50vh] bg-stone-200 dark:bg-stone-900 overflow-hidden">
-        {data.video ? (
-             <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-50">
-                <source src={data.video} type="video/mp4" />
-             </video>
-        ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#8A3D04]/5 dark:bg-orange-500/5">
-                <ImageIcon size={48} className="text-[#8A3D04]/10 dark:text-orange-200/10 mb-2" />
-            </div>
-        )}
+      {/* 1. HERO BANNER */}
+      <section className="relative w-full h-[55vh] md:h-[75vh] bg-stone-200 dark:bg-stone-900 overflow-hidden">
+        <motion.div 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10 }}
+            className="absolute inset-0 bg-cover bg-center opacity-70 grayscale-10"
+            style={{ backgroundImage: `url('${displayOgImage}')` }}
+        />
         <div className="absolute inset-0 bg-linear-to-t from-[#FFFBF8] dark:from-stone-950 via-transparent to-transparent opacity-100" />
       </section>
 
-      {/* 2. OVERLAPPING TITLE SECTION: USES BACKEND TITLE & DESCRIPTION */}
-      <section className="relative z-20 -mt-10 md:-mt-16 text-center px-6">
-        <div className="bg-white dark:bg-stone-900 inline-block px-8 py-6 md:px-12 md:py-10 shadow-xl dark:shadow-2xl dark:shadow-black/50 rounded-2xl border border-orange-50 dark:border-stone-800 max-w-[90vw]">
-          <p className="text-[#B28869] font-bold tracking-[0.3em] uppercase text-[10px] mb-2">
+      {/* 2. OVERLAPPING TITLE SECTION */}
+      <section className="relative z-20 -mt-40 md:-mt-80 text-center px-6">
+        <motion.div 
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="bg-white dark:bg-stone-900 inline-block px-8 py-10 md:px-20 md:py-20 shadow-2xl rounded-[3rem] md:rounded-[5rem] border border-orange-50 dark:border-stone-800 max-w-[90vw]"
+        >
+          {/* 1. Region Identity (ঢাকা থেকে বিশ্বজুড়ে) */}
+          <p className="text-[#B28869] font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4 opacity-60">
             {getRegionText()}
           </p>
-          <h1 className={`${getFontClass('black')} text-4xl md:text-6xl text-[#8A3D04] dark:text-orange-200 mb-2 tracking-tighter leading-tight`}>
-            {data.title}
-          </h1>
-          <p className={`${getFontClass()} text-lg md:text-xl text-[#B28869] dark:text-stone-400 italic font-medium leading-relaxed`}>
+
+          {/* 2. Main Title (cms title like "Our Story") - Typewriter triggers every view */}
+          <motion.h1 
+            variants={typewriterContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            className={`${getFontClass('black')} text-3xl md:text-7xl text-[#8A3D04] dark:text-orange-200 mb-6 tracking-tighter leading-tight`}
+          >
+            {data.title.split("").map((char, i) => (
+              <motion.span key={i} variants={letterVariants}>{char}</motion.span>
+            ))}
+          </motion.h1>
+
+          {/* 3. Description */}
+          <p className={`${getFontClass()} text-lg md:text-2xl text-[#B28869] dark:text-stone-400 italic font-medium leading-relaxed max-w-3xl mx-auto`}>
             {data.description}
           </p>
-        </div>
+        </motion.div>
       </section>
 
-      {/* 3. MULTINATIONAL IDENTITY */}
-      <section className="py-16 px-6 text-center">
+      {/* 3. BRAND IDENTITY */}
+      <section className="py-20 px-6 text-center">
         <h2 className={`${getFontClass('black')} text-2xl md:text-3xl text-[#8A3D04]/80 dark:text-orange-200/60 uppercase tracking-widest`}>
           {tLogo('brandName')}
         </h2>
         <div className="flex items-center justify-center gap-4 mt-4 text-[#B28869] opacity-60 text-xs font-bold uppercase tracking-widest">
-           <span>Bangladesh</span> • <span>India</span> • <span>Spain</span> • <span>Global</span>
+           <span>Bangladesh</span> • <span>India</span> • <span>Spain</span> • <span>USA</span> • <span>Global</span>
         </div>
       </section>
 
-      {/* 4. GLOBAL STORY VIDEO SECTION: USES OG IMAGE AS FALLBACK */}
-      <section className="max-w-5xl mx-auto w-full px-6 mb-24">
-        <div className="relative aspect-video w-full bg-stone-900 rounded-4xl overflow-hidden shadow-2xl flex items-center justify-center group cursor-pointer border-8 border-white dark:border-stone-800">
-          <div 
-            className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:scale-110 transition-transform duration-1000"
-            style={{ backgroundImage: `url('${data.seo.ogImage || 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop'}')` }}
-          />
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="bg-white/10 backdrop-blur-md p-6 rounded-full group-hover:bg-[#8A3D04] dark:group-hover:bg-orange-600 transition-all duration-500">
-              <PlayCircle size={64} className="text-white" />
-            </div>
-            <p className="mt-6 text-white font-bold tracking-[0.2em] uppercase text-[10px] opacity-80">
-              {data.videoUrl ? 'Watch Our Story' : 'Local Roots, Global Wings'}
-            </p>
-          </div>
+      {/* 4. GLOBAL STORY VIDEO */}
+      <section className="max-w-6xl mx-auto w-full px-6 mb-32">
+        <div className="relative aspect-video w-full bg-stone-900 rounded-4xl overflow-hidden shadow-2xl border-10 md:border-20 border-white dark:border-stone-800">
+          {storyVideoUrl && (
+            <iframe className="absolute inset-0 w-full h-full" src={getEmbedUrl(storyVideoUrl)} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+          )}
         </div>
       </section>
 
-      {/* 5. VALUE PROPOSITIONS */}
-      <section className="w-full bg-white dark:bg-stone-900/50 py-24 border-y border-[#FDF2E9] dark:border-stone-800">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            
-            {/* Sustainability */}
+      {/* 5. VALUE PROPOSITIONS (Original logic preserved) */}
+      <section className="w-full bg-white dark:bg-stone-900/50 py-32 border-y border-[#FDF2E9] dark:border-stone-800">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-2xl text-green-700 dark:text-green-400">
-                <Leaf size={32} />
-              </div>
-              <h3 className={`${getFontClass('bold')} text-lg text-[#8A3D04] dark:text-orange-200`}>
-                {locale === 'bn' ? 'পরিবেশবান্ধব' : 'Eco-Global'}
-              </h3>
-              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-                We replace one-time cups with biodegradable mugs across all franchises. A multinational commitment to a cleaner planet.
-              </p>
+              <div className="p-5 bg-green-50 dark:bg-green-900/20 rounded-3xl text-green-700 dark:text-green-400"><Leaf size={32} /></div>
+              <h3 className={`${getFontClass('bold')} text-xl text-[#8A3D04] dark:text-orange-200`}>{locale === 'bn' ? 'পরিবেশবান্ধব' : 'Eco-Global'}</h3>
+              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed px-2">We replace one-time cups with biodegradable mugs across all franchises. A multinational commitment to a cleaner planet.</p>
             </div>
-
-            {/* Fair Trade */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl text-blue-700 dark:text-blue-400">
-                <Globe size={32} />
-              </div>
-              <h3 className={`${getFontClass('bold')} text-lg text-[#8A3D04] dark:text-orange-200`}>
-                {locale === 'bn' ? 'ন্যায্য কারবার' : 'Fair Trade'}
-              </h3>
-              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-                Global direct trade for tea and chocolate. From ES to BN, we ensure farmers receive a fair share of our success.
-              </p>
+              <div className="p-5 bg-blue-50 dark:bg-blue-900/20 rounded-3xl text-blue-700 dark:text-blue-400"><Globe size={32} /></div>
+              <h3 className={`${getFontClass('bold')} text-xl text-[#8A3D04] dark:text-orange-200`}>{locale === 'bn' ? 'ন্যায্য কারবার' : 'Fair Trade'}</h3>
+              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed px-2">Global direct trade for tea and chocolate ensuring farmers receive a fair share of our success.</p>
             </div>
-
-            {/* Premium Quality */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="p-4 bg-[#FDF2E9] dark:bg-stone-800 rounded-2xl text-[#8A3D04] dark:text-orange-300">
-                <Coffee size={32} />
-              </div>
-              <h3 className={`${getFontClass('bold')} text-lg text-[#8A3D04] dark:text-orange-200`}>
-                {locale === 'bn' ? 'সেরা মান' : 'Premium Sips'}
-              </h3>
-              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-                Artisanal beans and leaves selected by global experts. High-end taste consistency in every country we serve.
-              </p>
+              <div className="p-5 bg-[#FDF2E9] dark:bg-stone-800 rounded-3xl text-[#8A3D04] dark:text-orange-300"><Coffee size={32} /></div>
+              <h3 className={`${getFontClass('bold')} text-xl text-[#8A3D04] dark:text-orange-200`}>{locale === 'bn' ? 'সেরা মান' : 'Premium Sips'}</h3>
+              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed px-2">Artisanal beans and leaves selected by global experts for consistent high-end taste.</p>
             </div>
-
-            {/* Loot Prices */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="p-4 bg-orange-50 dark:bg-orange-950/40 rounded-2xl text-orange-700 dark:text-orange-400">
-                <Banknote size={32} />
-              </div>
-              <h3 className={`${getFontClass('bold')} text-lg text-[#8A3D04] dark:text-orange-200`}>
-                {locale === 'bn' ? 'লুট অফার!' : 'Loot Prices'}
-              </h3>
-              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
-                Disrupting the market globally. We offer premium franchise quality at prices that feel like a &ldquo;loot.&rdquo;
-              </p>
+              <div className="p-5 bg-orange-50 dark:bg-orange-950/40 rounded-3xl text-orange-700 dark:text-orange-400"><Banknote size={32} /></div>
+              <h3 className={`${getFontClass('bold')} text-xl text-[#8A3D04] dark:text-orange-200`}>{locale === 'bn' ? 'লুট অফার!' : 'Loot Prices'}</h3>
+              <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed px-2">Disrupting the market globally with premium franchise quality at prices that feel like a loot.</p>
             </div>
-          </div>
         </div>
       </section>
 
-      {/* 6. COUNTERS & CTA */}
-      <section className="py-20 px-6 max-w-4xl mx-auto text-center">
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <p className="text-3xl font-black text-[#8A3D04] dark:text-orange-200">4+</p>
-              <p className="text-[10px] uppercase tracking-widest text-[#B28869]">Countries</p>
-            </div>
-            <div>
-              <p className="text-3xl font-black text-[#8A3D04] dark:text-orange-200">100k+</p>
-              <p className="text-[10px] uppercase tracking-widest text-[#B28869]">Cups Served</p>
-            </div>
-            <div>
-              <p className="text-3xl font-black text-[#8A3D04] dark:text-orange-200">100%</p>
-              <p className="text-[10px] uppercase tracking-widest text-[#B28869]">Eco-Friendly</p>
-            </div>
-            <div>
-              <p className="text-3xl font-black text-[#8A3D04] dark:text-orange-200">1</p>
-              <p className="text-[10px] uppercase tracking-widest text-[#B28869]">Vision</p>
-            </div>
+      {/* 6. INFOGRAPHIC SECTION (Rise from 0 every view) */}
+      <section className="py-32 px-6 max-w-4xl mx-auto text-center">
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+            {[
+                { val: 4, suffix: "+", lab: "Countries" },
+                { val: 100, suffix: "k+", lab: "Cups Served" },
+                { val: 100, suffix: "%", lab: "Eco-Friendly" },
+                { val: 1, suffix: "", lab: "Vision" }
+            ].map((stat, i) => (
+                <motion.div 
+                    key={i}
+                    initial={{ y: 30, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                    <p className={`${getFontClass('black')} text-4xl md:text-5xl text-[#8A3D04] dark:text-orange-200`}>
+                        <Counter value={stat.val} />{stat.suffix}
+                    </p>
+                    <p className="text-[10px] uppercase tracking-widest text-[#B28869] font-bold mt-2">{stat.lab}</p>
+                </motion.div>
+            ))}
          </div>
       </section>
 
-      <section className="pt-10 px-6 text-center">
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Link href="/menu" className="w-full sm:w-auto px-12 py-5 bg-[#8A3D04] dark:bg-orange-700 text-white rounded-xl font-bold hover:shadow-2xl transition-all transform hover:-translate-y-1">
+      <section className="pb-20 px-6 text-center">
+        <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+          <Link href="/menu" className="w-full sm:w-auto px-16 py-6 bg-[#8A3D04] dark:bg-orange-700 text-white rounded-2xl font-bold shadow-xl hover:scale-105 transition-transform">
             {tCTA('orderNow')}
           </Link>
-          <Link href="/faq" className="w-full sm:w-auto px-12 py-5 border-2 border-[#8A3D04] dark:border-orange-800 text-[#8A3D04] dark:text-orange-200 rounded-xl font-bold hover:bg-[#8A3D04] dark:hover:bg-orange-800 hover:text-white transition-all">
+          <Link href="/faq" className="w-full sm:w-auto px-16 py-6 border-2 border-[#8A3D04] dark:border-orange-800 text-[#8A3D04] dark:text-orange-200 rounded-2xl font-bold hover:bg-[#8A3D04] hover:text-white transition-all">
             {tFooter('quickLinks')}
           </Link>
         </div>
