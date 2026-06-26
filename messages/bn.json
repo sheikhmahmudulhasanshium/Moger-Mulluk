@@ -17,7 +17,16 @@
     "callUs": "কল করুন",
     "emailUs": "ইমেইল",
     "availability": "আমাদের টিম ২৪/৭ প্রস্তুত"
-  },
+  },"OffersPage": {
+  "title": "সেরা অফারসমূহ",
+  "subtitle": "সাশ্রয়ী দামে আপনার প্রিয় স্বাদ",
+  "statusLabel": "স্ট্যাটাস",
+  "sortLabel": "সর্ট করুন",
+  "noOffers": "এই মুহূর্তে কোনো {status} অফার পাওয়া যায়নি",
+  "active": "চলমান",
+  "upcoming": "আসন্ন",
+  "archived": "পুরাতন"
+},
   "ProfilePage": { "profileTitle": "প্রোফাইল" ,"link":"/profile"},
   "NoticePage": { "title": "নোটিশ" ,"link":"/notice"},
   "Navigation": {

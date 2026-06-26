@@ -18,6 +18,16 @@
     "emailUs": "Correo",
     "availability": "Nuestro equipo está disponible 24/7"
   },
+  "OffersPage": {
+  "title": "Las Mejores Ofertas",
+  "subtitle": "Tus sabores favoritos a precios accesibles",
+  "statusLabel": "Estado",
+  "sortLabel": "Ordenar por",
+  "noOffers": "No se encontraron ofertas {status} en este momento",
+  "active": "activas",
+  "upcoming": "próximas",
+  "archived": "archivadas"
+},
   "ProfilePage": { "profileTitle": "Perfil", "link": "/profile" },
   "NoticePage": { "title": "Aviso", "link": "/notice" },
   "Navigation": {

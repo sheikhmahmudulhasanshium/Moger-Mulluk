@@ -128,3 +128,84 @@ export interface MediaPaginatedResponse {
     totalPages: number;
   };
 }
+/**
+ * 1. Supported Locales
+ * Matches your 'localesConfig' in routing.ts
+ */
+export type Locale = 'en' | 'bn' | 'hi' | 'es';
+
+/**
+ * 2. Localized Data Helper
+ * Ensures every text field has a value for all supported languages.
+ */
+export type Localized<T = string> = Record<Locale, T>;
+
+/**
+ * 3. Offer Types
+ * Strict union for better filtering and logic on the frontend.
+ */
+export type OfferType = 
+  | 'legendary' 
+  | 'limited-time' 
+  | 'one-time' 
+  | 'royal' 
+  | 'fitness' 
+  | 'seasonal' 
+  | 'bundle' 
+  | 'lifestyle' 
+  | 'referral' 
+  | 'just-for-you';
+
+/**
+ * 4. Visual Styles
+ * Used to apply gradients and maintain readability.
+ */
+export interface OfferStyle {
+  background: string;    // CSS linear-gradient string
+  textColor: string;     // High contrast hex code
+  accentColor: string;   // Secondary color for buttons/icons
+  tagBackground: string; // Contrast color for the discount tag
+}
+
+/**
+ * 5. Master Offer Interface
+ * Use this for the 'offers' array and MongoDB documents.
+ */
+export interface Offer {
+  _id?: string;             // MongoDB unique identifier
+  id: string;               // Your custom SKU (e.g., OFF_ADDA_001)
+  type: OfferType;
+  productIds: string[];     // References shortId from your products collection
+  
+  // Localized Content
+  title: Localized;
+  description: Localized;
+  discount: Localized;
+  conditions: Localized;
+  
+  // Promotion Logic
+  promoCode?: string;       // Optional coupon code
+  
+  // Asset Management
+  media: {
+    image: string;          // Cloudinary/Asset URL
+  };
+  
+  // Look & Feel
+  style: OfferStyle;
+  
+  // Customization & Admin Control
+  validFrom: string;        // ISO Date String
+  validUntil: string;       // ISO Date String
+  position: number;         // Sort order
+  hide: boolean;            // Global visibility toggle
+}
+
+/**
+ * 6. Component Prop Helper (Optional)
+ * Useful when mapping through offers in a React Component.
+ */
+export interface OfferCardProps {
+  offer: Offer;
+  currentLocale: Locale;
+}

@@ -8,6 +8,16 @@
   "Logo": { "brandName": "Moger Mulluk" },
   "HomePage": { "title": "Home", "link": "/" },
   "AboutPage": { "title": "About", "link": "/about" },
+  "OffersPage": {
+  "title": "Best Deals",
+  "subtitle": "Your favorite flavors at affordable prices",
+  "statusLabel": "Status",
+  "sortLabel": "Sort By",
+  "noOffers": "No {status} offers found at this moment",
+  "active": "active",
+  "upcoming": "upcoming",
+  "archived": "archived"
+},
   "FAQPage": { 
     "title": "FAQ", 
     "link": "/faq", 

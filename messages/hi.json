@@ -18,6 +18,16 @@
     "emailUs": "ईमेल करें",
     "availability": "हमारी टीम 24/7 उपलब्ध है"
   },
+  "OffersPage": {
+  "title": "बेहतरीन ऑफर्स",
+  "subtitle": "किफायती दामों में आपका पसंदीदा स्वाद",
+  "statusLabel": "स्थिति",
+  "sortLabel": "क्रमबद्ध करें",
+  "noOffers": "इस समय कोई {status} ऑफ़र नहीं मिला",
+  "active": "सक्रिय",
+  "upcoming": "आने वाले",
+  "archived": "पुराने"
+},
   "ProfilePage": { "profileTitle": "प्रोफ़ाइल", "link": "/profile" },
   "NoticePage": { "title": "सूचना", "link": "/notice" },
   "Navigation": {
