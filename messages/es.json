@@ -50,5 +50,16 @@
   "CTA": {
     "orderNow": "Pedir ahora",
     "bookTable": "Reservar mesa"
-  }
+  },"OfferDetails": {
+  "back": "Volver a Ofertas",
+  "limited": "Oferta por tiempo limitado",
+  "available": "Disponible para",
+  "how": "Cómo canjear",
+  "terms": "Términos y condiciones",
+  "from": "Válido desde",
+  "until": "Vence el",
+  "step1": "Copiar código",
+  "step2": "Selecciona cualquier artículo de la lista.",
+  "step3": "Aplica al pagar o muestra al mesero."
+}
 }

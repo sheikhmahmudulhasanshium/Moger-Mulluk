@@ -170,42 +170,54 @@ export interface OfferStyle {
 /**
  * 5. Master Offer Interface
  * Use this for the 'offers' array and MongoDB documents.
- */
-export interface Offer {
-  _id?: string;             // MongoDB unique identifier
-  id: string;               // Your custom SKU (e.g., OFF_ADDA_001)
+ */export interface Offer {
+  _id?: string;
+  id: string;
   type: OfferType;
-  productIds: string[];     // References shortId from your products collection
-  
-  // Localized Content
+  productIds: string[];
   title: Localized;
   description: Localized;
   discount: Localized;
+  discountValue: number;    // Added: For numeric logic
+  displayImage?: string;    // Added: From backend inheritance logic
   conditions: Localized;
-  
-  // Promotion Logic
-  promoCode?: string;       // Optional coupon code
-  
-  // Asset Management
+  promoCode?: string;
   media: {
-    image: string;          // Cloudinary/Asset URL
+    image: string;
   };
-  
-  // Look & Feel
   style: OfferStyle;
-  
-  // Customization & Admin Control
-  validFrom: string;        // ISO Date String
-  validUntil: string;       // ISO Date String
-  position: number;         // Sort order
-  hide: boolean;            // Global visibility toggle
+  validFrom: string;
+  validUntil: string;
+  position: number;
+  hide: boolean;
+}
+export interface OfferStats {
+  total: number;
+  breakdown: { _id: string; c: number }[];
+  timestamp: string;
+}
+// Add these to your types.tsx
+
+export interface ProductDetail {
+  _id: string;
+  shortId: string;
+  category: string;
+  title: Localized;
+  description: Localized;
+  logistics: {
+    grandTotal: number;
+    isAvailable: boolean;
+    stock: number;
+  };
+  media: {
+    thumbnail: string;
+  };
 }
 
 /**
- * 6. Component Prop Helper (Optional)
- * Useful when mapping through offers in a React Component.
+ * Extended Offer interface that includes the 
+ * data joined from the 'menu' collection.
  */
-export interface OfferCardProps {
-  offer: Offer;
-  currentLocale: Locale;
+export interface OfferWithProducts extends Offer {
+  product_details: ProductDetail[];
 }

@@ -3,19 +3,21 @@ export const revalidate = 0;
 
 import { routing } from '@/i18n/routing';
 import { Product, productApi } from '@/app/components/hooks/product-api';
+import { offerApi } from '@/app/components/hooks/offer-api'; // 1. Import Offer API
+import { Offer } from '@/app/components/types';
 
 export async function GET() {
   const baseUrl = 'https://moger-mulluk.vercel.app';
   const locales = routing.locales;
   
-  // FIX: Force a 2024/2025 date. Do NOT use 2026.
-  const safeDate = "2024-12-01"; 
+  // Update to a current 2025 date
+  const safeDate = "2025-01-15"; 
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
-  // 1. Static Pages
-  const staticPaths = ['', '/about', '/faq', '/gallery', '/locations', '/menu', '/notice'];
+  // 1. Static Pages (Added /offers here)
+  const staticPaths = ['', '/about', '/faq', '/gallery', '/locations', '/menu', '/notice', '/offers'];
   staticPaths.forEach((path) => {
     locales.forEach((locale) => {
       xml += `<url><loc>${baseUrl}/${locale}${path}</loc><lastmod>${safeDate}</lastmod></url>`;
@@ -33,7 +35,20 @@ export async function GET() {
       });
     }
   } catch (error) {
-    console.error("Sitemap generation error:", error);
+    console.error("Sitemap Product error:", error);
+  }
+
+  // 3. Dynamic Offers (Added this section)
+  try {
+    // Fetch recent/active offers
+    const offers = await offerApi.getByStatus('recent'); 
+    offers.forEach((offer: Offer) => {
+      locales.forEach((locale) => {
+        xml += `<url><loc>${baseUrl}/${locale}/offers/${offer.id}</loc><lastmod>${safeDate}</lastmod></url>`;
+      });
+    });
+  } catch (error) {
+    console.error("Sitemap Offer error:", error);
   }
 
   xml += '</urlset>';
@@ -41,7 +56,6 @@ export async function GET() {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      // This tells Google "Yes, you are allowed to read this"
       'X-Robots-Tag': 'noindex, follow', 
       'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate',
     },

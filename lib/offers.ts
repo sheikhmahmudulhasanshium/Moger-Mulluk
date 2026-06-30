@@ -1,595 +1,499 @@
-import { Offer } from "@/app/components/types";
-
-export const offers: Offer[] = [
-  {
-    "id": "OFF_7COLOR_008",
-    "type": "legendary",
-    "productIds": ["tea--07--7-color-tea"],
-    "title": { "en": "Legend of 7 Layers", "bn": "সাত স্তরের কিংবদন্তি", "hi": "7 परतों का जादू", "es": "Leyenda de 7 Capas" },
-    "description": { "en": "The Sylhet masterpiece.", "bn": "সিলেটের বিখ্যাত চা।", "hi": "सिलहट की प्रसिद्ध चाय।", "es": "Obra maestra de Sylhet." },
-    "discount": { "en": "Special ৳80", "bn": "মাত্র ৮০ টাকা", "hi": "विशेष ৳80", "es": "Especial ৳80" },
-    "conditions": { "en": "Takes 10 mins to prep", "bn": "তৈরি হতে ১০ মিনিট লাগে", "hi": "तैयार होने में 10 मिनट", "es": "10 min de prep" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009719/moger_mulluk/product-uGTHyd.png" },
-    "style": { "background": "linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%)", "textColor": "#FFFFFF", "accentColor": "#FFD700", "tagBackground": "#FFD700" },
-    "validFrom": "2025-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 1, "hide": false
-  },
-  {
-    "id": "OFF_EXPIRED_CHOC_020",
-    "type": "limited-time",
-    "productIds": ["beverage--23--chocolate-milkshake"],
-    "title": { "en": "Choc-Blast 2.0", "bn": "চকলেট ব্লাস্ট ২.০", "hi": "चॉक-ब्लास्ट 2.0", "es": "Choco-Blast 2.0" },
-    "description": { "en": "Renewed for 2026.", "bn": "২০২৬ এর জন্য নতুন অফার।", "hi": "2026 के लिए नवीनीकृत।", "es": "Renovado para 2026." },
-    "discount": { "en": "৳30 OFF", "bn": "৳৩০ ছাড়", "hi": "৳30 छूट", "es": "৳30 Dto" },
-    "conditions": { "en": "Limited stock", "bn": "সীমিত স্টক", "hi": "সীমিত স্টক", "es": "Stock limitado" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019249/moger_mulluk/product-K64L3A.png" },
-    "style": { "background": "linear-gradient(135deg, #3E2723 0%, #5D4037 100%)", "textColor": "#FFFFFF", "accentColor": "#00E5FF", "tagBackground": "#00B8D4" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 3, "hide": false
-  },
-  {
-    "id": "OFF_MORNING_010",
-    "type": "one-time",
-    "productIds": ["tea--01--plain-tea"],
-    "title": { "en": "Early Bird Refresh", "bn": "সকালের সতেজতা", "hi": "अर्ली बर्ड रिफ्रेश", "es": "Refresco Tempranero" },
-    "description": { "en": "Sunrise tea special.", "bn": "সকালের বিশেষ চা।", "hi": "सूर्योदय चाय विशेष।", "es": "Té especial amanecer." },
-    "discount": { "en": "৳10 OFF", "bn": "৳১০ ছাড়", "hi": "৳10 छूट", "es": "৳10 Dto" },
-    "conditions": { "en": "Before 10 AM", "bn": "সকাল ১০টার আগে", "hi": "सुबह 10 बजे से पहले", "es": "Antes de 10 AM" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #E65100 0%, #FB8C00 100%)", "textColor": "#FFFFFF", "accentColor": "#2979FF", "tagBackground": "#0D47A1" },
-    "validFrom": "2026-01-01T07:00:00Z", "validUntil": "2026-12-31T10:00:00Z",
-    "position": 4, "hide": false
-  },
-  {
-    "id": "OFF_HIDDEN_GOLD_021",
-    "type": "royal",
-    "productIds": ["beverage--26--almond-shake"],
-    "title": { "en": "Secret Royal Shake", "bn": "গোপন রাজকীয় শেক", "hi": "सीक्रेट रॉयल शेक", "es": "Batido Real Secreto" },
-    "description": { "en": "Internal access.", "bn": "অভ্যন্তরীণ প্রবেশাধিকার।", "hi": "आंतरिक पहुंच।", "es": "Acceso interno." },
-    "discount": { "en": "HIDDEN", "bn": "লুকানো", "hi": "छिपा हुआ", "es": "OCULTO" },
-    "conditions": { "en": "Internal only", "bn": "অভ্যন্তরীণ ব্যবহারের জন্য", "hi": "केवल आंतरिक", "es": "Solo interno" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019307/moger_mulluk/product-csb6nq.png" },
-    "style": { "background": "linear-gradient(135deg, #212121 0%, #000000 100%)", "textColor": "#FFD700", "accentColor": "#FFFFFF", "tagBackground": "#424242" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 1, "hide": true
-  },
-  {
-    "id": "OFF_KETO_003",
-    "type": "fitness",
-    "productIds": ["coffee--10--bulletproof-keto-coffee"],
-    "title": { "en": "Keto Fuel ⚡", "bn": "কিটো এনার্জি ⚡", "hi": "कीटो फ्यूल ⚡", "es": "Energía Keto ⚡" },
-    "description": { "en": "Brain power coffee.", "bn": "মস্তিষ্কের শক্তি বৃদ্ধিকারী কফি।", "hi": "ब्रेन पावर कॉफी।", "es": "Café para el cerebro." },
-    "discount": { "en": "20% OFF", "bn": "২০% ছাড়", "hi": "20% छूट", "es": "20% Dto" },
-    "conditions": { "en": "Keto-friendly", "bn": "কিটো ডায়েট উপযোগী", "hi": "कीटो फ्रेंडली", "es": "Keto-friendly" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971192/moger_mulluk/product-SDlCZl.png" },
-    "style": { "background": "linear-gradient(135deg, #1B5E20 0%, #388E3C 100%)", "textColor": "#FFFFFF", "accentColor": "#FF4081", "tagBackground": "#880E4F" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 8, "hide": false
-  },
-  {
-    "id": "OFF_UPCOMING_WINTER_022",
-    "type": "seasonal",
-    "productIds": ["tea--08--spice-tea"],
-    "title": { "en": "Winter Spice 2026", "bn": "শীতের মশলা চা ২০২৬", "hi": "विंटर स्पाइस 2026", "es": "Invierno 2026" },
-    "description": { "en": "Warmth in every sip.", "bn": "প্রতি চুমুকে উষ্ণতা।", "hi": "हर घूंट में गर्माहट।", "es": "Calidez en cada sorbo." },
-    "discount": { "en": "Upcoming", "bn": "শীঘ্রই আসছে", "hi": "आगामी", "es": "Próximamente" },
-    "conditions": { "en": "Starts Dec 1st", "bn": "১লা ডিসেম্বর থেকে", "hi": "1 दिसंबर से शुरू", "es": "Desde 1 dic" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009761/moger_mulluk/product-qiFFyd.png" },
-    "style": { "background": "linear-gradient(135deg, #0D47A1 0%, #1565C0 100%)", "textColor": "#FFFFFF", "accentColor": "#FF6F00", "tagBackground": "#E65100" },
-    "validFrom": "2026-12-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 19, "hide": false
-  },
-  {
-    "id": "OFF_ADDA_001",
-    "type": "bundle",
-    "productIds": ["tea--02--milk-tea", "snacks--33--premium-handmade-cookies"],
-    "title": { "en": "Adda Combo", "bn": "আড্ডা কম্বো", "hi": "অড্ডা কমপ্লেক্স", "es": "Combo Adda" },
-    "description": { "en": "Tea + Cookies.", "bn": "চা এবং কুকিজ।", "hi": "चाय और कुकीज़।", "es": "Té + Galletas." },
-    "discount": { "en": "Save ৳15", "bn": "৳১৫ সাশ্রয়", "hi": "৳15 बचाएं", "es": "Ahorra ৳15" },
-    "conditions": { "en": "Dine-in", "bn": "বসে খাওয়ার জন্য", "hi": "ডাইন-ইন", "es": "En local" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009469/moger_mulluk/product-FsbX4w.png" },
-    "style": { "background": "linear-gradient(135deg, #4E342E 0%, #6D4C41 100%)", "textColor": "#FFFFFF", "accentColor": "#00E5FF", "tagBackground": "#263238" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 5, "hide": false
-  },
-  {
-    "id": "OFF_MALAI_009",
-    "type": "royal",
-    "productIds": ["tea--09--malai-tea"],
-    "title": { "en": "Royal Malai", "bn": "রাজকীয় মালাই", "hi": "रॉयल मलाई", "es": "Malai Real" },
-    "description": { "en": "Thick Creamy Tea.", "bn": "ঘন মালাই চা।", "hi": "गाढ़ी मलाई चाय।", "es": "Té cremoso." },
-    "discount": { "en": "10% OFF", "bn": "১০% ছাড়", "hi": "10% छूट", "es": "10% Dto" },
-    "conditions": { "en": "Dairy special", "bn": "খাঁটি দুধের বিশেষত্ব", "hi": "डेयरी विशेष", "es": "Especial lácteo" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009803/moger_mulluk/product-3vTyFD.png" },
-    "style": { "background": "linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%)", "textColor": "#4A148C", "accentColor": "#6A1B9A", "tagBackground": "#F9A825" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 2, "hide": false
-  },
-  {
-    "id": "OFF_HIDDEN_TEA_023",
-    "type": "one-time",
-    "productIds": ["tea--01--plain-tea"],
-    "title": { "en": "Admin Only Tea", "bn": "অ্যাডমিন স্পেশাল", "hi": "एडमिन स्पेशल", "es": "Solo Admin" },
-    "description": { "en": "Internal testing.", "bn": "অভ্যন্তরীণ টেস্ট।", "hi": "आंतरिक परीक्षण।", "es": "Prueba interna." },
-    "discount": { "en": "FREE", "bn": "ফ্রি", "hi": "मुफ्त", "es": "GRATIS" },
-    "conditions": { "en": "Not for public", "bn": "সাধারণের জন্য নয়", "hi": "जनता के लिए नहीं", "es": "No público" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #263238 0%, #111 100%)", "textColor": "#EEFF41", "accentColor": "#FFFFFF", "tagBackground": "#000000" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 30, "hide": true
-  },
-  {
-    "id": "OFF_STUDENT_005",
-    "type": "lifestyle",
-    "productIds": ["beverage--24--oreo-shake"],
-    "title": { "en": "Student Pack 🎓", "bn": "স্টুডেন্ট প্যাক 🎓", "hi": "स्टूडेंट पैक 🎓", "es": "Pack Estudiantes 🎓" },
-    "description": { "en": "Save with Student ID.", "bn": "আইডি কার্ডে সাশ্রয়।", "hi": "स्टूडेंट ID के साथ बचत।", "es": "Ahorra con ID." },
-    "discount": { "en": "15% OFF", "bn": "১৫% ছাড়", "hi": "15% छूट", "es": "15% Dto" },
-    "conditions": { "en": "ID Required", "bn": "আইডি কার্ড বাধ্যতামূলক", "hi": "ID अनिवार्य", "es": "ID obligatorio" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019270/moger_mulluk/product-Q55wAF.png" },
-    "style": { "background": "linear-gradient(135deg, #1976D2 0%, #2196F3 100%)", "textColor": "#FFFFFF", "accentColor": "#FF6D00", "tagBackground": "#0D47A1" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 7, "hide": false
-  },
-  {
-    "id": "OFF_RAINY_016",
-    "type": "seasonal",
-    "productIds": ["tea--06--ginger-tea", "tea--01--plain-tea"],
-    "title": { "en": "Monsoon Warmth 🌧️", "bn": "বর্ষার আমেজ 🌧️", "hi": "मानसून की गर्माहट 🌧️", "es": "Calidez del Monzón 🌧️" },
-    "description": { "en": "Ginger Tea combo for rainy days.", "bn": "বৃষ্টির দিনে আদা চায়ের সতেজতা।", "hi": "बारिश के दिनों के लिए अदरक वाली चाय का कॉम्बो।", "es": "Combo de té de jengibre para días lluviosos." },
-    "discount": { "en": "Flat ৳20 OFF", "bn": "৳২০ ফ্ল্যাট ছাড়", "hi": "৳20 की छूट", "es": "৳20 Dto" },
-    "conditions": { "en": "Valid on rainy days only", "bn": "বৃষ্টির দিনগুলোতে প্রযোজ্য", "hi": "केवल बारिश के दिनों में मान्य", "es": "Válido solo días de lluvia" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009675/moger_mulluk/product-FTHboo.png" },
-    "style": { "background": "linear-gradient(135deg, #455A64 0%, #607D8B 100%)", "textColor": "#E0F7FA", "accentColor": "#FFD600", "tagBackground": "#263238" },
-    "validFrom": "2026-06-01T00:00:00Z", "validUntil": "2026-08-31T23:59:59Z",
-    "position": 11, "hide": false
-  },
-  {
-    "id": "OFF_ECO_018",
-    "type": "lifestyle",
-    "productIds": ["beverage--29--pure-mineral-water", "beverage--31--alkaline-water-ph-9"],
-    "title": { "en": "Refill & Save 🌍", "bn": "পরিবেশ বাঁচান ও সাশ্রয় করুন 🌍", "hi": "রिफिल और बचत 🌍", "es": "Recarga y Ahorra 🌍" },
-    "description": { "en": "Bring your own bottle for water.", "bn": "নিজের বোতল নিয়ে এসে জল ভরুন।", "hi": "पानी के लिए अपनी खुद की बोतल लाएं।", "es": "Trae tu propia botella para agua." },
-    "discount": { "en": "Refill for ৳5", "bn": "মাত্র ৫ টাকায় রিফিল", "hi": "৳5 में रिफिल", "es": "Recarga por ৳5" },
-    "conditions": { "en": "Applicable for clean bottles", "bn": "পরিষ্কার বোতলের জন্য প্রযোজ্য", "hi": "साफ बोतलों के लिए लागू", "es": "Aplica botellas limpias" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1773350157/moger_mulluk/product-sq1XuC.png" },
-    "style": { "background": "linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%)", "textColor": "#FFFFFF", "accentColor": "#FF5252", "tagBackground": "#1B5E20" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 25, "hide": false
-  },
-  {
-    "id": "OFF_REFER_019",
-    "type": "referral",
-    "productIds": ["tea--02--milk-tea"],
-    "title": { "en": "Invite a Friend 🤝", "bn": "বন্ধুকে আমন্ত্রণ জানান 🤝", "hi": "एक दोस्त को आमंत्रित करें 🤝", "es": "Invita a un Amigo 🤝" },
-    "description": { "en": "Invite a friend, both get free tea.", "bn": "বন্ধুকে নিয়ে আসলে দুজনেই চা ফ্রি।", "hi": "दोस्त को लाएं, दोनों को मुफ्त चाय मिलेगी।", "es": "Invita a un amigo, té gratis para ambos." },
-    "discount": { "en": "Buy 1 Get 1 Free", "bn": "১টি কিনলে ১টি ফ্রি", "hi": "1 खरीदें 1 मुफ्त पाएं", "es": "Compra 1 y 1 Gratis" },
-    "conditions": { "en": "First time users only", "bn": "শুধুমাত্র নতুন ইউজারদের জন্য", "hi": "केवल नए उपयोगकर्ताओं के लिए", "es": "Solo usuarios nuevos" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009469/moger_mulluk/product-FsbX4w.png" },
-    "style": { "background": "linear-gradient(135deg, #C2185B 0%, #EC407A 100%)", "textColor": "#FFFFFF", "accentColor": "#B2FF59", "tagBackground": "#880E4F" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 12, "hide": false
-  },
-  {
-    "id": "OFF_BOGO_020",
-    "type": "limited-time",
-    "productIds": ["coffee--12--cappuccino"],
-    "title": { "en": "Cappuccino BOGO", "bn": "ক্যাপুচিনো ১+১", "hi": "कैपुचिनो BOGO", "es": "Capuchino 1+1" },
-    "description": { "en": "Twice the foam, half the price.", "bn": "ডাবল ফোম, অর্ধেক দাম।", "hi": "दोगुना झाग, आधी कीमत।", "es": "Doble espuma, mitad de precio." },
-    "discount": { "en": "BOGO FREE", "bn": "১টি কিনলে ১টি ফ্রি", "hi": "1 पर 1 मुफ्त", "es": "BOGO GRATIS" },
-    "conditions": { "en": "App users only", "bn": "শুধুমাত্র অ্যাপ ইউজারদের জন্য", "hi": "केवल ऐप उपयोगकर्ता", "es": "Solo usuarios de la App" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970923/moger_mulluk/product-JdsI8c.png" },
-    "style": { "background": "linear-gradient(135deg, #424242 0%, #212121 100%)", "textColor": "#FFFFFF", "accentColor": "#FFEB3B", "tagBackground": "#eeffee" },
-    "validFrom": "2026-06-01T00:00:00Z", "validUntil": "2026-07-07T23:59:59Z",
-    "position": 5, "hide": false
-  },
-  {
-    "id": "OFF_MIDNIGHT_021",
-    "type": "lifestyle",
-    "productIds": ["coffee--18--caramel-macchiato", "coffee--17--dark-roast"],
-    "title": { "en": "Gamer's Fuel 🎮", "bn": "গেমার স্পেশাল 🎮", "hi": "गेमर्स फ्यूल 🎮", "es": "Combustible Gamer 🎮" },
-    "description": { "en": "Midnight sweet caffeine boost.", "bn": "মধ্যরাতের কড়া কফি ও মিষ্টি স্বাদ।", "hi": "आधी रात का कैफीन बूस्ट।", "es": "Impulso de cafeína nocturno." },
-    "discount": { "en": "Flat ৳50 OFF", "bn": "৳৫০ ফ্ল্যাট ছাড়", "hi": "৳50 की छूट", "es": "৳50 Dto" },
-    "conditions": { "en": "Valid 12 AM - 4 AM", "bn": "রাত ১২টা থেকে ৪টা পর্যন্ত", "hi": "রাত 12 থেকে সকাল 4 बजे तक", "es": "Válido 12 AM - 4 AM" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971103/moger_mulluk/product-wbCuGp.png" },
-    "style": { "background": "linear-gradient(135deg, #311B92 0%, #512DA8 100%)", "textColor": "#FFFFFF", "accentColor": "#C6FF00", "tagBackground": "#1A237E" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 18, "hide": false
-  },
-  {
-    "id": "OFF_ANNIVERSARY_022",
-    "type": "one-time",
-    "productIds": ["tea--07--7-color-tea", "beverage--23--chocolate-milkshake"],
-    "title": { "en": "Kingdom Jubilee ✨", "bn": "কিংডম জুবিলি ✨", "hi": "किंगडम जुबली ✨", "es": "Jubileo del Reino ✨" },
-    "description": { "en": "Celebrating another year of Moger Mulluk.", "bn": "মগের মুল্লুকের বর্ষপূর্তি উৎসব।", "hi": "मगेर मुल्लुक का जश्न।", "es": "Celebrando un año más." },
-    "discount": { "en": "ALL COMBO ৳200", "bn": "সব কম্বো মাত্র ২০০ টাকা", "hi": "सभी कॉम्बो ৳200", "es": "Todos Combos ৳200" },
-    "conditions": { "en": "One day only", "bn": "শুধুমাত্র একদিনের জন্য", "hi": "केवल एक दिन", "es": "Solo un día" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009719/moger_mulluk/product-uGTHyd.png" },
-    "style": { "background": "linear-gradient(135deg, #880E4F 0%, #B71C1C 100%)", "textColor": "#FFD700", "accentColor": "#00E5FF", "tagBackground": "#212121" },
-    "validFrom": "2027-05-20T00:00:00Z", "validUntil": "2027-05-20T23:59:59Z",
-    "position": 2, "hide": false
-  },
-  {
-    "id": "OFF_SUMMER_SURGE_023",
-    "type": "seasonal",
-    "productIds": ["beverage--22--pineapple-juice"],
-    "title": { "en": "Summer Surge 🍍", "bn": "গ্রীষ্মকালীন অফার 🍍", "hi": "समर सर्ज 🍍", "es": "Oleada de Verano 🍍" },
-    "description": { "en": "Beat the 2026 heat.", "bn": "২০২৬ এর গরমে প্রশান্তি।", "hi": "2026 की गर्मी को मात दें।", "es": "Vence el calor de 2026." },
-    "discount": { "en": "25% OFF", "bn": "২৫% ছাড়", "hi": "25% छूट", "es": "25% Dto" },
-    "conditions": { "en": "Available now", "bn": "এখনই পাওয়া যাচ্ছে", "hi": "अभी उपलब्ध है", "es": "Disponible ahora" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019226/moger_mulluk/product-NkvmTw.png" },
-    "style": { "background": "linear-gradient(135deg, #FBC02D 0%, #FFA000 100%)", "textColor": "#263238", "accentColor": "#6200EA", "tagBackground": "#BF360C" },
-    "validFrom": "2026-06-01T00:00:00Z", "validUntil": "2026-08-31T23:59:59Z",
-    "position": 4, "hide": false
-  },
-  {
-    "id": "OFF_HARVEST_MGO",
-    "type": "one-time",
-    "productIds": ["beverage--21--mango-juice"],
-    "title": { "en": "Fresh Harvest 🥭", "bn": "তাজা ফলের অফার 🥭", "hi": "ताजा हार्वेस्ट 🥭", "es": "Cosecha Fresca 🥭" },
-    "description": { "en": "Limited mango season.", "bn": "সীমিত সময়ের আমের অফার।", "hi": "सीमित मैंगो सीजन।", "es": "Temporada de mango." },
-    "discount": { "en": "FLAT ৳40", "bn": "৳৪০ ফ্ল্যাট", "hi": "FLAT ৳40", "es": "FLAT ৳40" },
-    "conditions": { "en": "While stock lasts", "bn": "স্টক থাকা পর্যন্ত", "hi": "स्टॉक रहने तक", "es": "Hasta agotar stock" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019200/moger_mulluk/product-1aYYkt.png" },
-    "style": { "background": "linear-gradient(135deg, #263238 0%, #455A64 100%)", "textColor": "#FFAB00", "accentColor": "#00E676", "tagBackground": "#1B5E20" },
-    "validFrom": "2026-06-01T00:00:00Z", "validUntil": "2026-07-31T23:59:59Z",
-    "position": 35, "hide": false
-  },
-  {
-    "id": "OFF_HIDDEN_025",
-    "type": "bundle",
-    "productIds": ["beverage--30--sparkling-water"],
-    "title": { "en": "Ghost Offer 👻", "bn": "অদৃশ্য অফার 👻", "hi": "घोस्ट ऑफर 👻", "es": "Oferta Fantasma 👻" },
-    "description": { "en": "Used for testing gradients.", "bn": "গ্রেডিয়েন্ট পরীক্ষার জন্য।", "hi": "ग्रेडिएंट टेस्टिंग के लिए।", "es": "Para probar gradientes." },
-    "discount": { "en": "HIDDEN", "bn": "লুকানো", "hi": "छिपा हुआ", "es": "OCULTO" },
-    "conditions": { "en": "Internal use", "bn": "অভ্যন্তরীণ ব্যবহারের জন্য", "hi": "आंतरिक उपयोग", "es": "Uso interno" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1773955104/moger_mulluk/product-D3Wiyp.png" },
-    "style": { "background": "linear-gradient(135deg, #0288D1 0%, #01579B 100%)", "textColor": "#FFFFFF", "accentColor": "#FF5252", "tagBackground": "#212121" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 50, "hide": true
-  },
-  {
-    "id": "OFF_JUST_026",
-    "type": "just-for-you",
-    "productIds": ["coffee--12--cappuccino", "snacks--32--edible-cookie-mug"],
-    "title": { "en": "Welcome to the Kingdom 👑", "bn": "রাজ্যে স্বাগতম 👑", "hi": "साम्राज्य में आपका स्वागत है 👑", "es": "Bienvenido al Reino 👑" },
-    "description": { "en": "A special treat for your first visit.", "bn": "আপনার প্রথম ভিজিটের জন্য বিশেষ উপহার।", "hi": "आपकी पहली यात्रा के लिए एक विशेष उपहार।", "es": "Un regalo especial para tu primera visita." },
-    "discount": { "en": "Flat 50% OFF", "bn": "৫০% ফ্ল্যাট ছাড়", "hi": "फ्लैट 50% छूट", "es": "50% de Descuento" },
-    "promoCode": "WELCOME50",
-    "conditions": { "en": "First order only", "bn": "শুধুমাত্র প্রথম অর্ডারের জন্য", "hi": "केवल पहला ऑर्डर", "es": "Solo primer pedido" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970923/moger_mulluk/product-JdsI8c.png" },
-    "style": { "background": "linear-gradient(135deg, #0D47A1 0%, #D32F2F 100%)", "textColor": "#FFFFFF", "accentColor": "#FFD700", "tagBackground": "#263238" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 1, "hide": false
-  },
-  {
-    "id": "OFF_JUST_027",
-    "type": "just-for-you",
-    "productIds": ["tea--09--malai-tea"],
-    "title": { "en": "Loyal Monarch Reward 🎖️", "bn": "লয়ালটি রিওয়ার্ড 🎖️", "hi": "वफादारी इनाम 🎖️", "es": "Recompensa de Lealtad 🎖️" },
-    "description": { "en": "You've earned this! Enjoy your favorite Malai Tea.", "bn": "আপনার প্রিয় মালাই চা এখন আরও সাশ্রয়ে।", "hi": "अपनी पसंदीदा मलाई चाय का आनंद लें।", "es": "¡Te lo has ganado! Disfruta tu Té Malai." },
-    "discount": { "en": "FREE Upgrade", "bn": "ফ্রি আপগ্রেড", "hi": "मुफ्त अपग्रेड", "es": "Mejora GRATIS" },
-    "promoCode": "LOYALTY10",
-    "conditions": { "en": "For 10+ previous orders", "bn": "১০টির বেশি অর্ডারের জন্য", "hi": "10+ पिछले ऑर्डर के लिए", "es": "Para más de 10 pedidos" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009803/moger_mulluk/product-3vTyFD.png" },
-    "style": { "background": "linear-gradient(135deg, #212121 0%, #000000 100%)", "textColor": "#FFF59D", "accentColor": "#FFA000", "tagBackground": "#424242" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 2, "hide": false
-  },
-  {
-    "id": "OFF_JUST_028",
-    "type": "just-for-you",
-    "productIds": ["desert--27--vanilla-ice-cream"],
-    "title": { "en": "Birthday Celebration 🎂", "bn": "জন্মদিন মোবারক 🎂", "hi": "जन्मदिन मुबारक 🎂", "es": "Feliz Cumpleaños 🎂" },
-    "description": { "en": "A sweet gift from us on your big day.", "bn": "আপনার জন্মদিনে আমাদের পক্ষ থেকে মিষ্টি উপহার।", "hi": "आपके बड़े दिन पर हमारी ओर से एक प्यारा उपहार।", "es": "Un dulce regalo de nuestra parte." },
-    "discount": { "en": "FREE Scoop", "bn": "ফ্রি আইসক্রিম", "hi": "मुफ्त स्कूप", "es": "Scoop GRATIS" },
-    "promoCode": "BDAYTREAT",
-    "conditions": { "en": "Valid on your birthday month", "bn": "জন্মদিনের মাসে প্রযোজ্য", "hi": "आपके जन्मदिन के महीने में मान्य", "es": "Válido mes de cumpleaños" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772048531/moger_mulluk/product-tI2WWm.png" },
-    "style": { "background": "linear-gradient(135deg, #F06292 0%, #EC407A 100%)", "textColor": "#FFFFFF", "accentColor": "#1DE9B6", "tagBackground": "#880E4F" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 3, "hide": false
-  },
-  {
-    "id": "OFF_JUST_029",
-    "type": "just-for-you",
-    "productIds": ["coffee--18--caramel-macchiato"],
-    "title": { "en": "App Exclusive Surprise 📱", "bn": "অ্যাপ এক্সক্লুসিভ অফার 📱", "hi": "ऐप विशेष सरप्राइज 📱", "es": "Sorpresa Exclusiva App 📱" },
-    "description": { "en": "Because you use our app, you get this!", "bn": "আমাদের অ্যাপ ব্যবহার করার জন্য বিশেষ ছাড়।", "hi": "चूंकि आप हमारे ऐप का उपयोग करते हैं!", "es": "¡Por usar nuestra app!" },
-    "discount": { "en": "৳60 Flat OFF", "bn": "৳৬০ ফ্ল্যাট ছাড়", "hi": "৳60 की छूट", "es": "৳60 Dto" },
-    "promoCode": "MYAPP60",
-    "conditions": { "en": "App orders only", "bn": "শুধুমাত্র অ্যাপ থেকে অর্ডারের জন্য", "hi": "केवल ऐप ऑर्डर", "es": "Solo pedidos App" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971103/moger_mulluk/product-wbCuGp.png" },
-    "style": { "background": "linear-gradient(135deg, #00B0FF 0%, #0091EA 100%)", "textColor": "#FFFFFF", "accentColor": "#FF3D00", "tagBackground": "#263238" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 4, "hide": false
-  },
-  {
-    "id": "OFF_JUST_030",
-    "type": "just-for-you",
-    "productIds": ["coffee--10--bulletproof-keto-coffee", "beverage--25--protein-shake"],
-    "title": { "en": "Secret Fitness Deal 🤫", "bn": "গোপন ফিটনেস অফার 🤫", "hi": "सीक्रेट फिटनेस डील 🤫", "es": "Oferta Fitness Secreta 🤫" },
-    "description": { "en": "Unlock your potential with this secret combo.", "bn": "আপনার ফিটনেস যাত্রার জন্য সেরা কম্বো।", "hi": "इस गुप्त कॉम्बो के साथ अपनी क्षमता को अनलॉक करें।", "es": "Desbloquea tu potencial." },
-    "discount": { "en": "Save ৳100", "bn": "৳১০০ সাশ্রয়", "hi": "৳100 बचाएं", "es": "Ahorra ৳100" },
-    "promoCode": "SECRETFIT",
-    "conditions": { "en": "Single use code", "bn": "কোডটি একবার ব্যবহারযোগ্য", "hi": "एक बार उपयोग कोड", "es": "Código de un solo uso" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971192/moger_mulluk/product-SDlCZl.png" },
-    "style": { "background": "linear-gradient(135deg, #004D40 0%, #00C853 100%)", "textColor": "#FFFFFF", "accentColor": "#FF4081", "tagBackground": "#000000" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 5, "hide": false
-  },
-  {
-    "id": "OFF_FLASH_017",
-    "type": "limited-time",
-    "productIds": ["coffee--11--espresso"],
-    "title": { "en": "Flash Espresso Shot ⚡", "bn": "ফ্ল্যাশ এসপ্রেসো শট ⚡", "hi": "फ्लैश एस्प्रेसो शॉट ⚡", "es": "Flash de Espresso ⚡" },
-    "description": { "en": "Quick energy.", "bn": "দ্রুত এনার্জি শট।", "hi": "क्विक एनर्जी।", "es": "Energía rápida." },
-    "discount": { "en": "50% OFF", "bn": "৫০% ছাড়", "hi": "50% छूट", "es": "50% Dto" },
-    "promoCode": "FLASH50",
-    "conditions": { "en": "Valid for 2 hours", "bn": "মাত্র ২ ঘণ্টার জন্য", "hi": "2 घंटे के लिए मान्य", "es": "Válido por 2 horas" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970620/moger_mulluk/product-ZPYrQt.png" },
-    "style": { "background": "linear-gradient(135deg, #FF6F00 0%, #E65100 100%)", "textColor": "#FFFFFF", "accentColor": "#2979FF", "tagBackground": "#3E2723" },
-    "validFrom": "2026-06-25T14:00:00Z", "validUntil": "2026-06-25T23:59:59Z",
-    "position": 1, "hide": false
-  },
-  {
-    "id": "OFF_OFFICE_031",
-    "type": "bundle",
-    "productIds": ["tea--01--plain-tea", "snacks--33--premium-handmade-cookies"],
-    "title": { "en": "Corporate Break 💼", "bn": "অফিস ব্রেক 💼", "hi": "कॉर्पोरेट ब्रेक 💼", "es": "Descanso Oficina 💼" },
-    "description": { "en": "Boost your productivity.", "bn": "কাজের গতি বাড়ান।", "hi": "अपनी उत्पादकता बढ़ाएं।", "es": "Aumenta productividad." },
-    "discount": { "en": "Flat ৳25 OFF", "bn": "৳২৫ ফ্ল্যাট ছাড়", "hi": "৳25 की छूट", "es": "৳25 Dto" },
-    "conditions": { "en": "Min 2 orders", "bn": "কমপক্ষে ২ টি অর্ডার", "hi": "न्यूनतम 2 ऑर्डर", "es": "Mínimo 2 pedidos" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #455A64 0%, #263238 100%)", "textColor": "#ECEFF1", "accentColor": "#FFA000", "tagBackground": "#1A252F" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 10, "hide": false
-  },
-  {
-    "id": "OFF_YOGA_032",
-    "type": "fitness",
-    "productIds": ["tea--06--ginger-tea"],
-    "title": { "en": "Zen Herbal Mix 🧘", "bn": "হারবাল জেন মিক্স 🧘", "hi": "ज़ेन हर्बल मिक्स 🧘", "es": "Zen Herbal 🧘" },
-    "description": { "en": "Post-yoga relaxation.", "bn": "যোগব্যায়াম পরবর্তী প্রশান্তি।", "hi": "योग के बाद विश्राम।", "es": "Relajación post-yoga." },
-    "discount": { "en": "30% OFF", "bn": "৩০% ছাড়", "hi": "30% छूट", "es": "30% Dto" },
-    "conditions": { "en": "Health club members", "bn": "হেলথ ক্লাব মেম্বারদের জন্য", "hi": "हेल्थ क्लब सदस्य", "es": "Miembros club salud" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009675/moger_mulluk/product-FTHboo.png" },
-    "style": { "background": "linear-gradient(135deg, #8BC34A 0%, #4CAF50 100%)", "textColor": "#FFFFFF", "accentColor": "#7E57C2", "tagBackground": "#1B5E20" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 15, "hide": false
-  },
-  {
-    "id": "OFF_GIFT_033",
-    "type": "one-time",
-    "productIds": ["coffee--17--dark-roast"],
-    "title": { "en": "Gift Card Bonus 🎁", "bn": "গিফট কার্ড বোনাস 🎁", "hi": "गिफ्ट कार्ड बोनस 🎁", "es": "Bono Tarjeta Regalo 🎁" },
-    "description": { "en": "Extra credit on ৳1000 load.", "bn": "৳১০০০ লোডে অতিরিক্ত ব্যালেন্স।", "hi": "৳1000 लोड पर अतिरिक्त क्रेडिट।", "es": "Crédito extra en carga ৳1000." },
-    "discount": { "en": "৳150 Bonus", "bn": "৳১৫০ বোনাস", "hi": "৳150 बोनस", "es": "Bono ৳150" },
-    "conditions": { "en": "One per user", "bn": "ইউজার প্রতি একটি", "hi": "प्रति उपयोगकर्ता एक", "es": "Uno por usuario" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971103/moger_mulluk/product-wbCuGp.png" },
-    "style": { "background": "linear-gradient(135deg, #6A1B9A 0%, #4A148C 100%)", "textColor": "#FFFFFF", "accentColor": "#CCFF00", "tagBackground": "#311B92" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 20, "hide": false
-  },
-  {
-    "id": "OFF_STUDY_034",
-    "type": "lifestyle",
-    "productIds": ["coffee--11--espresso", "snacks--33--premium-handmade-cookies"],
-    "title": { "en": "Library Fuel 📚", "bn": "লাইব্রেরি ফুয়েল 📚", "hi": "लाइब्रेरी फ्यूल 📚", "es": "Combustible de Estudio 📚" },
-    "description": { "en": "Stay awake for exams.", "bn": "পরীক্ষার প্রস্তুতির সঙ্গী।", "hi": "परीक्षा के लिए जागते रहें।", "es": "Despierto para exámenes." },
-    "discount": { "en": "Flat ৳45 OFF", "bn": "৳৪৫ ফ্ল্যাট ছাড়", "hi": "৳45 की छूट", "es": "৳45 Dto" },
-    "conditions": { "en": "Valid 8 PM - 12 AM", "bn": "রাত ৮টা থেকে ১২টা", "hi": "রাত 8 - 12 बजे", "es": "8 PM - 12 AM" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970620/moger_mulluk/product-ZPYrQt.png" },
-    "style": { "background": "linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)", "textColor": "#FFFFFF", "accentColor": "#FFAB00", "tagBackground": "#002171" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 21, "hide": false
-  },
-  {
-    "id": "OFF_SENIOR_035",
-    "type": "lifestyle",
-    "productIds": ["tea--01--plain-tea"],
-    "title": { "en": "Golden Years ☕", "bn": "গোল্ডেন ইয়ার্স ☕", "hi": "गोल्डन इयर्स ☕", "es": "Años Dorados ☕" },
-    "description": { "en": "Special respect for elders.", "bn": "গুরুজনদের জন্য বিশেষ সম্মান।", "hi": "बड़ों के लिए विशेष सम्मान।", "es": "Respeto especial mayores." },
-    "discount": { "en": "Flat ৳15 OFF", "bn": "৳১৫ ফ্ল্যাট ছাড়", "hi": "৳15 की छूट", "es": "৳15 Dto" },
-    "conditions": { "en": "Age 60+", "bn": "বয়স ৬০+", "hi": "उम्र 60+", "es": "Edad 60+" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #DCEDC8 0%, #C5E1A5 100%)", "textColor": "#33691E", "accentColor": "#D32F2F", "tagBackground": "#558B2F" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 23, "hide": false
-  },
-  {
-    "id": "OFF_RAINY_VIBES_036",
-    "type": "seasonal",
-    "productIds": ["beverage--23--chocolate-milkshake"],
-    "title": { "en": "Hot Choco Rain ⛈️", "bn": "হট চকোলেট রেইন ⛈️", "hi": "हॉट चॉकलेटी बारिश ⛈️", "es": "Choco Caliente Lluvia ⛈️" },
-    "description": { "en": "Best enjoyed while raining.", "bn": "বৃষ্টির দিনে সেরা স্বাদ।", "hi": "बारिश के दौरान सबसे अच्छा।", "es": "Mejor con lluvia." },
-    "discount": { "en": "Free Cookies", "bn": "ফ্রি কুকিজ", "hi": "मुफ्त कुकीज़", "es": "Galletas Gratis" },
-    "conditions": { "en": "Dine-in during rain", "bn": "বৃষ্টির সময় বসে খেলে", "hi": "बारिश के दौरान डाइन-इन", "es": "En local con lluvia" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019249/moger_mulluk/product-K64L3A.png" },
-    "style": { "background": "linear-gradient(135deg, #3E2723 0%, #1B0A05 100%)", "textColor": "#FFFFFF", "accentColor": "#03A9F4", "tagBackground": "#2D140B" },
-    "validFrom": "2026-06-01T00:00:00Z", "validUntil": "2026-08-31T23:59:59Z",
-    "position": 24, "hide": false
-  },
-  {
-    "id": "OFF_CHEF_037",
-    "type": "legendary",
-    "productIds": ["tea--07--7-color-tea", "tea--09--malai-tea"],
-    "title": { "en": "Chef's Secret Mix 👨‍🍳", "bn": "শেফ স্পেশাল মিক্স 👨‍🍳", "hi": "शेफ का सीक्रेट मिक्स 👨‍🍳", "es": "Mix Secreto Chef 👨‍🍳" },
-    "description": { "en": "The hidden gem of our menu.", "bn": "আমাদের মেনুর লুকানো রত্ন।", "hi": "हमारे मेनू का छिपा हुआ रत्न।", "es": "Gema oculta del menú." },
-    "discount": { "en": "Flat ৳100 OFF", "bn": "৳১০০ ফ্ল্যাট ছাড়", "hi": "৳100 की छूट", "es": "৳100 Dto" },
-    "conditions": { "en": "Weekend only", "bn": "শুধুমাত্র উইকেন্ডে", "hi": "केवल वीकेंड", "es": "Solo finde" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009719/moger_mulluk/product-uGTHyd.png" },
-    "style": { "background": "linear-gradient(135deg, #1A237E 0%, #311B92 100%)", "textColor": "#FFFFFF", "accentColor": "#FFD600", "tagBackground": "#000000" },
-    "validFrom": "2026-06-25T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 26, "hide": false
-  },
-  {
-    "id": "OFF_FESTIVE_038",
-    "type": "limited-time",
-    "productIds": ["beverage--26--almond-shake"],
-    "title": { "en": "Royal Eid Special 🌙", "bn": "রয়াল ঈদ স্পেশাল 🌙", "hi": "रॉयल ईद स्पेशल 🌙", "es": "Especial Eid Real 🌙" },
-    "description": { "en": "Sweeten your celebrations.", "bn": "উৎসবের মিষ্টতা।", "hi": "अपने जश्न को मीठा बनाएं।", "es": "Endulza tu celebración." },
-    "discount": { "en": "Buy 2 Get 1", "bn": "২টি কিনলে ১টি ফ্রি", "hi": "2 खरीदें 1 मुफ्त", "es": "Compra 2 y 1 Gratis" },
-    "conditions": { "en": "During Eid week", "bn": "ঈদের সপ্তাহে প্রযোজ্য", "hi": "ईद सप्ताह के दौरान", "es": "Semana de Eid" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019307/moger_mulluk/product-csb6nq.png" },
-    "style": { "background": "linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%)", "textColor": "#FFFFFF", "accentColor": "#FFD700", "tagBackground": "#004D40" },
-    "validFrom": "2027-03-20T00:00:00Z", "validUntil": "2027-03-30T23:59:59Z",
-    "position": 27, "hide": false
-  },
-  {
-    "id": "OFF_SUNDAY_039",
-    "type": "bundle",
-    "productIds": ["coffee--12--cappuccino", "snacks--32--edible-cookie-mug"],
-    "title": { "en": "Sunday Siesta 🛋️", "bn": "সানডে সিয়েস্তা 🛋️", "hi": "संडे सिएस्टा 🛋️", "es": "Siesta de Domingo 🛋️" },
-    "description": { "en": "The perfect lazy Sunday.", "bn": "অলস রবিবারের আরাম।", "hi": "आलसी रविवार के लिए।", "es": "Domingo perezoso." },
-    "discount": { "en": "20% OFF", "bn": "২০% ছাড়", "hi": "20% छूट", "es": "20% Dto" },
-    "conditions": { "en": "Sundays only", "bn": "শুধুমাত্র রবিবার", "hi": "केवल रविवार", "es": "Solo domingos" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970923/moger_mulluk/product-JdsI8c.png" },
-    "style": { "background": "linear-gradient(135deg, #616161 0%, #9E9E9E 100%)", "textColor": "#212121", "accentColor": "#2979FF", "tagBackground": "#424242" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 28, "hide": false
-  },
-  {
-    "id": "OFF_GREEN_040",
-    "type": "fitness",
-    "productIds": ["beverage--31--alkaline-water-ph-9"],
-    "title": { "en": "Health Month 🍃", "bn": "স্বাস্থ্য সচেতনতা মাস 🍃", "hi": "स्वास्थ्य महीना 🍃", "es": "Mes de la Salud 🍃" },
-    "description": { "en": "Detox and recharge.", "bn": "ডিটক্স এবং রিচার্জ।", "hi": "डिटॉक्स और रिचार्ज।", "es": "Detox y recarga." },
-    "discount": { "en": "Flat ৳20 OFF", "bn": "৳২০ ফ্ল্যাট ছাড়", "hi": "৳20 की छूट", "es": "৳20 Dto" },
-    "conditions": { "en": "Health app users", "bn": "হেলথ অ্যাপ ইউজারদের জন্য", "hi": "हेल्थ ऐप उपयोगकर्ता", "es": "Usuarios app salud" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1773350157/moger_mulluk/product-sq1XuC.png" },
-    "style": { "background": "linear-gradient(135deg, #009688 0%, #00796B 100%)", "textColor": "#FFFFFF", "accentColor": "#F06292", "tagBackground": "#004D40" },
-    "validFrom": "2026-07-01T00:00:00Z", "validUntil": "2026-07-31T23:59:59Z",
-    "position": 29, "hide": false
-  },
-  {
-    "id": "OFF_COUPLE_041",
-    "type": "bundle",
-    "productIds": ["tea--02--milk-tea", "beverage--24--oreo-shake"],
-    "title": { "en": "Date Night Combo 💕", "bn": "ডেট নাইট কম্বো 💕", "hi": "डेट नाइट कॉम्बो 💕", "es": "Combo Cita 💕" },
-    "description": { "en": "Tea for him, shake for her.", "bn": "তার জন্য চা, ওর জন্য শেক।", "hi": "उसके लिए चाय, उसके लिए शेक।", "es": "Té y batido." },
-    "discount": { "en": "Save ৳60", "bn": "৳৬০ সাশ্রয়", "hi": "৳60 बचाएं", "es": "Ahorra ৳60" },
-    "conditions": { "en": "Valid after 6 PM", "bn": "সন্ধ্যা ৬টার পর", "hi": "शाम 6 बजे के बाद", "es": "Tras 6 PM" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009469/moger_mulluk/product-FsbX4w.png" },
-    "style": { "background": "linear-gradient(135deg, #D81B60 0%, #C2185B 100%)", "textColor": "#FFFFFF", "accentColor": "#00E5FF", "tagBackground": "#880E4F" },
-    "validFrom": "2026-01-01T18:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 31, "hide": false
-  },
-  {
-    "id": "OFF_QUICK_042",
-    "type": "limited-time",
-    "productIds": ["tea--01--plain-tea"],
-    "title": { "en": "Quick Sip ⏱️", "bn": "কুইক সিপ ⏱️", "hi": "क्विक सिप ⏱️", "es": "Sorbito Rápido ⏱️" },
-    "description": { "en": "For those in a hurry.", "bn": "ব্যস্ত সময় ঝটপট চা।", "hi": "जल्दबाजी वालों के लिए।", "es": "Para los apurados." },
-    "discount": { "en": "Only ৳20", "bn": "মাত্র ২০ টাকা", "hi": "सिर्फ ৳20", "es": "Solo ৳20" },
-    "conditions": { "en": "Takeaway only", "bn": "শুধুমাত্র টেকওয়ে", "hi": "केवल टेकअवे", "es": "Solo para llevar" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #455A64 0%, #263238 100%)", "textColor": "#FFFFFF", "accentColor": "#FF8F00", "tagBackground": "#000000" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 32, "hide": false
-  },
-  {
-    "id": "OFF_ENERGY_043",
-    "type": "lifestyle",
-    "productIds": ["beverage--25--protein-shake"],
-    "title": { "en": "Gym Partner 💪", "bn": "জিম পার্টনার 💪", "hi": "जिम पार्टनर 💪", "es": "Compañero Gym 💪" },
-    "description": { "en": "The best post-workout fuel.", "bn": "ব্যায়ামের পর সেরা খাবার।", "hi": "वर्कआउट के बाद का बेस्ट फ्यूल।", "es": "Mejor post-entreno." },
-    "discount": { "en": "৳40 OFF", "bn": "৳৪০ ছাড়", "hi": "৳40 की छूट", "es": "৳40 Dto" },
-    "conditions": { "en": "App code: GYM40", "bn": "অ্যাপ কোড: GYM40", "hi": "ऐप कोड: GYM40", "es": "Cód App: GYM40" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971192/moger_mulluk/product-SDlCZl.png" },
-    "style": { "background": "linear-gradient(135deg, #000000 0%, #212121 100%)", "textColor": "#00E676", "accentColor": "#FFFFFF", "tagBackground": "#1A1A1A" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2027-12-31T23:59:59Z",
-    "position": 33, "hide": false
-  },
-  {
-    "id": "OFF_SWEET_044",
-    "type": "one-time",
-    "productIds": ["desert--27--vanilla-ice-cream", "snacks--32--edible-cookie-mug"],
-    "title": { "en": "Sweet Tooth 🍭", "bn": "মিষ্টি মুখ 🍭", "hi": "स्वीट टूथ 🍭", "es": "Diente Dulce 🍭" },
-    "description": { "en": "Satisfy your cravings.", "bn": "মিষ্টির তৃপ্তি।", "hi": "अपनी क्रेविंग मिटाएं।", "es": "Satisface antojos." },
-    "discount": { "en": "Flat ৳35 OFF", "bn": "৳৩৫ ফ্ল্যাট ছাড়", "hi": "৳35 की छूट", "es": "৳35 Dto" },
-    "conditions": { "en": "Min purchase ৳200", "bn": "ন্যূনতম ৳২০০ কেনাকাটা", "hi": "न्यूनतम ৳200 की खरीद", "es": "Mín compra ৳200" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772048531/moger_mulluk/product-tI2WWm.png" },
-    "style": { "background": "linear-gradient(135deg, #FF80AB 0%, #F06292 100%)", "textColor": "#FFFFFF", "accentColor": "#00C853", "tagBackground": "#C2185B" },
-    "validFrom": "2026-01-01T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 34, "hide": false
-  },
-  {
-    "id": "OFF_NOSTALGIA_045",
-    "type": "legendary",
-    "productIds": ["tea--02--milk-tea"],
-    "title": { "en": "Retro Vibe 📻", "bn": "পুরানো দিনের চা 📻", "hi": "রেট্রो वाइब 📻", "es": "Vibra Retro 📻" },
-    "description": { "en": "Classic taste, retro price.", "bn": "সেই আগের স্বাদ ও দাম।", "hi": "क्लासिक स्वाद, रेट्रो कीमत।", "es": "Sabor clásico." },
-    "discount": { "en": "Only ৳30", "bn": "মাত্র ৩০ টাকা", "hi": "सिर्फ ৳30", "es": "Solo ৳30" },
-    "conditions": { "en": "Mondays only", "bn": "শুধুমাত্র সোমবার", "hi": "केवल सोमवार", "es": "Solo lunes" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009469/moger_mulluk/product-FsbX4w.png" },
-    "style": { "background": "linear-gradient(135deg, #E64A19 0%, #D84315 100%)", "textColor": "#FFFFFF", "accentColor": "#00BFA5", "tagBackground": "#263238" },
-    "validFrom": "2026-06-25T00:00:00Z", "validUntil": "2026-12-31T23:59:59Z",
-    "position": 40, "hide": false
-  },
-  {
-    "id": "OFF_ARCHIVE_OPENING_2024",
-    "type": "legendary",
-    "productIds": ["tea--01--plain-tea"],
-    "title": { "en": "Grand Opening 🎊", "bn": "শুভ উদ্বোধন 🎊", "hi": "भव्य उद्घाटन 🎊", "es": "Gran Apertura 🎊" },
-    "description": { "en": "The day the Kingdom began.", "bn": "কিংডমের যাত্রার প্রথম দিন।", "hi": "जिस दिन साम्राज्य शुरू हुआ।", "es": "El día que el Reino comenzó." },
-    "discount": { "en": "FREE TEA", "bn": "ফ্রি চা", "hi": "मुफ्त चाय", "es": "TÉ GRATIS" },
-    "conditions": { "en": "Archived: Jan 2024", "bn": "আর্কাইভ: জানুয়ারি ২০২৪", "hi": "पुरालेख: जनवरी 2024", "es": "Archivo: Enero 2024" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009391/moger_mulluk/product-U4JuhF.png" },
-    "style": { "background": "linear-gradient(135deg, #546E7A 0%, #37474F 100%)", "textColor": "#FFFFFF", "accentColor": "#FFD600", "tagBackground": "#263238" },
-    "validFrom": "2024-01-01T00:00:00Z", "validUntil": "2024-01-07T23:59:59Z",
-    "position": 100, "hide": false
-  },
-  {
-    "id": "OFF_ARCHIVE_WINTER_2024",
-    "type": "seasonal",
-    "productIds": ["tea--08--spice-tea"],
-    "title": { "en": "Winter Spice '24", "bn": "শীতের মশলা চা ২৪", "hi": "विंटर स्पाइस '24", "es": "Invierno '24" },
-    "description": { "en": "Last year's winter warmth.", "bn": "গত বছরের শীতের আমেজ।", "hi": "पिछले साल की सर्दियों की गर्माहट।", "es": "Calidez del año pasado." },
-    "discount": { "en": "৳30 OFF", "bn": "৳৩০ ছাড়", "hi": "৳30 की छूट", "es": "৳30 Dto" },
-    "conditions": { "en": "EXPIRED", "bn": "মেয়াদোত্তীর্ণ", "hi": "पुराना", "es": "EXPIRADO" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009761/moger_mulluk/product-qiFFyd.png" },
-    "style": { "background": "linear-gradient(135deg, #90A4AE 0%, #546E7A 100%)", "textColor": "#ECEFF1", "accentColor": "#FF8F00", "tagBackground": "#263238" },
-    "validFrom": "2024-12-01T00:00:00Z", "validUntil": "2024-12-31T23:59:59Z",
-    "position": 101, "hide": false
-  },
-  {
-    "id": "OFF_ARCHIVE_CUP_2023",
-    "type": "limited-time",
-    "productIds": ["beverage--24--oreo-shake"],
-    "title": { "en": "Cricket Mania '23", "bn": "ক্রিকেট ম্যানিয়া ২৩", "hi": "क्रिकेट मेनिया '23", "es": "Manía Cricket '23" },
-    "description": { "en": "World Cup special offer.", "bn": "বিশ্বকাপের বিশেষ অফার।", "hi": "विश्व कप विशेष ऑफर।", "es": "Especial Mundial." },
-    "discount": { "en": "Buy 1 Get 1", "bn": "১টি কিনলে ১টি ফ্রি", "hi": "1 खरीदें 1 मुफ्त", "es": "Compra 1 y 1 Gratis" },
-    "conditions": { "en": "Ended Nov 2023", "bn": "নভেম্বর ২৩ এ শেষ", "hi": "नवंबर 2023 में समाप्त", "es": "Terminó Nov 2023" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019270/moger_mulluk/product-Q55wAF.png" },
-    "style": { "background": "linear-gradient(135deg, #1A237E 0%, #000000 100%)", "textColor": "#90A4AE", "accentColor": "#FFEB3B", "tagBackground": "#000000" },
-    "validFrom": "2023-10-01T00:00:00Z", "validUntil": "2023-11-19T23:59:59Z",
-    "position": 102, "hide": false
-  },
-  {
-    "id": "OFF_ARCHIVE_VALENTINE_2025",
-    "type": "one-time",
-    "productIds": ["coffee--18--caramel-macchiato"],
-    "title": { "en": "Sweet Valentine '25", "bn": "ভ্যালেন্টাইন স্পেশাল ২৫", "hi": "वेलेंटाइन स्पेशल '25", "es": "San Valentín '25" },
-    "description": { "en": "Share with a loved one.", "bn": "প্রিয়জনের সাথে শেয়ার করুন।", "hi": "किसी प्रियजन के साथ साझा करें।", "es": "Comparte con alguien." },
-    "discount": { "en": "Couple Deal", "bn": "কাপল ডিল", "hi": "कपल्स डील", "es": "Oferta Parejas" },
-    "conditions": { "en": "Finished: Feb 14", "bn": "ফেব্রুয়ারি ১৪ শেষ", "hi": "14 फरवरी को समाप्त", "es": "Finalizó 14 feb" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771971103/moger_mulluk/product-wbCuGp.png" },
-    "style": { "background": "linear-gradient(135deg, #FFAB91 0%, #D84315 100%)", "textColor": "#FFFFFF", "accentColor": "#1A237E", "tagBackground": "#263238" },
-    "validFrom": "2025-02-14T00:00:00Z", "validUntil": "2025-02-14T23:59:59Z",
-    "position": 103, "hide": false
-  },
-  {
-    "id": "OFF_ARCHIVE_BETA_2024",
-    "type": "lifestyle",
-    "productIds": ["beverage--30--sparkling-water"],
-    "title": { "en": "App Beta Tester 🧪", "bn": "অ্যাপ বিটা টেস্টার 🧪", "hi": "ऐप बीटा टेस्टर 🧪", "es": "Beta Tester App 🧪" },
-    "description": { "en": "Early access reward.", "bn": "বিটা ইউজারদের রিওয়ার্ড।", "hi": "अर्ली एक्सेस इनाम।", "es": "Premio acceso anticipado." },
-    "discount": { "en": "LIFETIME STATUS", "bn": "লাইফটাইম স্ট্যাটাস", "hi": "लाइफटाइम स्टेटस", "es": "ESTADO DE POR VIDA" },
-    "conditions": { "en": "Joined in mid-2024", "bn": "২০২৪ এর মাঝামাঝি যোগ", "hi": "2024 के मध्य में शामिल", "es": "Unido en 2024" },
-    "media": { "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1773955104/moger_mulluk/product-D3Wiyp.png" },
-    "style": { "background": "linear-gradient(135deg, #B0BEC5 0%, #455A64 100%)", "textColor": "#FFFFFF", "accentColor": "#0D47A1", "tagBackground": "#000000" },
-    "validFrom": "2024-06-01T00:00:00Z", "validUntil": "2024-08-31T23:59:59Z",
-    "position": 104, "hide": false
-  }
-];
+export const offers= [
+    {
+      "_id": "6a43afb004c8d3318f2a1afc",
+      "id": "OFF_FLASH_017",
+      "__v": 0,
+      "conditions": {
+        "en": "Valid for 2 hours",
+        "bn": "মাত্র ২ ঘণ্টার জন্য",
+        "hi": "2 घंटे के लिए मान्य",
+        "es": "Válido por 2 horas"
+      },
+      "createdAt": "2026-06-30T11:59:43.697Z",
+      "description": {
+        "en": "Quick energy.",
+        "bn": "দ্রুত এনার্জি শট।",
+        "hi": "क्विक एनर्जी।",
+        "es": "Energía rápida."
+      },
+      "discount": {
+        "en": "50% OFF",
+        "bn": "৫০% ছাড়",
+        "hi": "50% छूट",
+        "es": "50% Dto"
+      },
+      "discountValue": 50,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970620/moger_mulluk/product-ZPYrQt.png"
+      },
+      "position": 1,
+      "productIds": [
+        "69642b88ecd41a49f8967a57"
+      ],
+      "promoCode": "FLASH50",
+      "style": {
+        "background": "linear-gradient(135deg, #FF6F00 0%, #E65100 100%)",
+        "textColor": "#FFFFFF",
+        "accentColor": "#2979FF",
+        "tagBackground": "#3E2723"
+      },
+      "title": {
+        "en": "Flash Espresso Shot ⚡",
+        "bn": "ফ্ল্যাশ এসপ্রেসো শট ⚡",
+        "hi": "फ्लैश एस्प्रेसो शॉट ⚡",
+        "es": "Flash de Espresso ⚡"
+      },
+      "type": "limited-time",
+      "updatedAt": "2026-06-30T11:59:43.697Z",
+      "validFrom": "2026-06-25T14:00:00.000Z",
+      "validUntil": "2026-06-25T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afaa04c8d3318f2a1ae7",
+      "id": "OFF_HIDDEN_GOLD_021",
+      "__v": 0,
+      "conditions": {
+        "en": "Internal only",
+        "bn": "অভ্যন্তরীণ ব্যবহারের জন্য",
+        "hi": "केवल आंतरिक",
+        "es": "Solo interno"
+      },
+      "createdAt": "2026-06-30T11:59:37.740Z",
+      "description": {
+        "en": "Internal access.",
+        "bn": "অভ্যন্তরীণ প্রবেশাধিকার।",
+        "hi": "আন্তরীয় প্রবেশাধিকার।",
+        "es": "Acceso interno."
+      },
+      "discount": {
+        "en": "HIDDEN",
+        "bn": "লুকানো",
+        "hi": "छिपा हुआ",
+        "es": "OCULTO"
+      },
+      "discountValue": 0,
+      "hide": true,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019307/moger_mulluk/product-csb6nq.png"
+      },
+      "position": 1,
+      "productIds": [
+        "69642e3decd41a49f8967a73"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #212121 0%, #000000 100%)",
+        "textColor": "#FFD700",
+        "accentColor": "#FFFFFF",
+        "tagBackground": "#424242"
+      },
+      "title": {
+        "en": "Secret Royal Shake",
+        "bn": "গোপন রাজকীয় শেক",
+        "hi": "सीक्रेट रॉयल शेक",
+        "es": "Batido Real Secreto"
+      },
+      "type": "royal",
+      "updatedAt": "2026-06-30T11:59:37.740Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2027-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afaf04c8d3318f2a1af7",
+      "id": "OFF_JUST_026",
+      "__v": 0,
+      "conditions": {
+        "en": "First order only",
+        "bn": "শুধুমাত্র প্রথম অর্ডারের জন্য",
+        "hi": "केवल पहला ऑर्डर",
+        "es": "Solo primer pedido"
+      },
+      "createdAt": "2026-06-30T11:59:42.322Z",
+      "description": {
+        "en": "A special treat for your first visit.",
+        "bn": "আপনার প্রথম ভিজিটের জন্য বিশেষ উপহার।",
+        "hi": "आपकी पहली यात्रा के लिए एक विशेष उपहार।",
+        "es": "Un regalo especial para tu primera visita."
+      },
+      "discount": {
+        "en": "Flat 50% OFF",
+        "bn": "৫০% ফ্ল্যাট ছাড়",
+        "hi": "फ्लैट 50% छूट",
+        "es": "50% de Descuento"
+      },
+      "discountValue": 50,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771970923/moger_mulluk/product-JdsI8c.png"
+      },
+      "position": 1,
+      "productIds": [
+        "69642b9decd41a49f8967a59",
+        "69642ff0ecd41a49f8967a7f"
+      ],
+      "promoCode": "WELCOME50",
+      "style": {
+        "background": "linear-gradient(135deg, #0D47A1 0%, #D32F2F 100%)",
+        "textColor": "#FFFFFF",
+        "accentColor": "#FFD700",
+        "tagBackground": "#263238"
+      },
+      "title": {
+        "en": "Welcome to the Kingdom 👑",
+        "bn": "রাজ্যে স্বাগতম 👑",
+        "hi": "साम्राज्य में आपका स्वागत है 👑",
+        "es": "Bienvenido al Reino 👑"
+      },
+      "type": "just-for-you",
+      "updatedAt": "2026-06-30T11:59:42.322Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2027-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afaa04c8d3318f2a1ae4",
+      "id": "OFF_7COLOR_008",
+      "__v": 0,
+      "conditions": {
+        "en": "Takes 10 mins to prep",
+        "bn": "তৈরি হতে ১০ মিনিট লাগে",
+        "hi": "तैयार होने में 10 मिनट",
+        "es": "10 min de prep"
+      },
+      "createdAt": "2026-06-30T11:59:36.824Z",
+      "description": {
+        "en": "The Sylhet masterpiece.",
+        "bn": "সিলেটের বিখ্যাত চা।",
+        "hi": "सिलहट की प्रसिद्ध चाय।",
+        "es": "Obra maestra de Sylhet."
+      },
+      "discount": {
+        "en": "Special ৳80",
+        "bn": "মাত্র ৮০ টাকা",
+        "hi": "विशेष ৳80",
+        "es": "Especial ৳80"
+      },
+      "discountValue": 80,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009719/moger_mulluk/product-uGTHyd.png"
+      },
+      "position": 1,
+      "productIds": [
+        "6964298becd41a49f8967a47"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%)",
+        "textColor": "#FFFFFF",
+        "accentColor": "#FFD700",
+        "tagBackground": "#FFD700"
+      },
+      "title": {
+        "en": "Legend of 7 Layers",
+        "bn": "সাত স্তরের কিংবদন্তি",
+        "hi": "7 परतों का जादू",
+        "es": "Leyenda de 7 Capas"
+      },
+      "type": "legendary",
+      "updatedAt": "2026-06-30T11:59:36.824Z",
+      "validFrom": "2025-01-01T00:00:00.000Z",
+      "validUntil": "2027-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afac04c8d3318f2a1aeb",
+      "id": "OFF_MALAI_009",
+      "__v": 0,
+      "conditions": {
+        "en": "Dairy special",
+        "bn": "খাঁটি দুধের বিশেষত্ব",
+        "hi": "डेयरी विशेष",
+        "es": "Especial lácteo"
+      },
+      "createdAt": "2026-06-30T11:59:38.851Z",
+      "description": {
+        "en": "Thick Creamy Tea.",
+        "bn": "ঘন মালাই চা।",
+        "hi": "गाढ़ी मलाई चाय।",
+        "es": "Té cremoso."
+      },
+      "discount": {
+        "en": "10% OFF",
+        "bn": "১০% ছাড়",
+        "hi": "10% छूट",
+        "es": "10% Dto"
+      },
+      "discountValue": 10,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009803/moger_mulluk/product-3vTyFD.png"
+      },
+      "position": 2,
+      "productIds": [
+        "69642b6cecd41a49f8967a55"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%)",
+        "textColor": "#4A148C",
+        "accentColor": "#6A1B9A",
+        "tagBackground": "#F9A825"
+      },
+      "title": {
+        "en": "Royal Malai",
+        "bn": "রাজকীয় মালাই",
+        "hi": "रॉयल मलाई",
+        "es": "Malai Real"
+      },
+      "type": "royal",
+      "updatedAt": "2026-06-30T11:59:38.851Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2026-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afaf04c8d3318f2a1af8",
+      "id": "OFF_JUST_027",
+      "__v": 0,
+      "conditions": {
+        "en": "For 10+ previous orders",
+        "bn": "১০টির বেশি অর্ডারের জন্য",
+        "hi": "10+ पिछले ऑर्डर के लिए",
+        "es": "Para más de 10 pedidos"
+      },
+      "createdAt": "2026-06-30T11:59:42.596Z",
+      "description": {
+        "en": "You've earned this! Enjoy your favorite Malai Tea.",
+        "bn": "আপনার প্রিয় মালাই চা এখন আরও সাশ্রয়ে।",
+        "hi": "अपनी पसंदीदा मलाई चाय का आनंद लें।",
+        "es": "¡Te lo has ganado! Disfruta tu Té Malai."
+      },
+      "discount": {
+        "en": "FREE Upgrade",
+        "bn": "ফ্রি আপগ্রেড",
+        "hi": "मुफ्त अपग्रेड",
+        "es": "Mejora GRATIS"
+      },
+      "discountValue": 100,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009803/moger_mulluk/product-3vTyFD.png"
+      },
+      "position": 2,
+      "productIds": [
+        "69642b6cecd41a49f8967a55"
+      ],
+      "promoCode": "LOYALTY10",
+      "style": {
+        "background": "linear-gradient(135deg, #212121 0%, #000000 100%)",
+        "textColor": "#FFF59D",
+        "accentColor": "#FFA000",
+        "tagBackground": "#424242"
+      },
+      "title": {
+        "en": "Loyal Monarch Reward 🎖️",
+        "bn": "লয়ালটি রিওয়ার্ড 🎖️",
+        "hi": "वफादारी इनाम 🎖️",
+        "es": "Recompensa de Lealtad 🎖️"
+      },
+      "type": "just-for-you",
+      "updatedAt": "2026-06-30T11:59:42.596Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2027-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afae04c8d3318f2a1af3",
+      "id": "OFF_ANNIVERSARY_022",
+      "__v": 0,
+      "conditions": {
+        "en": "One day only",
+        "bn": "শুধুমাত্র একদিনের জন্য",
+        "hi": "केवल एक दिन",
+        "es": "Solo un día"
+      },
+      "createdAt": "2026-06-30T11:59:41.213Z",
+      "description": {
+        "en": "Celebrating another year of Moger Mulluk.",
+        "bn": "মগের মুল্লুকের বর্ষপূর্তি উৎসব।",
+        "hi": "मगेর মুल्लুক का जश्न।",
+        "es": "Celebrando un año más."
+      },
+      "discount": {
+        "en": "ALL COMBO ৳200",
+        "bn": "সব কম্বো মাত্র ২০০ টাকা",
+        "hi": "सभी कॉम्बो ৳200",
+        "es": "Todos Combos ৳200"
+      },
+      "discountValue": 200,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1771009719/moger_mulluk/product-uGTHyd.png"
+      },
+      "position": 2,
+      "productIds": [
+        "69642d90ecd41a49f8967a6d",
+        "6964298becd41a49f8967a47"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #880E4F 0%, #B71C1C 100%)",
+        "textColor": "#FFD700",
+        "accentColor": "#00E5FF",
+        "tagBackground": "#212121"
+      },
+      "title": {
+        "en": "Kingdom Jubilee ✨",
+        "bn": "কিংডম জুবিলি ✨",
+        "hi": "किंगडम जुबली ✨",
+        "es": "Jubileo del Reino ✨"
+      },
+      "type": "one-time",
+      "updatedAt": "2026-06-30T11:59:41.213Z",
+      "validFrom": "2027-05-20T00:00:00.000Z",
+      "validUntil": "2027-05-20T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afaa04c8d3318f2a1ae5",
+      "id": "OFF_EXPIRED_CHOC_020",
+      "__v": 0,
+      "conditions": {
+        "en": "Limited stock",
+        "bn": "সীমিত স্টক",
+        "hi": "সীমিত স্টক",
+        "es": "Stock limitado"
+      },
+      "createdAt": "2026-06-30T11:59:37.123Z",
+      "description": {
+        "en": "Renewed for 2026.",
+        "bn": "২০২৬ এর জন্য নতুন অফার।",
+        "hi": "2026 के लिए नवीनीकृत।",
+        "es": "Renovado para 2026."
+      },
+      "discount": {
+        "en": "৳30 OFF",
+        "bn": "৳৩০ ছাড়",
+        "hi": "৳30 छूट",
+        "es": "৳30 Dto"
+      },
+      "discountValue": 30,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019249/moger_mulluk/product-K64L3A.png"
+      },
+      "position": 3,
+      "productIds": [
+        "69642d90ecd41a49f8967a6d"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #3E2723 0%, #5D4037 100%)",
+        "textColor": "#FFFFFF",
+        "accentColor": "#00E5FF",
+        "tagBackground": "#00B8D4"
+      },
+      "title": {
+        "en": "Choc-Blast 2.0",
+        "bn": "চকলেট ব্লাস্ট ২.০",
+        "hi": "चॉक-ब्लास्ट 2.0",
+        "es": "Choco-Blast 2.0"
+      },
+      "type": "limited-time",
+      "updatedAt": "2026-06-30T11:59:37.123Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2026-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afb004c8d3318f2a1af9",
+      "id": "OFF_JUST_028",
+      "__v": 0,
+      "conditions": {
+        "en": "Valid on your birthday month",
+        "bn": "জন্মদিনের মাসে প্রযোজ্য",
+        "hi": "आपके जन्मदिन के महीने में मान्य",
+        "es": "Válido mes de cumpleaños"
+      },
+      "createdAt": "2026-06-30T11:59:42.871Z",
+      "description": {
+        "en": "A sweet gift from us on your big day.",
+        "bn": "আপনার জন্মদিনে আমাদের পক্ষ থেকে মিষ্টি উপহার।",
+        "hi": "आपके बड़े दिन पर हमारी ओर से एक प्यारा उपहार।",
+        "es": "Un dulce regalo de nuestra parte."
+      },
+      "discount": {
+        "en": "FREE Scoop",
+        "bn": "ফ্রি আইসক্রিম",
+        "hi": "मुफ्त स्कूप",
+        "es": "Scoop GRATIS"
+      },
+      "discountValue": 100,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772048531/moger_mulluk/product-tI2WWm.png"
+      },
+      "position": 3,
+      "productIds": [
+        "69642e5aecd41a49f8967a75"
+      ],
+      "promoCode": "BDAYTREAT",
+      "style": {
+        "background": "linear-gradient(135deg, #F06292 0%, #EC407A 100%)",
+        "textColor": "#FFFFFF",
+        "accentColor": "#1DE9B6",
+        "tagBackground": "#880E4F"
+      },
+      "title": {
+        "en": "Birthday Celebration 🎂",
+        "bn": "জন্মদিন মোবারক 🎂",
+        "hi": "जन्मदिन मुबारक 🎂",
+        "es": "Feliz Cumpleaños 🎂"
+      },
+      "type": "just-for-you",
+      "updatedAt": "2026-06-30T11:59:42.871Z",
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2027-12-31T23:59:59.000Z"
+    },
+    {
+      "_id": "6a43afae04c8d3318f2a1af4",
+      "id": "OFF_SUMMER_SURGE_023",
+      "__v": 0,
+      "conditions": {
+        "en": "Available now",
+        "bn": "এখনই পাওয়া যাচ্ছে",
+        "hi": "अभी उपलब्ध है",
+        "es": "Disponible ahora"
+      },
+      "createdAt": "2026-06-30T11:59:41.492Z",
+      "description": {
+        "en": "Beat the 2026 heat.",
+        "bn": "২০২৬ এর গরমে প্রশান্তি।",
+        "hi": "2026 की गर्मी को मात दें।",
+        "es": "Vence el calor de 2026."
+      },
+      "discount": {
+        "en": "25% OFF",
+        "bn": "২৫% ছাড়",
+        "hi": "25% छूट",
+        "es": "25% Dto"
+      },
+      "discountValue": 25,
+      "hide": false,
+      "media": {
+        "image": "https://res.cloudinary.com/fuc81fyh/image/upload/v1772019226/moger_mulluk/product-NkvmTw.png"
+      },
+      "position": 4,
+      "productIds": [
+        "69642d79ecd41a49f8967a6b"
+      ],
+      "style": {
+        "background": "linear-gradient(135deg, #FBC02D 0%, #FFA000 100%)",
+        "textColor": "#263238",
+        "accentColor": "#6200EA",
+        "tagBackground": "#BF360C"
+      },
+      "title": {
+        "en": "Summer Surge 🍍",
+        "bn": "গ্রীষ্মকালীন অফার 🍍",
+        "hi": "समर सर्ज 🍍",
+        "es": "Oleada de Verano 🍍"
+      },
+      "type": "seasonal",
+      "updatedAt": "2026-06-30T11:59:41.492Z",
+      "validFrom": "2026-06-01T00:00:00.000Z",
+      "validUntil": "2026-08-31T23:59:59.000Z"
+    }
+  ];
+ 

@@ -50,5 +50,16 @@
   "CTA": {
     "orderNow": "Order Now",
     "bookTable": "Book a Table"
-  }
+  },"OfferDetails": {
+  "back": "Back to Offers",
+  "limited": "Limited Time Offer",
+  "available": "Available For",
+  "how": "How to Redeem",
+  "terms": "Terms & Conditions",
+  "from": "Valid From",
+  "until": "Expires",
+  "step1": "Copy code",
+  "step2": "Select any item from the list.",
+  "step3": "Apply at checkout or show to server."
+}
 }
