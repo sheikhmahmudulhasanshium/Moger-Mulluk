@@ -17,6 +17,10 @@ export const offerApi = {
     if ('data' in response) return response.data;
     return response;
   },
+    async getByProduct(productId: string): Promise<Offer[]> {
+    return apiRequest<Offer[]>(`/offers/product/${productId}`);
+  },
+
   async getById(id: string): Promise<OfferWithProducts> {
     return apiRequest<OfferWithProducts>(`/offers/${id}`);
   },

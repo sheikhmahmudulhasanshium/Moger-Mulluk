@@ -52,6 +52,7 @@ export interface ProductCard {
 }
 
 export interface ProductDetail {
+  id:string;
   shortId: string;
   title: string;
   description: string;
