@@ -31,8 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: product.title,
         description: product.description,
-        images: [product.media?.thumbnail || ""],
-      },
+images: [{
+  url: product.media?.thumbnail || "/favicon/apple-touch-icon.png",
+  width: 1200,
+  height: 630
+}],      },
     };
   } catch (error) {
     console.log(error);

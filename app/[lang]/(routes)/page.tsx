@@ -12,19 +12,25 @@ import Navbar from "@/app/components/common/navbar";
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const data = await getPageData(lang, 'home');
-  
   const baseUrl = "https://moger-mulluk.vercel.app";
   const fallbackImage = "/favicon/apple-touch-icon.png";
 
   if (!data) return { title: "Moger Mulluk" };
 
+  // SEO FIX: Stretch the title and description to satisfy the SEO Report
+  const optimizedTitle = `${data.title} | Moger Mulluk - Premium Tea & Artisanal Coffee`;
+  const optimizedDesc = `${data.description}. Experience the best tea, coffee, and hangout spots in Dhaka. Join us for a legendary cafe experience with global branches.`;
+
+  // IMAGE FIX: Social media ignores SVGs. If backend has .svg, use PNG fallback.
+  const rawOgImage = data.seo.ogImage || fallbackImage;
+  const finalOgImage = rawOgImage.endsWith('.svg') ? fallbackImage : rawOgImage;
+
   return {
     metadataBase: new URL(baseUrl),
-    title: data.title,
-    description: data.description,
-    keywords: data.seo.keywords,
+    title: optimizedTitle,
+    description: optimizedDesc,
+    keywords: [...(data.seo.keywords || []), "cafe dhaka", "best tea shop", "coffee house dhaka"],
     
-    // Fix: Add all 4 languages to help Google index them correctly
     alternates: {
       canonical: `/${lang}`,
       languages: {
@@ -36,25 +42,25 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     },
 
     openGraph: {
-      title: data.title,
-      description: data.description,
-      url: `/${lang}`, // Uses relative path, metadataBase makes it absolute
+      title: optimizedTitle,
+      description: optimizedDesc,
+      url: `/${lang}`,
       siteName: 'Moger Mulluk',
       images: [
         {
-          url: data.seo.ogImage || fallbackImage, 
+          url: finalOgImage, 
           width: 1200,
           height: 630,
-          alt: data.title,
+          alt: optimizedTitle,
         },
       ],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: data.title,
-      description: data.description,
-      images: [data.seo.ogImage || fallbackImage],
+      title: optimizedTitle,
+      description: optimizedDesc,
+      images: [finalOgImage],
     },
     robots: {
       index: !data.seo.isNoIndex,
@@ -74,14 +80,34 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   }
 
   // STARBUCKS-STYLE STRUCTURED DATA (JSON-LD)
-  // This tells Google to show sub-links and a search box in search results
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebSite",
+        "@type": "CafeOrCoffeeShop",
+        "@id": `${baseUrl}/${lang}/#organization`,
         "name": "Moger Mulluk",
         "url": `${baseUrl}/${lang}`,
+        "logo": `${baseUrl}/favicon/apple-touch-icon.png`,
+        "image": `${baseUrl}/favicon/apple-touch-icon.png`,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sector 3, Uttara",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        },
+        "location": [
+          { "@type": "Cafe", "name": "Moger Mulluk - Banani", "address": "Road 11, Banani, Dhaka" },
+          { "@type": "Cafe", "name": "Moger Mulluk - Dhanmondi", "address": "Satmasjid Rd, Dhaka" },
+          { "@type": "Cafe", "name": "Moger Mulluk - Kolkata", "address": "West Bengal, India" },
+          { "@type": "Cafe", "name": "Moger Mulluk - Madrid", "address": "Madrid Central, Spain" }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${baseUrl}/${lang}/#website`,
+        "url": `${baseUrl}/${lang}`,
+        "name": "Moger Mulluk",
         "potentialAction": {
           "@type": "SearchAction",
           "target": `${baseUrl}/${lang}/search?q={search_term_string}`,
@@ -90,32 +116,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       },
       {
         "@type": "ItemList",
-        "name": "Quick Links",
+        "name": "Main Menu",
         "itemListElement": [
-          {
-            "@type": "SiteNavigationElement",
-            "position": 1,
-            "name": "Menu",
-            "url": `${baseUrl}/${lang}/page`
-          },
-          {
-            "@type": "SiteNavigationElement",
-            "position": 2,
-            "name": "Locations",
-            "url": `${baseUrl}/${lang}/locations`
-          },
-          {
-            "@type": "SiteNavigationElement",
-            "position": 3,
-            "name": "Offers",
-            "url": `${baseUrl}/${lang}/offers`
-          },
-          {
-            "@type": "SiteNavigationElement",
-            "position": 4,
-            "name": "About Us",
-            "url": `${baseUrl}/${lang}/about`
-          }
+          { "@type": "ListItem", "position": 1, "name": "Kingdom Menu", "url": `${baseUrl}/${lang}/menu` },
+          { "@type": "ListItem", "position": 2, "name": "Special Offers", "url": `${baseUrl}/${lang}/offers` },
+          { "@type": "ListItem", "position": 3, "name": "Our Locations", "url": `${baseUrl}/${lang}/locations` }
         ]
       }
     ]
@@ -123,7 +128,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      {/* Inject Structured Data into the page */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

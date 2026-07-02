@@ -5,7 +5,24 @@ import Sidebar from "@/app/components/common/sidebar";
 import PageProvider from "@/app/components/providers/page-provider";
 import GlobalFootprint from "../../home/global-trace";
 import HeroSection from "./hero";
+import { getPageData } from "@/app/components/hooks/hooks-server";
+import { Metadata } from "next";
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const data = await getPageData(lang, 'locations'); // Use 'gallery' for gallery page
+  const baseUrl = "https://moger-mulluk.vercel.app";
 
+  return {
+    title: data?.title || "Locations",
+    description: data?.description,
+    openGraph: {
+      title: data?.title,
+      description: data?.description,
+      images: [data?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
+    },
+    alternates: { canonical: `${baseUrl}/${lang}/locations` } // Change to /gallery for gallery
+  };
+}
 const LocationsPage = () => {
     return (
         <PageProvider header={<Header/>} footer={<Footer/>} navbar={<Navbar/>} sidebar={<Sidebar/>}>
