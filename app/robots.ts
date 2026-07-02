@@ -6,12 +6,11 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: [
-        '/admin/',    // Keep your admin private
-        '/api/',      // Don't crawl your backend routes
-        '/_next/',    // Don't crawl Next.js system files
+        '/admin/', 
+        '/api/',
+        // REMOVED /_next/ to allow the crawler to see your CSS/Styles
       ],
     },
-    // List both to be 100% safe with Google's discovery
     sitemap: [
       'https://moger-mulluk.vercel.app/sitemap.xml',
       'https://moger-mulluk.vercel.app/final-sitemap.xml',
