@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
             {
                 source: '/final-sitemap.xml',
                 destination: '/api/xml-sitemap',
-            },
+            },      // Also add the standard name as a backup
+
+            {
+                source: '/sitemap.xml',
+                destination: '/api/xml-sitemap',
+      },
         ]
     },
 images: {
