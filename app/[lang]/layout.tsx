@@ -1,109 +1,126 @@
-
 import "../globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server';
-import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { StatusProvider } from "../components/providers/status-provider";
 import { getPageData } from "@/app/components/hooks/hooks-server";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  
-  // 1. Get Brand Name from Local Translation
   const t = await getTranslations({ locale: lang, namespace: 'Logo' });
   const brandName = t('brandName'); 
-
-  // 2. Get Global SEO Description from Backend
   const globalData = await getPageData(lang, 'home');
   const siteDesc = globalData?.description || "The Realm of Conversations";
+  
+  const baseUrl = "https://moger-mulluk.vercel.app";
 
   return {
+    metadataBase: new URL(baseUrl),
     title: {
       default: brandName,
       template: `%s | ${brandName}`, 
     },
     description: siteDesc,
-    metadataBase: new URL("https://moger-mulluk.com"),
     
-    // GOOGLE VERIFICATION FIX
+    // SEO: Tell Google about all 4 language versions
+    alternates: {
+      canonical: `/${lang}`,
+      languages: {
+        'en': '/en',
+        'bn': '/bn',
+        'es': '/es',
+        'hi': '/hi',
+      },
+    },
+
     verification: {
-      google: "XaIlvvAGDWME_Z9oUJnApUDnAKbjEBmmUxhJ_onO0SE", // <-- PASTE YOUR CODE HERE
+      google: "XaIlvvAGDWME_Z9oUJnApUDnAKbjEBmmUxhJ_onO0SE",
     },
 
-    // FAVICONS & MANIFEST (Moved from manual <head> to Metadata API)
     icons: {
-      icon: [
-        { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-        { url: "/favicon/favicon.svg", type: "image/svg+xml" },
-      ],
-      shortcut: "/favicon/favicon.ico",
+      icon: [{ url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
       apple: "/favicon/apple-touch-icon.png",
-    },
-    manifest: "/favicon/site.webmanifest",
-
-    // OTHER META TAGS
-    appleWebApp: {
-      title: brandName,
     },
 
     openGraph: {
       type: "website",
       siteName: brandName,
-      images: [globalData?.seo?.ogImage || ""],
+      url: `/${lang}`,
+      images: [{ url: globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: brandName,
-      description: siteDesc,
+      images: [globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
     }
   };
 }
 
-export function generateStaticParams() {
-  return routing.locales.map((locale: string) => ({ lang: locale }));
-}
-
-export default async function RootLayout({
-  children,
-  params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ lang: string }>;
-}>) {
+export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  
   setRequestLocale(lang);
-  
   const messages = await getMessages();
+  const baseUrl = "https://moger-mulluk.vercel.app";
+
+  // MULTI-LANGUAGE STRUCTURED DATA
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CafeOrCoffeeShop", // More specific than Organization
+        "name": "Moger Mulluk",
+        "url": `${baseUrl}/${lang}`,
+        "logo": `${baseUrl}/favicon/apple-touch-icon.png`,
+        "image": `${baseUrl}/favicon/apple-touch-icon.png`,
+        "description": "A cozy café for tea, coffee, and relaxed hangouts.",
+        "hasMap": `${baseUrl}/${lang}/locations`,
+        "areaServed": "BD",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "BD"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Offers",
+            "url": `${baseUrl}/${lang}/offers`
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Locations",
+            "url": `${baseUrl}/${lang}/locations`
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "About Us",
+            "url": `${baseUrl}/${lang}/about`
+          }
+        ]
+      }
+    ]
+  };
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      {/* 
-          IMPORTANT: No manual <head> tag here. 
-          Next.js automatically injects metadata, icons, and verification 
-          from the generateMetadata function above.
-      */}
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider messages={messages} locale={lang}>
-          <ThemeProvider 
-            attribute={'class'} 
-            defaultTheme="system" 
-            enableSystem 
-            disableTransitionOnChange
-          >
+          <ThemeProvider attribute='class' defaultTheme="system" enableSystem>
             <StatusProvider>
                {children}
             </StatusProvider>

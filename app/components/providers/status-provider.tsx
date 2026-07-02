@@ -3,10 +3,9 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import Loading from "../common/loading";
 import { cn } from "@/lib/utils";
-import { WifiOff, AlertCircle } from "lucide-react";
-import { useLocale } from "next-intl"; // Import this
+import { WifiOff, AlertCircle, RefreshCw } from "lucide-react";
+import { useLocale } from "next-intl";
 
-// Custom Messages for "Establishing Connection"
 const CONNECTION_MESSAGES: Record<string, string> = {
   hi: "कनेक्शन स्थापित किया जा रहा है",
   bn: "সংযোগ স্থাপন করা হচ্ছে",
@@ -25,17 +24,16 @@ const StatusContext = createContext<StatusContextType | undefined>(undefined);
 export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   const [status, setStatus] = useState<ConnectionStatus>("online");
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
   
-  const locale = useLocale(); // Get current language
+  const locale = useLocale(); 
   const connectionMsg = CONNECTION_MESSAGES[locale as keyof typeof CONNECTION_MESSAGES] || CONNECTION_MESSAGES.en;
 
   const checkHealth = useCallback(async () => {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
     if (!baseUrl) {
-      console.error("STATUS_CHECK: NEXT_PUBLIC_API_URL is not defined in .env");
       setStatus("offline");
-      if (isInitialLoading) setIsInitialLoading(false);
+      setIsInitialLoading(false);
       return;
     }
 
@@ -46,51 +44,62 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
         signal: AbortSignal.timeout(8000) 
       });
       
-      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      if (!res.ok) throw new Error();
 
       const data = await res.json();
       const isHealthy = data.status?.toLowerCase() === "online" || data.status?.toLowerCase() === "ok";
       setStatus(isHealthy ? "online" : "degraded");
-    } catch (err) {
-      console.warn("Health Check Failed:", err instanceof Error ? err.message : err);
+    } catch {
+      // Removed (err) to fix the linting error
       setStatus("offline");
     } finally {
-      if (isInitialLoading) {
-        setTimeout(() => setIsInitialLoading(false), 1200);
-      }
+      setTimeout(() => setIsInitialLoading(false), 800);
     }
-  }, [isInitialLoading]);
+  }, []);
 
   useEffect(() => {
-    const goOnline = () => setStatus("online");
-    const goDegraded = () => setStatus("degraded");
-    const goOffline = () => setStatus("offline");
-    const handleBrowserOnline = () => checkHealth();
-    const handleBrowserOffline = () => setStatus("offline");
+    let timer: NodeJS.Timeout;
 
-    window.addEventListener("api-online", goOnline);
-    window.addEventListener("api-degraded", goDegraded);
-    window.addEventListener("api-offline", goOffline);
-    window.addEventListener("online", handleBrowserOnline);
-    window.addEventListener("offline", handleBrowserOffline);
+    if (status === "offline" && !isInitialLoading) {
+      timer = setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
 
+    return () => clearTimeout(timer);
+  }, [status, isInitialLoading]);
+
+  useEffect(() => {
+    setMounted(true);
+    
+    const events = ["api-online", "api-degraded", "api-offline", "online", "offline"];
+    const handlers = [
+        () => setStatus("online"),
+        () => setStatus("degraded"),
+        () => setStatus("offline"),
+        checkHealth,
+        () => setStatus("offline")
+    ];
+
+    events.forEach((e, i) => window.addEventListener(e, handlers[i]));
     checkHealth();
     const interval = setInterval(checkHealth, 40000); 
 
     return () => {
-      window.removeEventListener("api-online", goOnline);
-      window.removeEventListener("api-degraded", goDegraded);
-      window.removeEventListener("api-offline", goOffline);
-      window.removeEventListener("online", handleBrowserOnline);
-      window.removeEventListener("offline", handleBrowserOffline);
+      events.forEach((e, i) => window.removeEventListener(e, handlers[i]));
       clearInterval(interval);
     };
   }, [checkHealth]);
 
+  if (!mounted) return <>{children}</>;
+
   return (
     <StatusContext.Provider value={{ status }}>
-      {/* Dynamic multi-language message */}
-      {isInitialLoading && <Loading message={connectionMsg} />}
+      {isInitialLoading && (
+        <div className="fixed inset-0 z-200 bg-background">
+           <Loading message={connectionMsg} />
+        </div>
+      )}
 
       {!isInitialLoading && status !== "online" && (
         <div className={cn(
@@ -99,7 +108,8 @@ export const StatusProvider = ({ children }: { children: React.ReactNode }) => {
         )}>
           {status === "offline" ? (
             <span className="flex items-center gap-2">
-              <WifiOff className="h-3 w-3 animate-pulse" /> NO CONNECTION TO SERVER
+              <RefreshCw className="h-3 w-3 animate-spin" /> 
+              <WifiOff/> OFFLINE: REFRESHING PAGE IN 3s...
             </span>
           ) : (
             <span className="flex items-center gap-2">
