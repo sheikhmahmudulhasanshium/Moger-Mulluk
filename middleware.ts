@@ -5,11 +5,10 @@ export default createMiddleware(routing);
 
 export const config = {
   matcher: [
-    // Enable a redirect to a matching locale at the root
+    // 1. Match the root
     '/',
-
-    // Set the regex to ignore ALL sitemap variants and robots.txt
-    // Added sitemap.xml and final-sitemap.xml explicitly here
-    '/((?!api|_next|_vercel|sitemap\\.xml|final-sitemap\\.xml|robots\\.txt|logo|favicon|.*\\..*).*)'
+    // 2. EXCLUDE everything that shouldn't be localized
+    // Added sitemap.xml and final-sitemap.xml here
+    '/((?!api|_next|_vercel|sitemap\\.xml|final-sitemap\\.xml|robots\\.txt|favicon|logo|.*\\..*).*)'
   ]
 };
