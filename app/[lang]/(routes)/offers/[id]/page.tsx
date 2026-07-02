@@ -13,53 +13,67 @@ import { Locale } from "@/app/components/types";
 interface Props {
   params: Promise<{ lang: string; id: string }>;
 }
-
-// 1. GENERATE METADATA (For SEO & Link Previews)
+// 1. GENERATE METADATA
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, id } = await params;
   const baseUrl = "https://moger-mulluk.vercel.app";
-  const locale = lang as Locale;
-  
+  const locale = (lang as Locale) || 'en';
+  const fallbackImage = "/favicon/apple-touch-icon.png";
+
   try {
     const offer = await offerApi.getById(id);
-    const title = offer.title[locale] || offer.title['en'];
+    if (!offer) throw new Error();
+
+    // 1. Get localized strings
+    const productTitle = offer.title[locale] || offer.title['en'];
+    const discountText = offer.discount[locale] || offer.discount['en'];
+    
+    // 2. Create a localized "on" or separator
+    let fullTitle = "";
+    if (locale === 'bn') {
+      // Result: "সতেজ গ্রিন টি 🍵-এ ৫ টাকা ছাড়"
+      fullTitle = `${productTitle}-এ ${discountText}`;
+    } else if (locale === 'hi') {
+      // Result: "ग्रीन डिटॉक्स 🍵 पर ৳5 छूट"
+      fullTitle = `${productTitle} पर ${discountText}`;
+    } else if (locale === 'es') {
+      // Result: "৳5 Dto en Detox Verde 🍵"
+      fullTitle = `${discountText} en ${productTitle}`;
+    } else {
+      // Result: "৳5 OFF on Green Detox 🍵"
+      fullTitle = `${discountText} on ${productTitle}`;
+    }
+
     const description = offer.description[locale] || offer.description['en'];
-    const image = offer.displayImage || offer.media.image;
+    const image = offer.displayImage || offer.media?.image || fallbackImage;
 
     return {
-      title: `${title} | Moger Mulluk`,
+      metadataBase: new URL(baseUrl),
+      title: `${fullTitle} | Moger Mulluk`,
       description: description,
-      alternates: {
-        canonical: `${baseUrl}/${lang}/offers/${id}`,
-        languages: {
-          'en': `${baseUrl}/en/offers/${id}`,
-          'bn': `${baseUrl}/bn/offers/${id}`,
-          'es': `${baseUrl}/es/offers/${id}`,
-          'hi': `${baseUrl}/hi/offers/${id}`,
-          'x-default': `${baseUrl}/en/offers/${id}`,
-        },
-      },
       openGraph: {
-        title: title,
+        title: fullTitle, // Shows the discount in the big bold link preview text
         description: description,
-        url: `${baseUrl}/${lang}/offers/${id}`,
+        url: `/${lang}/offers/${id}`,
         siteName: "Moger Mulluk",
         images: [{ url: image, width: 1200, height: 630 }],
         type: 'website',
       },
       twitter: {
         card: 'summary_large_image',
-        title: title,
+        title: fullTitle,
         description: description,
         images: [image],
       }
     };
   } catch {
-    return { title: "Offer Not Found | Moger Mulluk" };
+    return {
+      metadataBase: new URL(baseUrl),
+      title: "Special Offer | Moger Mulluk",
+      openGraph: { images: [fallbackImage] }
+    };
   }
-}
-
-// 2. SSG: Pre-render most popular offers at build time
+}// 2. SSG: Pre-render most popular offers at build time
 export async function generateStaticParams() {
     try {
         const offers = await offerApi.getAllIds();
