@@ -4,15 +4,16 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig: NextConfig = {
     async rewrites() {
         return[
-            {
-                source: '/final-sitemap.xml',
-                destination: '/api/xml-sitemap',
-            },      // Also add the standard name as a backup
+            // Also add the standard name as a backup
 
             {
                 source: '/sitemap.xml',
                 destination: '/api/xml-sitemap',
-      },
+            },
+            {
+                source: '/final-sitemap.xml',
+                destination: '/api/xml-sitemap',
+            },      
         ]
     },
 images: {

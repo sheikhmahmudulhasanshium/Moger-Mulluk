@@ -14,7 +14,6 @@ export async function GET() {
   let xml = '<?xml version="1.0" encoding="UTF-8"?>';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
-  // Helper to generate URL entry with priority and alternates
   const generateEntry = (path: string, priority: string) => {
     let entry = '';
     locales.forEach((locale) => {
@@ -23,7 +22,6 @@ export async function GET() {
       entry += `<loc>${fullUrl}</loc>`;
       entry += `<lastmod>${safeDate}</lastmod>`;
       entry += `<priority>${priority}</priority>`;
-      // Add language alternates (Hreflang)
       locales.forEach((altLocale) => {
         entry += `<xhtml:link rel="alternate" hreflang="${altLocale}" href="${baseUrl}/${altLocale}${path}"/>`;
       });
@@ -32,39 +30,35 @@ export async function GET() {
     return entry;
   };
 
-  // 1. Home Page (Highest Priority)
+  // 1. Static & Category Pages
   xml += generateEntry('', '1.0');
-
-  // 2. Main Category Pages (High Priority for Sitelinks)
-  const categories = ['/menu', '/offers', '/locations', '/about', '/gallery'];
-  categories.forEach(path => {
-    xml += generateEntry(path, '0.8');
+  ['/menu', '/offers', '/locations', '/about', '/gallery'].forEach(p => {
+    xml += generateEntry(p, '0.8');
+  });
+  ['/faq', '/notice'].forEach(p => {
+    xml += generateEntry(p, '0.5');
   });
 
-  // 3. Static Support Pages (Lower Priority)
-  const support = ['/faq', '/notice'];
-  support.forEach(path => {
-    xml += generateEntry(path, '0.5');
-  });
-
-  // 4. Individual Products (Deep links)
+  // 2. Dynamic Product Pages (Fixing 'any' error)
   try {
     const response = await productApi.getAdminProducts(1, 100);
     if (response?.data) {
-      response.data.forEach((product: Product) => {
-        xml += generateEntry(`/menu/${product.shortId}`, '0.6');
+      response.data.forEach((p: Product) => { // Use 'Product' instead of 'any'
+        xml += generateEntry(`/menu/${p.shortId}`, '0.6');
       });
     }
   } catch (error) {
     console.error("Sitemap Product error:", error);
   }
 
-  // 5. Individual Offers
+  // 3. Dynamic Offer Pages (Fixing 'any' error)
   try {
     const offers = await offerApi.getByStatus('recent');
-    offers.forEach((offer: Offer) => {
-      xml += generateEntry(`/offers/${offer.id}`, '0.6');
-    });
+    if (offers) {
+      offers.forEach((o: Offer) => { // Use 'Offer' instead of 'any'
+        xml += generateEntry(`/offers/${o.id}`, '0.6');
+      });
+    }
   } catch (error) {
     console.error("Sitemap Offer error:", error);
   }
@@ -73,9 +67,8 @@ export async function GET() {
 
   return new Response(xml, {
     headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-      'X-Robots-Tag': 'index, follow', // Changed to index so Google actually reads it
-      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate',
+      'Content-Type': 'application/xml',
+      'X-Robots-Tag': 'index, follow',
     },
   });
 }
