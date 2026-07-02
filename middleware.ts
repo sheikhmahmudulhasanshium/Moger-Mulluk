@@ -7,8 +7,9 @@ export const config = {
   matcher: [
     // 1. Match the root
     '/',
-    // 2. EXCLUDE everything that shouldn't be localized
-    // Added sitemap.xml and final-sitemap.xml here
+
+    // 2. EXCLUDE everything that shouldn't be localized.
+    // We use a simpler, more aggressive exclusion list here.
     '/((?!api|_next|_vercel|sitemap\\.xml|final-sitemap\\.xml|robots\\.txt|favicon|logo|.*\\..*).*)'
   ]
 };

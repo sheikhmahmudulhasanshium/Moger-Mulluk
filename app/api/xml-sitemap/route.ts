@@ -9,46 +9,53 @@ import { Offer } from '@/app/components/types';
 export async function GET() {
   const baseUrl = 'https://moger-mulluk.vercel.app';
   const locales = routing.locales;
-  const safeDate = new Date().toISOString().split('T')[0]; // Use real current date
+  const safeDate = new Date().toISOString().split('T')[0]; 
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`;
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
 
   const generateEntry = (path: string, priority: string) => {
     let entry = '';
     locales.forEach((locale) => {
       const fullUrl = `${baseUrl}/${locale}${path}`;
-      entry += `
-  <url>
-    <loc>${fullUrl}</loc>
-    <lastmod>${safeDate}</lastmod>
-    <priority>${priority}</priority>`;
+      entry += `  <url>\n`;
+      entry += `    <loc>${fullUrl}</loc>\n`;
+      entry += `    <lastmod>${safeDate}</lastmod>\n`;
+      entry += `    <priority>${priority}</priority>\n`;
       locales.forEach((altLocale) => {
-        entry += `
-    <xhtml:link rel="alternate" hreflang="${altLocale}" href="${baseUrl}/${altLocale}${path}"/>`;
+        entry += `    <xhtml:link rel="alternate" hreflang="${altLocale}" href="${baseUrl}/${altLocale}${path}"/>\n`;
       });
-      entry += `
-  </url>`;
+      entry += `  </url>\n`;
     });
     return entry;
   };
 
-  // Build XML Sections
+  // 1. Static Pages
   xml += generateEntry('', '1.0');
   ['/menu', '/offers', '/locations', '/about', '/gallery'].forEach(p => xml += generateEntry(p, '0.8'));
   ['/faq', '/notice'].forEach(p => xml += generateEntry(p, '0.5'));
 
+  // 2. Products
   try {
     const products = await productApi.getAdminProducts(1, 100);
-    products?.data?.forEach((p: Product) => xml += generateEntry(`/menu/${p.shortId}`, '0.6'));
-    
-    const offers = await offerApi.getByStatus('recent');
-    offers?.forEach((o: Offer) => xml += generateEntry(`/offers/${o.id}`, '0.6'));
-  } catch (e) {
-    console.error("Sitemap generation error:", e);
-  }
+    if (products?.data) {
+      products.data.forEach((p: Product) => {
+        xml += generateEntry(`/menu/${p.shortId}`, '0.6');
+      });
+    }
+  } catch (e) { console.error(e); }
 
-  xml += '\n</urlset>';
+  // 3. Offers
+  try {
+    const offers = await offerApi.getByStatus('recent');
+    if (offers) {
+      offers.forEach((o: Offer) => {
+        xml += generateEntry(`/offers/${o.id}`, '0.6');
+      });
+    }
+  } catch (e) { console.error(e); }
+
+  xml += '</urlset>';
 
   return new Response(xml, {
     headers: {
