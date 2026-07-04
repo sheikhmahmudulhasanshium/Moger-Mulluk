@@ -8,7 +8,6 @@ import { ThemeProvider } from "../components/providers/theme-provider";
 import { StatusProvider } from "../components/providers/status-provider";
 import { getPageData } from "@/app/components/hooks/hooks-server";
 
-// 1. YOUR ORIGINAL FONTS - KEPT
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,7 +18,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 2. METADATA WITH SEO FIXES
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const t = await getTranslations({ locale: lang, namespace: 'Logo' });
@@ -27,9 +25,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   const globalData = await getPageData(lang, 'home');
   const siteDesc = globalData?.description || "The Realm of Conversations";
-  
-  // DOMAIN FIX
   const baseUrl = "https://moger-mulluk.vercel.app";
+
+  // 1. IMAGE FIX: Use the 512x512 image instead of the small apple-touch-icon
+  const fallbackImage = `${baseUrl}/favicon/web-app-manifest-512x512.png`;
+  
+  // 2. ABSOLUTE URL FIX: Ensure ogImage is always a full URL
+  const ogImage = globalData?.seo?.ogImage 
+    ? (globalData.seo.ogImage.startsWith('http') ? globalData.seo.ogImage : `${baseUrl}${globalData.seo.ogImage}`)
+    : fallbackImage;
 
   return {
     title: {
@@ -37,7 +41,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       template: `%s | ${brandName}`, 
     },
     description: siteDesc,
-    metadataBase: new URL(baseUrl), // FIXED DOMAIN
+    metadataBase: new URL(baseUrl),
+    
     alternates: {
       canonical: `${baseUrl}/${lang}`,
       languages: {
@@ -45,6 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         'bn': `${baseUrl}/bn`,
         'es': `${baseUrl}/es`,
         'hi': `${baseUrl}/hi`,
+        'x-default': `${baseUrl}/en`,
       },
     },
 
@@ -61,22 +67,31 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       apple: "/favicon/apple-touch-icon.png",
     },
     manifest: "/favicon/site.webmanifest",
+
+    // 3. FACEBOOK FIX: This ensures 'property' is used instead of 'name'
     facebook: {
       appId: '2151814335752206'
     },
+
     openGraph: {
       type: "website",
       siteName: brandName,
       url: `${baseUrl}/${lang}`, 
       title: brandName,
       description: siteDesc,
-      images: [{ url: globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: brandName }],
+      images: [{ 
+        url: ogImage, 
+        width: ogImage === fallbackImage ? 512 : 1200, 
+        height: ogImage === fallbackImage ? 512 : 630, 
+        alt: brandName 
+      }],
     },
     twitter: {
-      card: "summary_large_image",
+      // 4. TWITTER FIX: "summary" is better for square images (512x512)
+      card: ogImage === fallbackImage ? "summary" : "summary_large_image",
       title: brandName,
       description: siteDesc,
-      images: [globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
+      images: [ogImage],
     }
   };
 }
@@ -97,7 +112,6 @@ export default async function RootLayout({
   const messages = await getMessages();
   const baseUrl = "https://moger-mulluk.vercel.app";
 
-  // STARBUCKS-STYLE SCHEMA (JSON-LD)
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -131,7 +145,6 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      {/* 3. YOUR ORIGINAL CLASSNAMES & HYDRATION SETTINGS - KEPT */}
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased`} 
         suppressHydrationWarning

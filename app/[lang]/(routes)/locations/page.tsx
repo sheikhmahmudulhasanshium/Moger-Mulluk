@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       title: data?.title,
       description: data?.description,
-      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],
+      images: [{url: data?.seo?.ogImage || "/favicon/web-app-manifest-512x512.png", width: 1200, height: 630, alt: data?.title}],
       type: "website",
       url: `${baseUrl}/${lang}/locations`
     },
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       title: data?.title,
       description: data?.description,      
       card: 'summary_large_image',
-      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],   
+      images: [{url: data?.seo?.ogImage || "/favicon/web-app-manifest-512x512.png", width: 1200, height: 630, alt: data?.title}],   
   }
 }}
 const LocationsPage = () => {

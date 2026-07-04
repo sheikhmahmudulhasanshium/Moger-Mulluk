@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       url: `${baseUrl}/${lang}/notice`,
       title: t('title'),
       description: t('description'),
-      images: [{ url: "/favicon/apple-touch-icon.png", width: 1200, height: 630 }],
+      images: [{ url: "/favicon/web-app-manifest-512x512.png", width: 1200, height: 630 }],
     }
   };
 }

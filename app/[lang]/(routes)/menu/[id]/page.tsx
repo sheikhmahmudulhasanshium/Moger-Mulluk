@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   try {
     const product = await productApi.getDetail(lang, id);
-    const ogImage = product.media?.thumbnail || "/favicon/apple-touch-icon.png";
+    const ogImage = product.media?.thumbnail || "/favicon/web-app-manifest-512x512.png"; // Fallback to a default image if thumbnail is not available
 
     return {
       title: product.title,
@@ -27,6 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           'es': `${baseUrl}/es/menu/${id}`,
           'hi': `${baseUrl}/hi/menu/${id}`
         }
+      },
+      facebook: {
+        appId: '2151814335752206'
       },
       openGraph: {
         type: "article", // FIXED

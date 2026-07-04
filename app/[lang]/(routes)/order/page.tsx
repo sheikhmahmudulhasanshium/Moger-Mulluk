@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       title: 'Orders | Moger Mulluk',
       description: 'Place your orders for our delicious offerings at Moger Mulluk. From freshly brewed coffee to delectable desserts, we have something for every taste.',
       url: `/${lang}/order`,
-      images: [ "/favicon/apple-touch-icon.png"],
+      images: [ "/favicon/web-app-manifest-512x512.png" ],
     },
     alternates: {
       canonical: `${baseUrl}/${lang}/order`,

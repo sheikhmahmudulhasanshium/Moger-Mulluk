@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, id } = await params;
   const baseUrl = "https://moger-mulluk.vercel.app";
   const locale = (lang as Locale) || 'en';
-  const fallbackImage = "/favicon/apple-touch-icon.png";
+  const fallbackImage = "/favicon/web-app-manifest-512x512.png"; // Fallback image for OG and Twitter cards
 
   try {
     const offer = await offerApi.getById(id);

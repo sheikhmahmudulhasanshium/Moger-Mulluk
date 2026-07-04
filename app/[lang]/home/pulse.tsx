@@ -184,7 +184,7 @@ export default function ThePulse() {
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0 w-full h-full"
               >
-                <Image src={STAGES[currentFrame].path} alt="Arena" fill className="object-cover" priority />
+                <Image src={STAGES[currentFrame].path} alt="Arena" fill className="object-cover" priority sizes="auto"/>
               </motion.div>
             </AnimatePresence>
           </div>

@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const data = await getPageData(lang, 'home');
   const baseUrl = "https://moger-mulluk.vercel.app";
-  const fallbackImage = "/favicon/apple-touch-icon.png";
+  const fallbackImage = `${baseUrl}/favicon/web-app-manifest-512x512.png`;
 
   if (!data) return { title: "Moger Mulluk" };
 
@@ -88,8 +88,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         "@id": `${baseUrl}/${lang}/#organization`,
         "name": "Moger Mulluk",
         "url": `${baseUrl}/${lang}`,
-        "logo": `${baseUrl}/favicon/apple-touch-icon.png`,
-        "image": `${baseUrl}/favicon/apple-touch-icon.png`,
+        "logo" : `${baseUrl}/favicon/web-app-manifest-512x512.png`,
+        "image": `${baseUrl}/favicon/web-app-manifest-512x512.png`,
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Sector 3, Uttara",
