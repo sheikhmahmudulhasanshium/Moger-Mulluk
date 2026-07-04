@@ -25,7 +25,7 @@ const Page = ({ page, entryNumber }: { page: DiaryPage; entryNumber: number }) =
   <div className="absolute inset-0 overflow-hidden rounded-b-2xl md:rounded-l-none md:rounded-r-2xl bg-[#fdfcf0] border border-black/10 shadow-sm">
     <div className="flex flex-col md:flex-row h-full">
       <div className="relative w-full h-1/2 md:w-3/5 md:h-full">
-        <Image src={page.url} alt={page.title} fill priority className="object-cover" />
+        <Image src={page.url} alt={page.title} fill priority className="object-cover" sizes="auto"/>
         {/* Shadow gradient for the hinge */}
         <div className="absolute inset-x-0 top-0 h-16 bg-linear-to-b from-black/30 to-transparent md:inset-y-0 md:left-0 md:w-16 md:h-full md:bg-linear-to-r" />
       </div>

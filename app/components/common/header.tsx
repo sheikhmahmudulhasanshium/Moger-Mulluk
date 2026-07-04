@@ -22,21 +22,21 @@ const Header = () => {
                  <div className="hidden md:flex gap-6">
                     
                   <Button variant="default" asChild>
-                    <Link href="/pre-order">{messages.CTA.orderNow}</Link>
+                    <Link href="/order/#pre-order">{messages.CTA.orderNow}</Link>
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href="/book-table">{messages.CTA.bookTable}</Link>
+                    <Link href="/order/#book-table">{messages.CTA.bookTable}</Link>
                   </Button>
                  </div>
 
         {/* Mobile CTA icons only */}
         <div className="flex md:hidden gap-2">
-          <Link href="/pre-order">
+          <Link href="/order/#pre-order">
             <Button size="sm" variant="default">
               <Coffee className="w-5 h-5" />
             </Button>
           </Link>
-          <Link href="/book-table">
+          <Link href="/order/#book-table">
             <Button size="sm" variant="outline">
               <Utensils  className="w-5 h-5" />
             </Button>
