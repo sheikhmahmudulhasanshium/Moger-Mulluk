@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import PageProvider from "@/app/components/providers/page-provider";
 import Footer from "@/app/components/common/footer";
 import Header from "@/app/components/common/header";
@@ -6,15 +6,17 @@ import Sidebar from "@/app/components/common/sidebar";
 import Navbar from "@/app/components/common/navbar";
 import Body from "./body"; 
 import { Metadata } from 'next';
+import { getPageData } from '@/app/components/hooks/hooks-server';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  const t = await getTranslations({ locale: lang, namespace: 'FAQPage' });
+  const data = await getPageData(lang, 'notice');
   const baseUrl = "https://moger-mulluk.vercel.app";
 
   return {
-    title: t('title'),
-    description: t('description'),
+    title: data?.title,
+    description: data?.description,
+    facebook: { appId: '2151814335752206' },
     alternates: {
       canonical: `${baseUrl}/${lang}/notice`,
       languages: {
@@ -27,9 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       type: "website",
       url: `${baseUrl}/${lang}/notice`,
-      title: t('title'),
-      description: t('description'),
-      images: [{ url: "/favicon/web-app-manifest-512x512.png", width: 1200, height: 630 }],
+      title: data?.title,
+      description: data?.description,
+      images: [{ url: data?.seo?.ogImage || `${baseUrl}/favicon/web-app-manifest-512x512.png`, width: 1200, height: 630 ,alt: data?.title}],
     }
   };
 }

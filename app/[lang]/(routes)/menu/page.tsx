@@ -12,14 +12,15 @@ interface Props {
   params: Promise<{ lang: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  const data = await getPageData(lang, 'menu'); // Use 'menu' for menu page
+  const data = await getPageData(lang, 'menu');
   const baseUrl = "https://moger-mulluk.vercel.app";
 
   return {
     title: data?.title,
     description: data?.description,
+    facebook: { appId: '2151814335752206' },
     alternates: {
       canonical: `${baseUrl}/${lang}/menu`,
       languages: {
@@ -31,13 +32,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
+      url: `${baseUrl}/${lang}/menu`,
       title: data?.title,
       description: data?.description,
-      url: `${baseUrl}/${lang}/menu`,
-      images: [{url: data?.seo?.ogImage || "/favicon/web-app-manifest-512x512.png", width: 1200, height: 630, alt: data?.title}],
+      images: [{ url: data?.seo?.ogImage || `${baseUrl}/favicon/web-app-manifest-512x512.png`, width: 1200, height: 630 ,alt: data?.title}],
     }
   };
 }
+
 const MenuPage = async ({ params }: Props) => {
     // 1. We AWAIT the params
     const { lang } = await params;

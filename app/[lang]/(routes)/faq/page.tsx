@@ -1,5 +1,4 @@
 import { Suspense } from "react"; // Added Suspense
-import { getTranslations } from 'next-intl/server';
 import { MasterFAQ } from "@/lib/data";
 import PageProvider from "../../../components/providers/page-provider";
 import Footer from "@/app/components/common/footer";
@@ -7,39 +6,33 @@ import Header from "@/app/components/common/header";
 import Body from "./body";
 import Sidebar from "@/app/components/common/sidebar";
 import Navbar from "@/app/components/common/navbar";
+import { Metadata } from "next";
+import { getPageData } from "@/app/components/hooks/hooks-server";
 
-export async function generateMetadata({ params, searchParams }: { 
-  params: Promise<{ lang: string }>, 
-  searchParams: Promise<{ id?: string }> 
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  const { id } = await searchParams;
-  const t = await getTranslations({ locale: lang, namespace: 'FAQPage' });
-  const brand = await getTranslations({ locale: lang, namespace: 'Logo' });
-  
-  const activeFAQ = MasterFAQ[lang.toUpperCase()] || MasterFAQ.EN;
-  const sharedItem = activeFAQ.items.find(item => item.id === id);
-
-  const finalTitle = sharedItem ? sharedItem.question : t('title');
-  const finalDesc = sharedItem ? sharedItem.answer : t('description');
+  const data = await getPageData(lang, 'faq');
+  const baseUrl = "https://moger-mulluk.vercel.app";
 
   return {
-    title: finalTitle,
-    description: finalDesc,
-    openGraph: {
-      title: `${finalTitle} | ${brand('brandName')}`,
-      description: finalDesc,
-      url: `https://moger-mulluk.vercel.app/${lang}/faq${id ? `?id=${id}` : ''}`,
-      siteName: brand('brandName'),
-      images: [{ url: '/favicon/web-app-manifest-512x512.png' , width: 1200, height: 630, alt: finalTitle }],
-      locale: lang,
-      type: 'article',
+    title: data?.title,
+    description: data?.description,
+    facebook: { appId: '2151814335752206' },
+    alternates: {
+      canonical: `${baseUrl}/${lang}/faq`,
+      languages: {
+        'en': `${baseUrl}/en/faq`,
+        'bn': `${baseUrl}/bn/faq`,
+        'es': `${baseUrl}/es/faq`,
+        'hi': `${baseUrl}/hi/faq`,
+      },
     },
-    twitter: {
-        card: 'summary_large_image',
-        title: finalTitle,
-        description: finalDesc,
-        images: [{ url: '/favicon/web-app-manifest-512x512.png' , width: 1200, height: 630, alt: finalTitle }],
+    openGraph: {
+      type: "website",
+      url: `${baseUrl}/${lang}/faq`,
+      title: data?.title,
+      description: data?.description,
+      images: [{ url: data?.seo?.ogImage || `${baseUrl}/favicon/web-app-manifest-512x512.png`, width: 1200, height: 630 ,alt: data?.title}],
     }
   };
 }

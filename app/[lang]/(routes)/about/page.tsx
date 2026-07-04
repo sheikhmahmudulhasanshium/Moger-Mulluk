@@ -12,38 +12,32 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const data = await getPageData(lang, 'about');
   const baseUrl = "https://moger-mulluk.vercel.app";
+  const fallbackImage = `${baseUrl}/favicon/web-app-manifest-512x512.png`;
 
-  if (!data) return { title: "Our Story | Moger Mulluk" };
+  if (!data) return { title: "About Us | Moger Mulluk" };
 
   return {
     title: data.title,
     description: data.description,
-    // FIX FOR SEARCH CONSOLE: Tells Google exactly which page is the "master" version
+    facebook: { appId: '2151814335752206' },
     alternates: {
       canonical: `${baseUrl}/${lang}/about`,
       languages: {
         'en': `${baseUrl}/en/about`,
-        'es': `${baseUrl}/es/about`,
         'bn': `${baseUrl}/bn/about`,
+        'es': `${baseUrl}/es/about`,
         'hi': `${baseUrl}/hi/about`,
-        'x-default': `${baseUrl}/en/about`,
       },
     },
     openGraph: {
       title: data.title,
       description: data.description,
-      url: `${baseUrl}/${lang}/about`, // Added
-
-      images: [{url: data.seo.ogImage, width: 1200, height: 630, alt: data.title}],
-      type: 'article',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      images: [{url: data.seo.ogImage, width: 1200, height: 630, alt: data.title}],
+      url: `${baseUrl}/${lang}/about`,
+      type: 'article', // About is an article type
+      images: [{ url: data.seo?.ogImage || fallbackImage, width: 1200, height: 630 ,alt: data.title }],
     }
   };
 }
-
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const data = await getPageData(lang, 'about');

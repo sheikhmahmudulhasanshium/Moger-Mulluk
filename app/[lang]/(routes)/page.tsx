@@ -17,58 +17,38 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   if (!data) return { title: "Moger Mulluk" };
 
-  // SEO FIX: Stretch the title and description to satisfy the SEO Report
-  const optimizedTitle = `${data.title} | Moger Mulluk - Premium Tea & Artisanal Coffee`;
-  const optimizedDesc = `${data.description}. Experience the best tea, coffee, and hangout spots in Dhaka. Join us for a legendary cafe experience with global branches.`;
-
-  // IMAGE FIX: Social media ignores SVGs. If backend has .svg, use PNG fallback.
-  const rawOgImage = data.seo.ogImage || fallbackImage;
+  const optimizedTitle = `${data.title} | Moger Mulluk`;
+  const rawOgImage = data.seo?.ogImage || fallbackImage;
   const finalOgImage = rawOgImage.endsWith('.svg') ? fallbackImage : rawOgImage;
 
   return {
     metadataBase: new URL(baseUrl),
     title: optimizedTitle,
-    description: optimizedDesc,
-    keywords: [...(data.seo.keywords || []), "cafe dhaka", "best tea shop", "coffee house dhaka"],
-    
+    description: data.description,
+    facebook: { appId: '2151814335752206' }, // FIXED: Proper property mapping
     alternates: {
-      canonical: `/${lang}`,
+      canonical: `${baseUrl}/${lang}`, // FIXED: Absolute URL
       languages: {
-        'en': '/en',
-        'bn': '/bn',
-        'es': '/es',
-        'hi': '/hi',
+        'en': `${baseUrl}/en`,
+        'bn': `${baseUrl}/bn`,
+        'es': `${baseUrl}/es`,
+        'hi': `${baseUrl}/hi`,
       },
     },
-
     openGraph: {
       title: optimizedTitle,
-      description: optimizedDesc,
-      url: `/${lang}`,
+      description: data.description,
+      url: `${baseUrl}/${lang}`, // FIXED: Absolute URL
       siteName: 'Moger Mulluk',
-      images: [
-        {
-          url: finalOgImage, 
-          width: 1200,
-          height: 630,
-          alt: optimizedTitle,
-        },
-      ],
+      images: [{ url: finalOgImage, width: 1200, height: 630 ,alt: optimizedTitle }],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: optimizedTitle,
-      description: optimizedDesc,
       images: [finalOgImage],
     },
-    robots: {
-      index: !data.seo.isNoIndex,
-      follow: !data.seo.isNoIndex,
-    }
   };
 }
-
 // 2. PAGE COMPONENT
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
