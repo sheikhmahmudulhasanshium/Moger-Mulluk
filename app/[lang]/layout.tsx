@@ -61,8 +61,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       apple: "/favicon/apple-touch-icon.png",
     },
     manifest: "/favicon/site.webmanifest",
-    other: {
-      'fb:app_id': '2151814335752206'
+    facebook: {
+      appId: '2151814335752206'
     },
     openGraph: {
       type: "website",

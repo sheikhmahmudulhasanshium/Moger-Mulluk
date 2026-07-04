@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       description: data?.description,
       url: `${baseUrl}/${lang}/gallery`,
       images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],
+      type: "website",
     },
     // Inside generateMetadata for gallery
 alternates: {
