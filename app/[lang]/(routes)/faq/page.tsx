@@ -31,7 +31,7 @@ export async function generateMetadata({ params, searchParams }: {
       description: finalDesc,
       url: `https://moger-mulluk.vercel.app/${lang}/faq${id ? `?id=${id}` : ''}`,
       siteName: brand('brandName'),
-      images: [{ url: '/favicon/apple-touch-icon.png' }],
+      images: [{ url: '/favicon/apple-touch-icon.png' , width: 1200, height: 630, alt: finalTitle }],
       locale: lang,
       type: 'article',
     },
@@ -39,6 +39,7 @@ export async function generateMetadata({ params, searchParams }: {
         card: 'summary_large_image',
         title: finalTitle,
         description: finalDesc,
+        images: [{ url: '/favicon/apple-touch-icon.png' , width: 1200, height: 630, alt: finalTitle }],
     }
   };
 }

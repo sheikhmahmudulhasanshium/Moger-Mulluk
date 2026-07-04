@@ -38,7 +38,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     },
     description: siteDesc,
     metadataBase: new URL(baseUrl), // FIXED DOMAIN
-    
+    alternates: {
+      canonical: `${baseUrl}/${lang}`,
+      languages: {
+        'en': `${baseUrl}/en`,
+        'bn': `${baseUrl}/bn`,
+        'es': `${baseUrl}/es`,
+        'hi': `${baseUrl}/hi`,
+      },
+    },
+
     verification: {
       google: "XaIlvvAGDWME_Z9oUJnApUDnAKbjEBmmUxhJ_onO0SE",
     },
@@ -52,12 +61,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       apple: "/favicon/apple-touch-icon.png",
     },
     manifest: "/favicon/site.webmanifest",
-
+    other: {
+      'fb:app_id': '2151814335752206'
+    },
     openGraph: {
       type: "website",
       siteName: brandName,
-      url: `/${lang}`,
-      images: [{ url: globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630 }],
+      url: `${baseUrl}/${lang}`, 
+      title: brandName,
+      description: siteDesc,
+      images: [{ url: globalData?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: brandName }],
     },
     twitter: {
       card: "summary_large_image",

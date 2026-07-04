@@ -32,12 +32,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       title: data.title,
       description: data.description,
-      images: [data.seo.ogImage],
+      url: `${baseUrl}/${lang}/about`, // Added
+
+      images: [{url: data.seo.ogImage, width: 1200, height: 630, alt: data.title}],
       type: 'article',
     },
     twitter: {
       card: 'summary_large_image',
-      images: [data.seo.ogImage],
+      images: [{url: data.seo.ogImage, width: 1200, height: 630, alt: data.title}],
     }
   };
 }

@@ -31,9 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
+      type: "website",
       title: data?.title,
       description: data?.description,
-      images: [data?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
+      url: `${baseUrl}/${lang}/offers`,
+      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],
     }
   };
 }

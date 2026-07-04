@@ -19,12 +19,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       title: data?.title,
       description: data?.description,
-      url: `/${lang}/gallery`,
-      images: [data?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
+      url: `${baseUrl}/${lang}/gallery`,
+      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],
     },
-    alternates: {
-      canonical: `${baseUrl}/${lang}/gallery`,
-    }
+    // Inside generateMetadata for gallery
+alternates: {
+  canonical: `${baseUrl}/${lang}/gallery`,
+  languages: {
+    'en': `${baseUrl}/en/gallery`,
+    'bn': `${baseUrl}/bn/gallery`,
+    'es': `${baseUrl}/es/gallery`,
+    'hi': `${baseUrl}/hi/gallery`,
+    'x-default': `${baseUrl}/en/gallery`,
+  },
+},
   };
 }
 

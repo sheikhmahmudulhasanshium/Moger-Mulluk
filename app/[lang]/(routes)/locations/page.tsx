@@ -18,11 +18,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       title: data?.title,
       description: data?.description,
-      images: [data?.seo?.ogImage || "/favicon/apple-touch-icon.png"],
+      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],
+      type: "website",
+      url: `${baseUrl}/${lang}/locations`
     },
-    alternates: { canonical: `${baseUrl}/${lang}/locations` } // Change to /gallery for gallery
-  };
-}
+    alternates: { canonical: `${baseUrl}/${lang}/locations` ,languages:{'en': `${baseUrl}/en/locations`, 'bn': `${baseUrl}/bn/locations`, 'es': `${baseUrl}/es/locations`, 'hi': `${baseUrl}/hi/locations`}}, 
+    twitter: {
+      title: data?.title,
+      description: data?.description,      
+      card: 'summary_large_image',
+      images: [{url: data?.seo?.ogImage || "/favicon/apple-touch-icon.png", width: 1200, height: 630, alt: data?.title}],   
+  }
+}}
 const LocationsPage = () => {
     return (
         <PageProvider header={<Header/>} footer={<Footer/>} navbar={<Navbar/>} sidebar={<Sidebar/>}>

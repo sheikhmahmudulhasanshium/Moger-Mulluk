@@ -8,13 +8,14 @@ import Body from "./body";
 interface Props {
   params: Promise<{ lang: string; id: string }>;
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, id } = await params;
   const baseUrl = "https://moger-mulluk.vercel.app";
   
   try {
     const product = await productApi.getDetail(lang, id);
+    const ogImage = product.media?.thumbnail || "/favicon/apple-touch-icon.png";
+
     return {
       title: product.title,
       description: product.description,
@@ -24,21 +25,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           'en': `${baseUrl}/en/menu/${id}`,
           'bn': `${baseUrl}/bn/menu/${id}`,
           'es': `${baseUrl}/es/menu/${id}`,
-          'hi': `${baseUrl}/hi/menu/${id}`,
-          'x-default': `${baseUrl}/en/menu/${id}`,
-        },
+          'hi': `${baseUrl}/hi/menu/${id}`
+        }
       },
       openGraph: {
+        type: "article", // FIXED
+        url: `${baseUrl}/${lang}/menu/${id}`, // FIXED
         title: product.title,
         description: product.description,
-images: [{
-  url: product.media?.thumbnail || "/favicon/apple-touch-icon.png",
-  width: 1200,
-  height: 630
-}],      },
+        images: [{
+          url: ogImage,
+          width: 1200, // FIXED
+          height: 630, // FIXED
+        }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        images: [ogImage],
+      }
     };
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching product data:", error);
     return { title: "Product | Moger Mulluk" };
   }
 }
