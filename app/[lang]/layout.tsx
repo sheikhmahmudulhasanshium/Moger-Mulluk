@@ -26,6 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     metadataBase: new URL(baseUrl),
     title: { default: brandName, template: `%s | ${brandName}` },
     description: globalData?.description || "The Realm of Conversations",
+    
+    // 1. ADDED BACK: HTML ID (Google Site Verification Meta Tag)
+    // This ensures the "HTML Tag" method stays verified.
+    verification: {
+      google: "google2529eeb245344b02", 
+    },
+
     openGraph: {
       type: "website",
       siteName: brandName,
@@ -40,15 +47,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       description: globalData?.description,
       images: [ogImage],
     },
-    facebook: { appId: '2151814335752206' },
+    facebook: { 
+        appId: '2151814335752206' 
+    },
     alternates: {
       canonical: lang === 'en' ? `${baseUrl}/` : `${baseUrl}/${lang}`,
       languages: {
-        'en': `${baseUrl}/en`,
-        'bn': `${baseUrl}/bn`,
-        'es': `${baseUrl}/es`,
-        'hi': `${baseUrl}/hi`,
-        'x-default': `${baseUrl}/`,
+        'en': `${baseUrl}/en`, 'bn': `${baseUrl}/bn`, 'es': `${baseUrl}/es`, 'hi': `${baseUrl}/hi`, 'x-default': `${baseUrl}/`,
       },
     },
   };
@@ -63,8 +68,9 @@ export default async function RootLayout({ children, params }: { children: React
     <html lang={lang} suppressHydrationWarning>
       <head>
         {/* 
-            FORCING SCRIPT INTO HEAD FOR GOOGLE VERIFICATION
-            We use raw tags and disable the specific Next.js script rule.
+            GOOGLE ANALYTICS SCRIPT
+            Kept as raw HTML tags to ensure the "Google Analytics" 
+            ownership method stays verified in Search Console.
         */}
         {/* eslint-disable @next/next/next-script-for-ga */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CW0ES20MGM"></script>
