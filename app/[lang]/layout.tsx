@@ -6,7 +6,7 @@ import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { StatusProvider } from "../components/providers/status-provider";
 import { getPageData } from "@/app/components/hooks/hooks-server";
-import Script from "next/script"; // Import the Next.js Script component
+import Script from "next/script"; // 1. Import the Next.js Script component
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: 'swap' });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: 'swap' });
@@ -25,25 +25,49 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   return {
     metadataBase: new URL(baseUrl),
-    title: { default: brandName, template: `%s | ${brandName}` },
-    description: globalData?.description || "The Realm of Conversations",
-    alternates: {
-      canonical: lang === 'en' ? `${baseUrl}/` : `${baseUrl}/${lang}`,
-      languages: { 'en': `${baseUrl}/en`, 'bn': `${baseUrl}/bn`, 'es': `${baseUrl}/es`, 'hi': `${baseUrl}/hi`, 'x-default': `${baseUrl}/` },
+    title: { 
+      default: brandName, 
+      template: `%s | ${brandName}` 
     },
-    facebook: { appId: '2151814335752206' },
+    description: globalData?.description || "The Realm of Conversations",
+    
     openGraph: {
       type: "website",
       siteName: brandName,
       title: brandName,
       description: globalData?.description,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      url: baseUrl,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: brandName,
+        },
+      ],
     },
+
     twitter: {
       card: "summary_large_image",
       title: brandName,
+      description: globalData?.description,
       images: [ogImage],
-    }
+    },
+
+    facebook: {
+      appId: '2151814335752206',
+    },
+
+    alternates: {
+      canonical: lang === 'en' ? `${baseUrl}/` : `${baseUrl}/${lang}`,
+      languages: {
+        'en': `${baseUrl}/en`,
+        'bn': `${baseUrl}/bn`,
+        'es': `${baseUrl}/es`,
+        'hi': `${baseUrl}/hi`,
+        'x-default': `${baseUrl}/`,
+      },
+    },
   };
 }
 
@@ -55,7 +79,11 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        {/* Manual Google Analytics Integration */}
+        {/* 
+            GOOGLE ANALYTICS
+            Using next/script for optimal performance. 
+            Verification is handled by your public/google...html file.
+        */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-CW0ES20MGM"
           strategy="afterInteractive"
@@ -65,7 +93,9 @@ export default async function RootLayout({ children, params }: { children: React
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-CW0ES20MGM');
+            gtag('config', 'G-CW0ES20MGM', {
+              page_path: window.location.pathname,
+            });
           `}
         </Script>
       </head>
