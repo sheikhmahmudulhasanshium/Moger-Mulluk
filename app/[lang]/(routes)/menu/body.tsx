@@ -211,7 +211,7 @@ const Body = () => {
                     {otherBevs.map(x => (
                         <Link href={`/menu/${x.shortId}`} key={x._id} className="group flex items-center gap-4 border-l-2 border-stone-200 pl-4 py-2 hover:border-amber-600 transition-all">
                             <div className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden border bg-stone-50">
-                                {x.media?.thumbnail && <Image src={x.media.thumbnail} alt="" fill className="object-cover" />}
+                                {x.media?.thumbnail && <Image src={x.media.thumbnail} alt="" fill className="object-cover" sizes="auto"/>}
                             </div>
                             <div className="grow">
                                 <div className="flex justify-between items-baseline">

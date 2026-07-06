@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import UploadProductPhotoForm from '@/app/components/forms/upload-product-photo';
 import ProductGallery, { ProductGalleryData } from './gallery';
 import AvailableProductOffers from './offers';
+import SocialShare from '@/app/components/common/social-share';
 
 interface BodyProps {
   id: string; // This is the shortId
@@ -74,6 +75,14 @@ const Body = ({ id, lang }: BodyProps) => {
             <h1 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-black dark:text-white leading-none">
               {product.title}
             </h1>
+            {/* SHARE BUTTON: Inline flow, not fixed */}
+                <div className="flex items-end justify-end border-b border-zinc-100 dark:border-zinc-800 pb-4 mb-6">
+                    
+                    <div className="flex items-center gap-3">
+                        <span className="hidden sm:inline text-sm font-medium text-zinc-400">Share:</span>
+                        <SocialShare title={product?.title || "Kingdom Menu"} />
+                    </div>
+                </div>
             <p className="text-2xl font-mono font-black text-amber-900 dark:text-amber-500">৳{product.price}</p>
           </div>
 

@@ -1,26 +1,33 @@
-import { setRequestLocale } from 'next-intl/server'; // Import this
+import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from "next"; 
-import Footer from "@/app/components/common/footer";
-import Header from "@/app/components/common/header";
-import Navbar from "@/app/components/common/navbar";
-import Sidebar from "@/app/components/common/sidebar";
+import { getPageData } from '@/app/components/hooks/hooks-server';
 import PageProvider from "@/app/components/providers/page-provider";
 import Body from "./body";
-import { getPageData } from '@/app/components/hooks/hooks-server';
+import Header from "@/app/components/common/header";
+import Footer from "@/app/components/common/footer";
+import Navbar from "@/app/components/common/navbar";
+import Sidebar from "@/app/components/common/sidebar";
+import SocialShare from "@/app/components/common/social-share";
 
 interface Props {
   params: Promise<{ lang: string }>;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+// 1. GENERATE METADATA
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   const data = await getPageData(lang, 'menu');
   const baseUrl = "https://moger-mulluk.vercel.app";
+  
+  // Standardize titles to prevent Facebook Debugger "Mismatched" error
+  const titleText = `${data?.title || 'Kingdom Menu'} | Moger Mulluk`;
+  const descText = data?.description || "Explore the legendary flavors of Moger Mulluk.";
+  const ogImage = data?.seo?.ogImage || `${baseUrl}/favicon/web-app-manifest-512x512.png`;
 
   return {
-    title: data?.title,
-    description: data?.description,
-    facebook: { appId: '2151814335752206' },
+    metadataBase: new URL(baseUrl),
+    title: titleText,
+    description: descText,
     alternates: {
       canonical: `${baseUrl}/${lang}/menu`,
       languages: {
@@ -33,25 +40,50 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       type: "website",
       url: `${baseUrl}/${lang}/menu`,
-      title: data?.title,
-      description: data?.description,
-      images: [{ url: data?.seo?.ogImage || `${baseUrl}/favicon/web-app-manifest-512x512.png`, width: 1200, height: 630 ,alt: data?.title}],
+      title: titleText, 
+      description: descText,
+      siteName: "Moger Mulluk",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: titleText }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titleText, 
+      description: descText,
+      images: [ogImage],
     }
   };
 }
 
+// 2. PAGE COMPONENT
 const MenuPage = async ({ params }: Props) => {
-    // 1. We AWAIT the params
     const { lang } = await params;
-
-    // 2. We USE the lang variable here. 
-    // This tells next-intl which language to use for this specific request.
-    // It also stops the "unused variable" error.
+    
+    // We fetch the data here too so we can use titleText in the share button
+    const data = await getPageData(lang, 'menu');
+    const titleText = `${data?.title || 'Kingdom Menu'} | Moger Mulluk`;
+    
     setRequestLocale(lang);
 
     return ( 
         <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>
-            <Body/>
+            <div className="container mx-auto px-4 py-6">
+                
+
+                <Body/>
+                {/* SHARE BUTTON: Inline flow, not fixed */}
+                <div className="flex flex-col items-center justify-between border-t border-zinc-100 dark:border-zinc-800 pt-4 mt-6">
+                    <div>
+                        <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-100">
+                           {data?.title || "Kingdom Menu"}
+                        </h1>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                        <span className="hidden sm:inline text-sm font-medium text-zinc-400">Share:</span>
+                        <SocialShare title={titleText} />
+                    </div>
+                </div>
+            </div>
         </PageProvider>
      );
 }

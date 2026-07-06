@@ -5,8 +5,8 @@ import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
-  // 1. Intercept the Chrome DevTools request immediately
+export default function proxy(request: NextRequest) {
+  // 1. Intercept the Chrome DevTools request
   if (request.nextUrl.pathname === '/.well-known/appspecific/com.chrome.devtools.json') {
     return new NextResponse(JSON.stringify({}), {
       status: 200,
@@ -14,18 +14,21 @@ export default function middleware(request: NextRequest) {
     });
   }
 
-  // 2. Pass all other requests to next-intl
+  // 2. Run next-intl middleware
   return intlMiddleware(request);
 }
 
 export const config = {
   matcher: [
+    // Enable for the root
     '/',
     
-    // ADDED: Explicitly match the DevTools endpoint so the middleware can intercept it
+    // Enable for DevTools
     '/.well-known/appspecific/com.chrome.devtools.json',
 
-    // Your existing exclusion rule
+    // EXCLUSION LIST:
+    // (?!...) means "do NOT match if the path starts with these"
+    // We exclude api, _next, static folders (favicon, logo), and files with extensions
     '/((?!api|_next|_vercel|sitemap\\.xml|final-sitemap\\.xml|robots\\.txt|favicon|logo|.*\\..*).*)'
   ]
 };
