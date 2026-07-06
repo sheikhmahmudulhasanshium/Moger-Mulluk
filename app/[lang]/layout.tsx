@@ -6,6 +6,7 @@ import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { StatusProvider } from "../components/providers/status-provider";
 import { getPageData } from "@/app/components/hooks/hooks-server";
+import Script from "next/script"; // Import the Next.js Script component
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: 'swap' });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: 'swap' });
@@ -53,9 +54,22 @@ export default async function RootLayout({ children, params }: { children: React
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Manual Google Analytics Integration */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-CW0ES20MGM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CW0ES20MGM');
+          `}
+        </Script>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-        {/* SDK Removed - No more hydration errors or slow loading */}
         <NextIntlClientProvider messages={messages} locale={lang}>
           <ThemeProvider attribute='class' defaultTheme="system" enableSystem>
             <StatusProvider>{children}</StatusProvider>
