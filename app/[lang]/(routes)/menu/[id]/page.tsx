@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         appId: '2151814335752206'
       },
       openGraph: {
-        type: "article", // FIXED
+        type: "website", // FIXED
         url: `${baseUrl}/${lang}/menu/${id}`, // FIXED
         title: product.title,
         description: product.description,
