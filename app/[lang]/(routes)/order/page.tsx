@@ -26,7 +26,7 @@ const OrderPage = () => {
     return ( 
         <PageProvider header={<Header/>} footer={<Footer/>} sidebar={<Sidebar/>} navbar={<Navbar/>}>
             <div>
-                Order Page
+                This Page is under construction. Please check back later for updates on our ordering system. We will let you know when the system is ready. We appreciate your patience and look forward to serving you soon!
             </div>
         </PageProvider>
      );
