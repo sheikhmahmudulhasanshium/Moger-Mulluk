@@ -4,12 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      { source: '/sitemap.xml', destination: '/api/xml-sitemap' },
-      { source: '/final-sitemap.xml', destination: '/api/xml-sitemap' },
-    ];
-  },
+  
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'youtube.com' },

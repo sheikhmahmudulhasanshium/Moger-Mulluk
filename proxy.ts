@@ -29,6 +29,6 @@ export const config = {
     // EXCLUSION LIST:
     // (?!...) means "do NOT match if the path starts with these"
     // We exclude api, _next, static folders (favicon, logo), and files with extensions
-    '/((?!api|_next|_vercel|sitemap\\.xml|final-sitemap\\.xml|robots\\.txt|favicon|logo|.*\\..*).*)'
-  ]
+// Check your middleware.ts matcher:
+'/((?!api|_next|_vercel|sitemap\\.xml|robots\\.txt|favicon|logo|.*\\..*).*)'  ]
 };
