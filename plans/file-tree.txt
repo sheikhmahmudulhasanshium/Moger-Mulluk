@@ -9,6 +9,7 @@
  ┃ ┃ ┣ 📜lang-switcher.tsx
  ┃ ┃ ┗ 📜theme-toggle.tsx
  ┃ ┣ 📂common
+ ┃ ┃ ┣ 📜countdown-timer.tsx
  ┃ ┃ ┣ 📜dynamic-footer-logo.tsx
  ┃ ┃ ┣ 📜dynamic-header-logo.tsx
  ┃ ┃ ┣ 📜footer.tsx
@@ -16,7 +17,8 @@
  ┃ ┃ ┣ 📜loading.tsx
  ┃ ┃ ┣ 📜navbar.tsx
  ┃ ┃ ┣ 📜not-found-visual.tsx
- ┃ ┃ ┗ 📜sidebar.tsx
+ ┃ ┃ ┣ 📜sidebar.tsx
+ ┃ ┃ ┗ 📜social-share.tsx
  ┃ ┣ 📂contexts
  ┃ ┣ 📂forms
  ┃ ┃ ┣ 📜create-announcement-form.tsx
@@ -28,6 +30,7 @@
  ┃ ┃ ┣ 📜hooks-server.ts
  ┃ ┃ ┣ 📜language-api.ts
  ┃ ┃ ┣ 📜media-api.tsx
+ ┃ ┃ ┣ 📜offer-api.ts
  ┃ ┃ ┗ 📜product-api.ts
  ┃ ┣ 📂providers
  ┃ ┃ ┣ 📜page-provider.tsx
@@ -39,11 +42,15 @@
  ┃ ┃ ┣ 📂about
  ┃ ┃ ┃ ┣ 📜body.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂chat
+ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂faq
  ┃ ┃ ┃ ┣ 📜body.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂gallery
- ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📜diary.tsx
+ ┃ ┃ ┃ ┣ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📜segway.tsx
  ┃ ┃ ┣ 📂locations
  ┃ ┃ ┃ ┣ 📜hero.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
@@ -51,10 +58,24 @@
  ┃ ┃ ┃ ┣ 📂[id]
  ┃ ┃ ┃ ┃ ┣ 📜body.tsx
  ┃ ┃ ┃ ┃ ┣ 📜gallery.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜offers.tsx
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📜body.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂notice
+ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂offers
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📜body.tsx
+ ┃ ┃ ┃ ┣ 📜card.tsx
+ ┃ ┃ ┃ ┣ 📜navbar.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┣ 📂coffee-vs-tea
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┗ 📜page.tsx
  ┃ ┣ 📂home

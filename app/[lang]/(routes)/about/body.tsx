@@ -2,12 +2,12 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { Coffee, Leaf, Globe, Banknote } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
 import { PageData } from "@/app/components/types";
 
-// Infographic Counter Component (Rising from 0 every view)
 const Counter = ({ value }: { value: number }) => {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
@@ -42,7 +42,7 @@ export default function Body({ data }: AboutBodyProps) {
     if (url.includes('v=')) videoId = url.split('v=')[1]?.split('&')[0] ?? '';
     else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0] ?? '';
     else videoId = url.split('/').pop() ?? '';
-    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&rel=0` : '';
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
   };
 
   const getFontClass = (weight: 'bold' | 'black' | 'normal' = 'normal') => {
@@ -63,7 +63,6 @@ export default function Body({ data }: AboutBodyProps) {
   const displayOgImage = data.seo?.ogImage || 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop';
   const storyVideoUrl = (typeof data.videoUrl === 'string' ? data.videoUrl : null) || (typeof data.video === 'string' ? data.video : null);
 
-  // Typewriter Settings (Trigger every view)
   const typewriterContainer = {
     hidden: { opacity: 1 },
     visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
@@ -77,15 +76,24 @@ export default function Body({ data }: AboutBodyProps) {
   return (
     <div className="flex flex-col w-full bg-[#FFFBF8] dark:bg-stone-950 pb-20 transition-colors duration-300 overflow-x-hidden">
       
-      {/* 1. HERO BANNER */}
+      {/* 1. HERO BANNER - FIXED LCP */}
       <section className="relative w-full h-[55vh] md:h-[75vh] bg-stone-200 dark:bg-stone-900 overflow-hidden">
         <motion.div 
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 10 }}
-            className="absolute inset-0 bg-cover bg-center opacity-70 grayscale-10"
-            style={{ backgroundImage: `url('${displayOgImage}')` }}
-        />
+            className="absolute inset-0 opacity-70 grayscale-10"
+        >
+          {/* Replaced background-image with highly optimized Next Image */}
+          <Image
+            src={displayOgImage}
+            alt={data.title}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-linear-to-t from-[#FFFBF8] dark:from-stone-950 via-transparent to-transparent opacity-100" />
       </section>
 
@@ -97,12 +105,11 @@ export default function Body({ data }: AboutBodyProps) {
             viewport={{ once: false, amount: 0.3 }}
             className="bg-white dark:bg-stone-900 inline-block px-8 py-10 md:px-20 md:py-20 shadow-2xl rounded-[3rem] md:rounded-[5rem] border border-orange-50 dark:border-stone-800 max-w-[90vw]"
         >
-          {/* 1. Region Identity (ঢাকা থেকে বিশ্বজুড়ে) */}
-          <p className="text-[#B28869] font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4 opacity-60">
+          {/* FIX: Improved contrast for region identity */}
+          <p className="text-[#8A3D04] dark:text-orange-300 font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4">
             {getRegionText()}
           </p>
 
-          {/* 2. Main Title (cms title like "Our Story") - Typewriter triggers every view */}
           <motion.h1 
             variants={typewriterContainer}
             initial="hidden"
@@ -115,8 +122,8 @@ export default function Body({ data }: AboutBodyProps) {
             ))}
           </motion.h1>
 
-          {/* 3. Description */}
-          <p className={`${getFontClass()} text-lg md:text-2xl text-[#B28869] dark:text-stone-400 italic font-medium leading-relaxed max-w-3xl mx-auto`}>
+          {/* FIX: Darker brown (#5C3A21) for improved accessibility text contrast */}
+          <p className={`${getFontClass()} text-lg md:text-2xl text-[#5C3A21] dark:text-stone-300 italic font-medium leading-relaxed max-w-3xl mx-auto`}>
             {data.description}
           </p>
         </motion.div>
@@ -127,7 +134,8 @@ export default function Body({ data }: AboutBodyProps) {
         <h2 className={`${getFontClass('black')} text-2xl md:text-3xl text-[#8A3D04]/80 dark:text-orange-200/60 uppercase tracking-widest`}>
           {tLogo('brandName')}
         </h2>
-        <div className="flex items-center justify-center gap-4 mt-4 text-[#B28869] opacity-60 text-xs font-bold uppercase tracking-widest">
+        {/* FIX: Improved contrast by removing opacity-60 and darkening the color */}
+        <div className="flex items-center justify-center gap-4 mt-4 text-[#5C3A21] dark:text-orange-200/80 text-xs font-bold uppercase tracking-widest">
            <span>Bangladesh</span> • <span>India</span> • <span>Spain</span> • <span>USA</span> • <span>Global</span>
         </div>
       </section>
@@ -136,12 +144,19 @@ export default function Body({ data }: AboutBodyProps) {
       <section className="max-w-6xl mx-auto w-full px-6 mb-32">
         <div className="relative aspect-video w-full bg-stone-900 rounded-4xl overflow-hidden shadow-2xl border-10 md:border-20 border-white dark:border-stone-800">
           {storyVideoUrl && (
-            <iframe className="absolute inset-0 w-full h-full" src={getEmbedUrl(storyVideoUrl)} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+            <iframe 
+              className="absolute inset-0 w-full h-full" 
+              src={getEmbedUrl(storyVideoUrl)} 
+              allow="autoplay; encrypted-media; picture-in-picture" 
+              allowFullScreen 
+              title={`${data.title} - Video`} // FIX: Added accessible title
+              loading="lazy" // FIX: Defers load to unblock Main JS Thread execution
+            />
           )}
         </div>
       </section>
 
-      {/* 5. VALUE PROPOSITIONS (Original logic preserved) */}
+      {/* 5. VALUE PROPOSITIONS */}
       <section className="w-full bg-white dark:bg-stone-900/50 py-32 border-y border-[#FDF2E9] dark:border-stone-800">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="flex flex-col items-center text-center space-y-4">
@@ -167,7 +182,7 @@ export default function Body({ data }: AboutBodyProps) {
         </div>
       </section>
 
-      {/* 6. INFOGRAPHIC SECTION (Rise from 0 every view) */}
+      {/* 6. INFOGRAPHIC SECTION */}
       <section className="py-32 px-6 max-w-4xl mx-auto text-center">
          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {[
@@ -186,7 +201,8 @@ export default function Body({ data }: AboutBodyProps) {
                     <p className={`${getFontClass('black')} text-4xl md:text-5xl text-[#8A3D04] dark:text-orange-200`}>
                         <Counter value={stat.val} />{stat.suffix}
                     </p>
-                    <p className="text-[10px] uppercase tracking-widest text-[#B28869] font-bold mt-2">{stat.lab}</p>
+                    {/* FIX: Improved contrast */}
+                    <p className="text-[10px] uppercase tracking-widest text-[#5C3A21] dark:text-stone-400 font-bold mt-2">{stat.lab}</p>
                 </motion.div>
             ))}
          </div>
@@ -194,7 +210,11 @@ export default function Body({ data }: AboutBodyProps) {
 
       <section className="pb-20 px-6 text-center">
         <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-          <Link href="/menu" className="w-full sm:w-auto px-16 py-6 bg-[#8A3D04] dark:bg-orange-700 text-white rounded-2xl font-bold shadow-xl hover:scale-105 transition-transform">
+          <Link 
+            href="/menu" 
+            aria-label="Order now from the Moger Mulluk menu" // FIX: Differentiation for screen readers
+            className="w-full sm:w-auto px-16 py-6 bg-[#8A3D04] dark:bg-orange-700 text-white rounded-2xl font-bold shadow-xl hover:scale-105 transition-transform"
+          >
             {tCTA('orderNow')}
           </Link>
           <Link href="/faq" className="w-full sm:w-auto px-16 py-6 border-2 border-[#8A3D04] dark:border-orange-800 text-[#8A3D04] dark:text-orange-200 rounded-2xl font-bold hover:bg-[#8A3D04] hover:text-white transition-all">

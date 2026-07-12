@@ -33,11 +33,19 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       title: data.title,
       description: data.description,
       url: `${baseUrl}/${lang}/about`,
-      type: 'article', // About is an article type
-      images: [{ url: data.seo?.ogImage || fallbackImage, width: 1200, height: 630 ,alt: data.title }],
+      type: 'article',
+      images: [{ url: data.seo?.ogImage || fallbackImage, width: 1200, height: 630, alt: data.title }],
+    },
+    // FIX: Added explicit Twitter metadata to match OpenGraph
+    twitter: {
+      card: 'summary_large_image',
+      title: data.title,
+      description: data.description,
+      images: [data.seo?.ogImage || fallbackImage],
     }
   };
 }
+
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const data = await getPageData(lang, 'about');
