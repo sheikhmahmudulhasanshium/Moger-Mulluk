@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -15,6 +15,8 @@ interface ImageNode {
 export default function CinematicHero() {
   const [rows, setRows] = useState<ImageNode[][]>([[], [], [], []]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMarqueeInView, setIsMarqueeInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const locale = useLocale();
   const tLogo = useTranslations("Logo");
@@ -37,7 +39,29 @@ export default function CinematicHero() {
     }
   };
 
+  // 1. Intersection Observer to enable lazy loading on view
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsMarqueeInView(true);
+          observer.disconnect(); // Stop observing once loaded
+        }
+      },
+      { rootMargin: "150px" } // Pre-load 150px before entering viewport
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Defer API call until the component enters the viewport
+  useEffect(() => {
+    if (!isMarqueeInView) return;
+
     const loadGallery = async () => {
       try {
         const data: GalleryCategory[] = await productApi.getGallery();
@@ -54,16 +78,17 @@ export default function CinematicHero() {
       }
     };
     loadGallery();
-  }, []);
-
-  if (isLoading) return <div className="h-150 w-full bg-[#fcfaf7] dark:bg-zinc-950" />;
+  }, [isMarqueeInView]);
 
   return (
-    <section className="relative flex h-150 w-full flex-col justify-center overflow-hidden bg-[#fcfaf7] transition-colors duration-500 dark:bg-zinc-950 md:h-212.5">
+    <section 
+      ref={sectionRef}
+      className="relative flex h-150 w-full flex-col justify-center overflow-hidden bg-[#fcfaf7] transition-colors duration-500 dark:bg-zinc-950 md:h-212.5"
+    >
       
-      {/* 1. SEAMLESS PRODUCT WALL */}
+      {/* 1. SEAMLESS PRODUCT WALL (Now rendered lazily) */}
       <div className="flex flex-col opacity-80 transition-opacity dark:opacity-40">
-        {rows.map((rowItems, idx) => (
+        {!isLoading && isMarqueeInView && rows.map((rowItems, idx) => (
           rowItems.length > 0 && (
             <MarqueeRow 
               key={idx}

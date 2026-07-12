@@ -1,6 +1,6 @@
 'use client';
 
-import {  useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { localesConfig, routing } from '@/i18n/routing'; 
 import Image from 'next/image';
 
@@ -29,12 +29,6 @@ export default function DynamicLogo() {
   };
 
   return (
-    /*
-      IMPORTANT:
-      - Height is controlled by header
-      - Width is derived from aspect ratio
-      - No w-full anywhere
-    */
     <div
       className="
         flex
@@ -51,19 +45,20 @@ export default function DynamicLogo() {
       {/* ICON */}
       <div className="relative h-[85%] aspect-square">
         <Image
-          src="/logo/logo.svg"
-          alt="Logo"
+          src="/favicon/web-app-manifest-512x512.png"
+          alt="Logo Icon"
           fill
           className="object-contain"
           priority
+          sizes="68px"
         />
       </div>
 
       {/* TEXT STACK */}
       <div className="flex flex-col items-end justify-end h-full">
-        {/* COUNTRY CODE */}
+        {/* COUNTRY CODE - Color changed from #B28869 to #8A3D04 for higher contrast */}
         <div className="px-1.5 py-0.5 rounded-[3px] mb-1">
-          <span className="text-[10px] font-bold text-[#B28869] leading-none uppercase tracking-widest font-sans">
+          <span className="text-[10px] font-bold text-[#8A3D04] leading-none uppercase tracking-widest font-sans">
             {countryCode}
           </span>
         </div>

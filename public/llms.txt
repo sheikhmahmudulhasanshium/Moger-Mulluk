@@ -1,0 +1,9 @@
+# Moger Mulluk
+
+> Moger Mulluk is a cozy café located in Dhaka, Bangladesh, offering tea, coffee, and a space for relaxed hangouts.
+
+## Core Navigation
+- [Menu](https://moger-mulluk.vercel.app/en/menu) - Explore our beverage and food menu.
+- [Locations](https://moger-mulluk.vercel.app/en/locations) - Find our branch addresses and opening hours.
+- [Special Offers](https://moger-mulluk.vercel.app/en/offers) - View active deals and promotions.
+- [About Us](https://moger-mulluk.vercel.app/en/about) - Read about our history and values.

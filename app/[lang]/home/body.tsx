@@ -1,10 +1,7 @@
-// app/[lang]/home/body.tsx
 'use client';
 
-//import AssetMaintenance from "@/app/components/admin/asset-maintenance";
-//import UploadMediaForm from "@/app/components/forms/upload-media-form";
 import MediaGallery from "@/app/[lang]/home/media-gallery";
-import { HomePageData, MediaPurpose,  } from "@/app/components/types";
+import { HomePageData, MediaPurpose } from "@/app/components/types";
 import Image from "next/image";
 import Link from "next/link";
 import OrbitingHero from "./hero";
@@ -21,16 +18,13 @@ const Body = ({ data }: HomeBodyProps) => {
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center">
       
-      {/* 1. BACKGROUND VIDEO (Ambient placeholder) */}
-      
       <OrbitingHero/>
-      {/* NEW SECTION HERE */}
       <GlobalTrace /> 
 
-      {/* 2. DYNAMIC CONTENT CONTAINER (Padding handles script height differences) */}
+      {/* 2. DYNAMIC CONTENT CONTAINER */}
       <div className="relative z-10 w-full max-w-5xl px-6 py-20 flex flex-col items-center text-center">
         
-        {/* LEGIT ICON SVG */}
+        {/* LEGIT ICON SVG (Optimized to Lazy Load Below the Fold) */}
         {data.icon && (
           <div className="mb-10 animate-in fade-in zoom-in duration-1000">
             <Image 
@@ -38,20 +32,20 @@ const Body = ({ data }: HomeBodyProps) => {
               alt="Moger Mulluk" 
               width={160} 
               height={160} 
-              priority
+              loading="lazy" // Removed priority, added lazy loading
               className="drop-shadow-2xl"
             />
           </div>
         )}
 
-        {/* DYNAMIC TITLE - Uses leading-tight for taller scripts */}
+        {/* DYNAMIC TITLE */}
         <h1 className="mb-8 text-4xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight md:leading-tight lg:leading-tight">
           <span className="bg-clip-text text-transparent bg-linear-to-r from-foreground to-muted-foreground">
             {data.heroTagline}
           </span>
         </h1>
         
-        {/* DYNAMIC DESCRIPTION - leading-relaxed for better legibility in Hindi/Bengali */}
+        {/* DYNAMIC DESCRIPTION */}
         <p className="max-w-3xl mb-12 text-lg md:text-2xl text-muted-foreground leading-relaxed md:leading-relaxed">
           {data.description}
         </p>
@@ -66,13 +60,6 @@ const Body = ({ data }: HomeBodyProps) => {
       <TheStandard/>
       <TheDispatch/>
       <MediaGallery purpose={MediaPurpose.GALLERY} limit={100}/>
-      {/**
-       * 
-          <UploadMediaForm/>
-              <AssetMaintenance/>
-
-       * 
-       */}
     </div>
   );
 };

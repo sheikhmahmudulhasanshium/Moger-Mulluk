@@ -5,9 +5,7 @@ import { useMessages } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { AppMessages } from "../types";
 
-
 const Navbar = () => {
-  // Cast messages to the interface via unknown to satisfy ESLint
   const messages = useMessages() as unknown as AppMessages;
 
   const pages = [
@@ -17,7 +15,6 @@ const Navbar = () => {
     messages.NoticePage,
   ].filter(Boolean);
 
-  // Map the navigation strings into objects with titles and links
   const navmenu = [
     { title: messages.Navigation.menu, link: "/menu" },
     { title: messages.Navigation.locations, link: "/locations" },
@@ -30,23 +27,22 @@ const Navbar = () => {
       {/* Desktop links */}
       <div className="hidden md:flex gap-6 overflow-x-auto overflow-y-hidden">
         {pages.map((page) => (
-          <Link key={page.link} href={page.link} className=" flex justify-between md:w-auto">
-            <Button variant={'outline'} className="hover:bg-amber-950 hover:text-white">
+          <Button key={page.link} variant='outline' className="hover:bg-amber-950 hover:text-white" asChild>
+            <Link href={page.link}>
               {page.title}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         ))}
 
-        {/* Added the mapping for navmenu items as requested */}
         {navmenu.map((item) => (
-          <Link key={item.link} href={item.link} className=" flex justify-between md:w-auto ">
-            <Button variant={'outline'} className="hover:bg-amber-950 hover:text-white">
+          <Button key={item.link} variant='outline' className="hover:bg-amber-950 hover:text-white" asChild>
+            <Link href={item.link}>
               {item.title}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         ))}
       </div>
-      <div className="flex gap-2 ">
+      <div className="flex gap-2">
         <LocalSwitcher />
         <ModeToggle />
       </div>
