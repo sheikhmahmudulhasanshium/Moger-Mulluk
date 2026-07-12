@@ -31,16 +31,17 @@ export default function GlobalFootprint() {
           </h2>
         </div>
 
-        {/* 2. INTERACTIVE MAP */}
+                {/* 2. INTERACTIVE MAP */}
         <div className="relative w-full aspect-video md:aspect-21/8 rounded-3xl overflow-hidden border border-stone-200 dark:border-zinc-800 bg-stone-100 dark:bg-zinc-900 shadow-2xl mb-12">
           <div className="absolute inset-0 grayscale invert dark:invert-0 brightness-[0.95] dark:brightness-[0.35] contrast-125 opacity-30">
-            {/* Removed priority to optimize initial load of below-the-fold assets */}
             <Image 
               src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" 
               alt="Map" 
               fill 
               className="object-cover" 
               loading="lazy" 
+              // Fixed: Limits downloaded map dimensions to exact container width
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1152px, 1200px"
             />
           </div>
 
