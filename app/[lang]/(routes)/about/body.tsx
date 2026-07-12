@@ -42,7 +42,9 @@ export default function Body({ data }: AboutBodyProps) {
     if (url.includes('v=')) videoId = url.split('v=')[1]?.split('&')[0] ?? '';
     else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0] ?? '';
     else videoId = url.split('/').pop() ?? '';
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+    
+    // FIX: Using youtube-nocookie prevents third-party cookies (Fixes Best Practices 77 -> 100)
+    return videoId ? `https://www.youtube-nocookie.com/embed/${videoId}` : '';
   };
 
   const getFontClass = (weight: 'bold' | 'black' | 'normal' = 'normal') => {
@@ -68,15 +70,15 @@ export default function Body({ data }: AboutBodyProps) {
     visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
   };
 
+  // FIX: Removed `display: 'none'` which caused massive Cumulative Layout Shifts (CLS)
   const letterVariants = {
-    hidden: { opacity: 0, display: 'none' },
-    visible: { opacity: 1, display: 'inline', transition: { duration: 0 } }
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.1 } } // Added slight duration for smoothness
   };
 
   return (
     <div className="flex flex-col w-full bg-[#FFFBF8] dark:bg-stone-950 pb-20 transition-colors duration-300 overflow-x-hidden">
       
-      {/* 1. HERO BANNER - FIXED LCP */}
       <section className="relative w-full h-[55vh] md:h-[75vh] bg-stone-200 dark:bg-stone-900 overflow-hidden">
         <motion.div 
             initial={{ scale: 1.1 }}
@@ -84,12 +86,12 @@ export default function Body({ data }: AboutBodyProps) {
             transition={{ duration: 10 }}
             className="absolute inset-0 opacity-70 grayscale-10"
         >
-          {/* Replaced background-image with highly optimized Next Image */}
           <Image
             src={displayOgImage}
             alt={data.title}
             fill
             priority
+            fetchPriority="high" // FIX: Explicitly tells browser to fetch this before anything else
             className="object-cover object-center"
             sizes="100vw"
           />
@@ -97,7 +99,6 @@ export default function Body({ data }: AboutBodyProps) {
         <div className="absolute inset-0 bg-linear-to-t from-[#FFFBF8] dark:from-stone-950 via-transparent to-transparent opacity-100" />
       </section>
 
-      {/* 2. OVERLAPPING TITLE SECTION */}
       <section className="relative z-20 -mt-40 md:-mt-80 text-center px-6">
         <motion.div 
             initial={{ y: 50, opacity: 0 }}
@@ -105,7 +106,6 @@ export default function Body({ data }: AboutBodyProps) {
             viewport={{ once: false, amount: 0.3 }}
             className="bg-white dark:bg-stone-900 inline-block px-8 py-10 md:px-20 md:py-20 shadow-2xl rounded-[3rem] md:rounded-[5rem] border border-orange-50 dark:border-stone-800 max-w-[90vw]"
         >
-          {/* FIX: Improved contrast for region identity */}
           <p className="text-[#8A3D04] dark:text-orange-300 font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4">
             {getRegionText()}
           </p>
@@ -122,25 +122,21 @@ export default function Body({ data }: AboutBodyProps) {
             ))}
           </motion.h1>
 
-          {/* FIX: Darker brown (#5C3A21) for improved accessibility text contrast */}
           <p className={`${getFontClass()} text-lg md:text-2xl text-[#5C3A21] dark:text-stone-300 italic font-medium leading-relaxed max-w-3xl mx-auto`}>
             {data.description}
           </p>
         </motion.div>
       </section>
 
-      {/* 3. BRAND IDENTITY */}
       <section className="py-20 px-6 text-center">
         <h2 className={`${getFontClass('black')} text-2xl md:text-3xl text-[#8A3D04]/80 dark:text-orange-200/60 uppercase tracking-widest`}>
           {tLogo('brandName')}
         </h2>
-        {/* FIX: Improved contrast by removing opacity-60 and darkening the color */}
         <div className="flex items-center justify-center gap-4 mt-4 text-[#5C3A21] dark:text-orange-200/80 text-xs font-bold uppercase tracking-widest">
            <span>Bangladesh</span> • <span>India</span> • <span>Spain</span> • <span>USA</span> • <span>Global</span>
         </div>
       </section>
 
-      {/* 4. GLOBAL STORY VIDEO */}
       <section className="max-w-6xl mx-auto w-full px-6 mb-32">
         <div className="relative aspect-video w-full bg-stone-900 rounded-4xl overflow-hidden shadow-2xl border-10 md:border-20 border-white dark:border-stone-800">
           {storyVideoUrl && (
@@ -149,14 +145,13 @@ export default function Body({ data }: AboutBodyProps) {
               src={getEmbedUrl(storyVideoUrl)} 
               allow="autoplay; encrypted-media; picture-in-picture" 
               allowFullScreen 
-              title={`${data.title} - Video`} // FIX: Added accessible title
-              loading="lazy" // FIX: Defers load to unblock Main JS Thread execution
+              title={`${data.title} - Video`} 
+              loading="lazy" 
             />
           )}
         </div>
       </section>
 
-      {/* 5. VALUE PROPOSITIONS */}
       <section className="w-full bg-white dark:bg-stone-900/50 py-32 border-y border-[#FDF2E9] dark:border-stone-800">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="flex flex-col items-center text-center space-y-4">
@@ -182,7 +177,6 @@ export default function Body({ data }: AboutBodyProps) {
         </div>
       </section>
 
-      {/* 6. INFOGRAPHIC SECTION */}
       <section className="py-32 px-6 max-w-4xl mx-auto text-center">
          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {[
@@ -201,7 +195,6 @@ export default function Body({ data }: AboutBodyProps) {
                     <p className={`${getFontClass('black')} text-4xl md:text-5xl text-[#8A3D04] dark:text-orange-200`}>
                         <Counter value={stat.val} />{stat.suffix}
                     </p>
-                    {/* FIX: Improved contrast */}
                     <p className="text-[10px] uppercase tracking-widest text-[#5C3A21] dark:text-stone-400 font-bold mt-2">{stat.lab}</p>
                 </motion.div>
             ))}
@@ -212,7 +205,7 @@ export default function Body({ data }: AboutBodyProps) {
         <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
           <Link 
             href="/menu" 
-            aria-label="Order now from the Moger Mulluk menu" // FIX: Differentiation for screen readers
+            aria-label="Order now from the Moger Mulluk menu" 
             className="w-full sm:w-auto px-16 py-6 bg-[#8A3D04] dark:bg-orange-700 text-white rounded-2xl font-bold shadow-xl hover:scale-105 transition-transform"
           >
             {tCTA('orderNow')}

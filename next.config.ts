@@ -30,11 +30,10 @@ const nextConfig: NextConfig = {
             value: 'nosniff',
           },
           {
-            // FIX: Added connect-src 'self' ws: wss: https: 
-            // This allows Next.js Hot Reloading (WebSockets) on localhost
-            // and allows your app to fetch data from external HTTPS APIs.
+            // FIX: connect-src * allows Next.js WebSockets to work on any local network IP.
+            // frame-src and script-src explicitly allow youtube-nocookie.com.
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; connect-src 'self' ws: wss: https:; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.youtube.com https://static.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; media-src 'self' https:; font-src 'self' data:; frame-src 'self' https://www.youtube.com; frame-ancestors 'self';",
+            value: "default-src 'self'; connect-src *; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://static.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; media-src 'self' https:; font-src 'self' data:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; frame-ancestors 'self';",
           }
         ],
       },
