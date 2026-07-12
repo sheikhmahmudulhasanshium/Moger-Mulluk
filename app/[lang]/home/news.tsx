@@ -23,7 +23,6 @@ const FormattedText = ({ text }: { text: string }) => {
   return (
     <div className="space-y-3">
       {lines.map((line, i) => {
-        // Fixed: Changed from h4 to h3 for correct heading sequence order
         if (line.startsWith("### ")) {
           return (
             <h3 key={i} className="text-lg font-black text-[#8A3D04] dark:text-amber-500 uppercase mt-4 mb-2">
@@ -133,8 +132,7 @@ export default function TheDispatch() {
         <div className="flex flex-col items-center text-center mb-16">
           <div className="flex items-center gap-3 text-[#8A3D04] mb-6">
              <Newspaper size={24} />
-             {/* Fixed Contrast: text-stone-400 -> text-stone-500 dark:text-stone-400 */}
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-stone-500 dark:text-stone-400">{t.subtitle}</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-stone-600 dark:text-stone-400">{t.subtitle}</span>
           </div>
           <h2 className="text-[#8A3D04] dark:text-[#e7d9c1] text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] uppercase whitespace-pre-line">
             {t.title}
@@ -146,8 +144,11 @@ export default function TheDispatch() {
           <div className="flex items-center gap-4 w-full md:w-auto">
             <Filter size={14} className="text-[#8A3D04]" />
             <Select value={filter} onValueChange={setFilter}>
-              {/* Fixed: Replaced text-stone-600 with text-stone-700 for optimal contrast */}
-              <SelectTrigger className="w-45 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0">
+              {/* Fixed Accessibility: Added aria-label to satisfy screen readers and Agentic Browsing checks */}
+              <SelectTrigger 
+                className="w-45 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0"
+                aria-label="Filter notices by category"
+              >
                 <SelectValue placeholder={t.all} />
               </SelectTrigger>
               <SelectContent className="bg-[#fcfaf7] dark:bg-zinc-900">
@@ -163,8 +164,11 @@ export default function TheDispatch() {
           <div className="flex items-center gap-4 w-full md:w-auto md:justify-end">
             <SortDesc size={14} className="text-[#8A3D04]" />
             <Select value={sortOrder} onValueChange={setSortOrder}>
-              {/* Fixed: Replaced text-stone-600 with text-stone-700 for optimal contrast */}
-              <SelectTrigger className="w-50 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0">
+              {/* Fixed Accessibility: Added aria-label to satisfy screen readers and Agentic Browsing checks */}
+              <SelectTrigger 
+                className="w-50 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0"
+                aria-label="Sort notices by order"
+              >
                 <SelectValue placeholder={t.sorts.priority} />
               </SelectTrigger>
               <SelectContent className="bg-[#fcfaf7] dark:bg-zinc-900">
@@ -182,7 +186,7 @@ export default function TheDispatch() {
         <div className="flex flex-col gap-0 border-b border-stone-200 dark:border-zinc-800 min-h-100">
           <AnimatePresence mode="popLayout">
             {loading ? (
-               <div key="loading" className="py-20 text-center text-stone-500 text-xs uppercase animate-pulse"> {t.loading} </div>
+               <div key="loading" className="py-20 text-center text-stone-600 dark:text-stone-400 text-xs uppercase animate-pulse"> {t.loading} </div>
             ) : processedNotices.map((item, idx) => {
                 const isExpanded = expandedId === item.id;
                 const displayImage = item.media?.thumbnail;
@@ -191,7 +195,6 @@ export default function TheDispatch() {
                   <motion.div key={item.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={`border-t border-stone-200 dark:border-zinc-800 ${isExpanded ? 'bg-stone-50 dark:bg-zinc-900/50' : ''}`}>
                     <div onClick={() => setExpandedId(isExpanded ? null : item.id)} className="flex gap-6 py-10 px-4 cursor-pointer group">
                         <div className="flex flex-col items-center shrink-0 w-8">
-                            {/* Fixed Contrast: Changed from #B28869 to #8A3D04 for high-contrast numbering */}
                             <span className="text-[12px] font-black text-[#8A3D04] dark:text-amber-500"> {getLocaleNumber(idx + 1)} </span>
                             <div className={`w-px h-full bg-stone-200 dark:bg-zinc-800 transition-colors ${isExpanded ? 'bg-[#8A3D04]' : 'group-hover:bg-[#8A3D04]'}`} />
                         </div>
@@ -249,7 +252,6 @@ export default function TheDispatch() {
         </div>
 
         <div className="mt-16 flex justify-center">
-           {/* Fixed Contrast: Changed text-[#B28869] to text-[#8A3D04] for high-contrast action CTA */}
            <Link href="/notice" className="group flex items-center gap-2 text-[#8A3D04] dark:text-amber-500">
               <span className="text-[11px] font-black uppercase tracking-[0.3em]">{t.archiveCta}</span>
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />

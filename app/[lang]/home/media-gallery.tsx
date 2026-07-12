@@ -19,10 +19,9 @@ export default function MediaGallery({ purpose, limit = 12 }: MediaGalleryProps)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // 1. Setup translations
   const messages = useMessages() as unknown as AppMessages;
   const GalleryText = messages.Navigation.gallery;
-  const StepInsideText = messages.Navigation.stepInside; // <--- Make sure this exists in your JSON
+  const StepInsideText = messages.Navigation.stepInside;
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -74,6 +73,7 @@ export default function MediaGallery({ purpose, limit = 12 }: MediaGalleryProps)
                   className="w-full h-auto" 
                   muted 
                   loop 
+                  playsInline // Fixed: prevents default fullscreen behavior on mobile safari/browsers
                   onMouseOver={(e) => void e.currentTarget.play()}
                   onMouseOut={(e) => void e.currentTarget.pause()}
                 />
@@ -85,11 +85,14 @@ export default function MediaGallery({ purpose, limit = 12 }: MediaGalleryProps)
                   height={item.height}
                   className="w-full h-auto object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
                   loading="lazy"
+                  // Fixed: Sizes constraint explicitly instructs browser to fetch optimized dimensions
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 300px"
                 />
               )}
               
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
-                <span className="text-[8px] text-white/60 font-medium uppercase tracking-[0.3em]">
+                {/* Fixed Contrast: Increased opacity from text-white/60 to text-white/90 for legibility */}
+                <span className="text-[8px] text-white/90 font-medium uppercase tracking-[0.3em]">
                   {item.name.split('-')[0]}
                 </span>
               </div>
@@ -97,13 +100,12 @@ export default function MediaGallery({ purpose, limit = 12 }: MediaGalleryProps)
           ))}
         </div>
 
-        {/* 3. THE CTA FOOTER WITH TRANSLATED BUTTON */}
+        {/* THE CTA FOOTER WITH TRANSLATED BUTTON */}
         <div className="mt-24 pb-24 flex flex-col items-center">
           <Link href="/gallery" className="group relative">
             <Button 
               className="relative z-10 px-12 py-7 bg-[#8A3D04] hover:bg-[#6d3003] text-[#fcfaf7] rounded-full font-black text-xl shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border-none"
             >
-              {/* FIXED: Using translated variable here */}
               {StepInsideText}
             </Button>
             <div className="absolute inset-0 bg-[#8A3D04] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />

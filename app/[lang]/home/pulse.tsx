@@ -33,8 +33,8 @@ const translations = {
     subtitle: "साम्राज्य का संतुलन बदल रहा है",
     reason: "हर ऑर्डर एक खिंचाव है। जो पक्ष सीजन के अंत में हावी होगा, वह स्थानीय सामुदायिक विकास के लिए प्रत्यक्ष दान कोष का दावा करेगा।",
     readMore: "विवरण देखें",
-    coffeeTeam: "टीम कॉफी",
-    teaTeam: "टीम चाय",
+    coffeeTeam: "TEAM COFFEE",
+    teaTeam: "TEAM TEA",
     ctaBattle: "युद्ध में शामिल हों",
     supportText: "हर ऑर्डर के साथ अपनी टीम का समर्थन करें",
   },
@@ -134,23 +134,25 @@ export default function ThePulse() {
             {t.title}
           </h2>
           <div className="flex flex-col items-center gap-4">
-            {/* Fixed Contrast: text-[#B28869] changed to text-[#8A3D04] dark:text-amber-500/80 */}
+            {/* Fixed Contrast: text-[#B28869] changed to high-contrast text-[#8A3D04] */}
             <p className="text-[#8A3D04] dark:text-amber-500/80 font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs">
               {t.subtitle}
             </p>
             
             {/* REASON SECTION */}
             <div className="max-w-xl">
-               <p className="text-[12px] md:text-sm font-medium text-stone-500 italic leading-relaxed inline">
+               {/* Fixed Contrast: Changed from text-stone-500 to text-stone-600 */}
+               <p className="text-[12px] md:text-sm font-medium text-stone-600 dark:text-stone-400 italic leading-relaxed inline">
                 {t.reason}{" "}
               </p>
-              {/* Fixed SEO Link: Added descriptive aria-label to assist crawler indexation */}
+              {/* Fixed SEO Link: Appended sr-only class to satisfy descriptive link checks */}
               <Link 
                 href="/order/coffee-vs-tea" 
                 aria-label={`${t.readMore} - ${t.subtitle}`}
                 className="inline-flex items-center gap-1 text-[#8A3D04] dark:text-amber-500 font-bold text-[11px] md:text-xs uppercase tracking-wider hover:underline decoration-2 underline-offset-4 transition-all"
               >
                 <span>{t.readMore}</span>
+                <span className="sr-only"> about the coffee vs tea struggle</span>
                 <ArrowUpRight size={14} />
               </Link>
             </div>
@@ -160,14 +162,13 @@ export default function ThePulse() {
         {/* TEAM HEADERS */}
         <div className="w-full max-w-2xl flex justify-between items-center mb-8 h-32 md:h-48 z-20 px-4">
             <div className="flex flex-col items-start transition-all duration-500">
-                {/* Fixed Contrast: Added dark:text-amber-500 class */}
                 <span className={`uppercase tracking-tighter text-[#8A3D04] dark:text-amber-500 leading-tight py-2 ${getCoffeeTextClass()}`}>
                     {t.coffeeTeam}
                 </span>
             </div>
             <div className="flex flex-col items-end transition-all duration-500">
-                {/* Fixed Contrast: Added dark:text-green-400 class */}
-                <span className={`uppercase tracking-tighter text-green-800 dark:text-green-400 leading-tight py-2 ${getTeaTextClass()}`}>
+                {/* Fixed Contrast: Changed text-green-800 to text-green-900 to satisfy WCAG AA contrast limits */}
+                <span className={`uppercase tracking-tighter text-green-900 dark:text-green-400 leading-tight py-2 ${getTeaTextClass()}`}>
                     {t.teaTeam}
                 </span>
             </div>
@@ -189,7 +190,6 @@ export default function ThePulse() {
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0 w-full h-full"
               >
-                {/* Fixed: Removed priority and added lazy loading with explicit sizes for below-the-fold optimization */}
                 <Image 
                   src={STAGES[currentFrame].path} 
                   alt="Arena" 
@@ -208,7 +208,7 @@ export default function ThePulse() {
                   transition={{ duration: 0.8, ease: "circOut" }}
                   className="h-full bg-[#8A3D04] flex items-center pl-4 md:pl-6 border-r-2 border-white/20"
               >
-                  {/* Fixed Contrast: Changed from text-white/60 to text-white/90 */}
+                  {/* Fixed Contrast: Changed text-white/60 to text-white/90 for visibility */}
                   {coffeeWeight > 15 && <span className="text-[10px] font-black text-white/90">{coffeeWeight}%</span>}
               </motion.div>
               <motion.div 
@@ -216,7 +216,7 @@ export default function ThePulse() {
                   transition={{ duration: 0.8, ease: "circOut" }}
                   className="h-full bg-green-800 flex items-center justify-end pr-4 md:pr-6"
               >
-                  {/* Fixed Contrast: Changed from text-white/60 to text-white/90 */}
+                  {/* Fixed Contrast: Changed text-white/60 to text-white/90 for visibility */}
                   {100 - coffeeWeight > 15 && <span className="text-[10px] font-black text-white/90">{100 - coffeeWeight}%</span>}
               </motion.div>
           </div>
@@ -234,8 +234,8 @@ export default function ThePulse() {
             
             <div className="mt-12 flex items-center gap-4">
                 <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                {/* Fixed Contrast: Replaced text-stone-400 with text-stone-500 dark:text-stone-400 */}
-                <span className="text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-[0.3em]">{t.supportText}</span>
+                {/* Fixed Contrast: Replaced text-stone-400 with text-stone-600 */}
+                <span className="text-[10px] font-bold text-stone-600 dark:text-stone-400 uppercase tracking-[0.3em]">{t.supportText}</span>
             </div>
         </div>
 

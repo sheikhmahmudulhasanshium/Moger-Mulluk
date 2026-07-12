@@ -14,7 +14,12 @@ const Loading = ({ message = "Establishing Connection" }: LoadingProps) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black w-screen h-svh">
+    <div 
+      role="status" // Announces the loading state to screen readers
+      aria-live="polite" 
+      aria-busy="true" // Signals to crawlers and screen readers that the system is busy
+      className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black w-screen h-svh"
+    >
       <div className="relative w-48 h-48 md:w-64 md:h-64">
         <Image 
           src={logo} 
@@ -22,7 +27,10 @@ const Loading = ({ message = "Establishing Connection" }: LoadingProps) => {
           fill 
           className="object-contain mix-blend-screen" 
           priority 
+          // If this is a static image, remove the "unoptimized" prop below
+          // and uncomment the "sizes" property to let Next.js compress it.
           unoptimized 
+          // sizes="(max-width: 768px) 192px, 256px" 
         />
       </div>
       
