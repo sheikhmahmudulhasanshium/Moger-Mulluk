@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: { default: brandName, template: `%s | ${brandName}` },
     description: globalData?.description || "The Realm of Conversations",
     
+    // Explicit favicon mappings
+    icons: {
+      icon: "/favicon/favicon.ico", // Resolves to public/favicon/favicon.ico
+      shortcut: "/favicon/favicon.ico",
+      apple: "/favicon/web-app-manifest-512x512.png",
+    },
+
     // Verification Meta Tag
     verification: {
       google: "google2529eeb245344b02", 
@@ -50,14 +57,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         appId: '2151814335752206' 
     },
     alternates: {
-      // Fixed: Canonical now dynamically maps to `${baseUrl}/${lang}` to prevent matching conflicts
       canonical: `${baseUrl}/${lang}`,
       languages: {
         'en': `${baseUrl}/en`, 
         'bn': `${baseUrl}/bn`, 
         'es': `${baseUrl}/es`, 
         'hi': `${baseUrl}/hi`, 
-        'x-default': `${baseUrl}/en`, // Point x-default to your primary default language folder
+        'x-default': `${baseUrl}/`, // Restored to your original root path
       },
     },
   };
