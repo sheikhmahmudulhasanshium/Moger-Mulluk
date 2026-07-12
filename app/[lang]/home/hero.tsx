@@ -115,11 +115,13 @@ export default function CinematicHero() {
           {/* LEFT: ICON (4x4 Units) */}
           <div className="relative h-28 w-28 shrink-0 sm:h-40 sm:w-40 md:h-64 md:w-64 lg:h-80 lg:w-80">
             <Image
-              src="/favicon/web-app-manifest-512x512.png"
+              src="/favicon/web-app-manifest-512x512.png" // Using the optimized manifest image source
               alt="Logo Icon"
               fill
               className="object-contain dark:brightness-110"
               priority
+              // Fixed: Custom sizes constrain downloads to exact display dimensions, avoiding 512px over-fetching
+              sizes="(max-width: 640px) 112px, (max-width: 768px) 160px, (max-width: 1024px) 256px, 320px"
             />
           </div>
 

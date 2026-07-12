@@ -111,14 +111,16 @@ export default function ThePulse() {
     const lvl = STAGES[currentFrame].level;
     if (lvl === 2) return "text-5xl sm:text-7xl md:text-9xl font-black";
     if (lvl === 1) return "text-3xl sm:text-5xl md:text-7xl font-bold";
-    return "text-xl sm:text-2xl md:text-3xl font-bold text-stone-300";
+    // Fixed: Changed text-stone-300 to text-stone-600 dark:text-zinc-500 for WCAG compliance
+    return "text-xl sm:text-2xl md:text-3xl font-bold text-stone-600 dark:text-zinc-500";
   };
 
   const getTeaTextClass = () => {
     const lvl = STAGES[currentFrame].level;
     if (lvl === -2) return "text-5xl sm:text-7xl md:text-9xl font-black";
     if (lvl === -1) return "text-3xl sm:text-5xl md:text-7xl font-bold";
-    return "text-xl sm:text-2xl md:text-3xl font-bold text-stone-300";
+    // Fixed: Changed text-stone-300 to text-stone-600 dark:text-zinc-500 for WCAG compliance
+    return "text-xl sm:text-2xl md:text-3xl font-bold text-stone-600 dark:text-zinc-500";
   };
 
   return (
@@ -144,7 +146,7 @@ export default function ThePulse() {
                {/* Fixed Contrast: Changed from text-stone-500 to text-stone-600 */}
                <p className="text-[12px] md:text-sm font-medium text-stone-600 dark:text-stone-400 italic leading-relaxed inline">
                 {t.reason}{" "}
-              </p>
+               </p>
               {/* Fixed SEO Link: Appended sr-only class to satisfy descriptive link checks */}
               <Link 
                 href="/order/coffee-vs-tea" 
