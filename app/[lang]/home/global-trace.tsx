@@ -11,18 +11,11 @@ export default function GlobalFootprint() {
   const [selectedId, setSelectedId] = useState<string>("bd");
   const locale = useLocale() as keyof typeof translations;
   
-  // 1. Get the current language data
   const t = translations[locale] || translations.en;
-  
-  // 2. IMPORTANT: Always get the English data as the "Master" reference 
-  // to ensure we never "reduce" the number of branches in other languages.
   const masterData = translations.en.locs[selectedId as keyof typeof translations.en.locs];
-  
-  // 3. Current active localized data
   const activeData = t.locs[selectedId as keyof typeof t.locs];
   const activeCoord = COORDS.find((c) => c.id === selectedId);
 
-  // 4. Sidebar List (Excluding current selection)
   const otherLocations = useMemo(() => {
     return COORDS.filter((c) => c.id !== selectedId);
   }, [selectedId]);
@@ -41,7 +34,14 @@ export default function GlobalFootprint() {
         {/* 2. INTERACTIVE MAP */}
         <div className="relative w-full aspect-video md:aspect-21/8 rounded-3xl overflow-hidden border border-stone-200 dark:border-zinc-800 bg-stone-100 dark:bg-zinc-900 shadow-2xl mb-12">
           <div className="absolute inset-0 grayscale invert dark:invert-0 brightness-[0.95] dark:brightness-[0.35] contrast-125 opacity-30">
-            <Image src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" alt="Map" fill className="object-cover" priority />
+            {/* Removed priority to optimize initial load of below-the-fold assets */}
+            <Image 
+              src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" 
+              alt="Map" 
+              fill 
+              className="object-cover" 
+              loading="lazy" 
+            />
           </div>
 
           {COORDS.map((coord) => {
@@ -51,7 +51,6 @@ export default function GlobalFootprint() {
               <button
                 key={coord.id}
                 onClick={() => setSelectedId(coord.id)}
-                // Proximity fix: Non-active pins get higher z-index so they are clickable near India/BD
                 className={`absolute group outline-none transform -translate-x-1/2 -translate-y-1/2 p-4 ${isActive ? 'z-20' : 'z-30'}`}
                 style={{ left: coord.x, top: coord.y }}
               >
@@ -69,7 +68,7 @@ export default function GlobalFootprint() {
         {/* 3. YOUTUBE-STYLE SPLIT LAYOUT */}
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           
-          {/* LEFT: FEATURED BLOCK (The selected country) */}
+          {/* LEFT: FEATURED BLOCK */}
           <motion.div 
             key={selectedId}
             initial={{ opacity: 0, x: -20 }}
@@ -84,14 +83,13 @@ export default function GlobalFootprint() {
                 <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#8A3D04] dark:text-amber-200 leading-none">
                   {activeData.name}
                 </h3>
-                <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mt-2">{activeData.region}</p>
+                {/* Changed contrast class text-stone-400 -> text-stone-500 dark:text-stone-400 */}
+                <p className="text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400 mt-2">{activeData.region}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* RESILIENCE LOGIC: Map through Master Data (English) to ensure correct count */}
               {masterData.branches.map((_, index) => {
-                // Use translated branch if it exists, otherwise fallback to English branch
                 const branch = activeData.branches[index] || masterData.branches[index];
                 
                 return (
@@ -101,7 +99,8 @@ export default function GlobalFootprint() {
                     </div>
                     <div className="flex flex-col grow">
                       <span className="text-sm font-black uppercase tracking-tight dark:text-stone-100">{branch.name}</span>
-                      <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{branch.area}</span>
+                      {/* Changed contrast class text-stone-400 -> text-stone-500 dark:text-stone-400 */}
+                      <span className="text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-widest">{branch.area}</span>
                     </div>
                     <span className="text-[8px] px-2 py-1 rounded-full bg-stone-200 dark:bg-zinc-700 font-black uppercase tracking-tighter shrink-0">
                       {branch.status}
@@ -112,9 +111,10 @@ export default function GlobalFootprint() {
             </div>
           </motion.div>
 
-          {/* RIGHT: SIDEBAR (Other locations) */}
+          {/* RIGHT: SIDEBAR */}
           <div className="w-full lg:w-[35%] flex flex-col gap-4">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-stone-400 ml-2">Recommended Locations</h4>
+            {/* Changed contrast class text-stone-400 -> text-stone-500 dark:text-stone-400 */}
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.25em] text-stone-500 dark:text-stone-400 ml-2">Recommended Locations</h4>
             <div className="flex flex-col gap-3 max-h-150 lg:overflow-y-auto lg:pr-3 no-scrollbar">
               <AnimatePresence mode="popLayout">
                 {otherLocations.map((coord) => {
@@ -134,7 +134,8 @@ export default function GlobalFootprint() {
                         <span className="text-[15px] font-black uppercase tracking-tight text-stone-600 dark:text-stone-300 group-hover:text-[#8A3D04] dark:group-hover:text-amber-500">
                           {data.name}
                         </span>
-                        <span className="text-[10px] font-bold text-stone-400 uppercase">
+                        {/* Changed contrast class text-stone-400 -> text-stone-500 dark:text-stone-400 */}
+                        <span className="text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase">
                           {data.branches.length} Branches • {data.region}
                         </span>
                       </div>

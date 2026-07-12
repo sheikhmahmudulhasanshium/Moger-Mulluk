@@ -27,8 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: { default: brandName, template: `%s | ${brandName}` },
     description: globalData?.description || "The Realm of Conversations",
     
-    // 1. ADDED BACK: HTML ID (Google Site Verification Meta Tag)
-    // This ensures the "HTML Tag" method stays verified.
+    // Verification Meta Tag
     verification: {
       google: "google2529eeb245344b02", 
     },
@@ -51,9 +50,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         appId: '2151814335752206' 
     },
     alternates: {
-      canonical: lang === 'en' ? `${baseUrl}/` : `${baseUrl}/${lang}`,
+      // Fixed: Canonical now dynamically maps to `${baseUrl}/${lang}` to prevent matching conflicts
+      canonical: `${baseUrl}/${lang}`,
       languages: {
-        'en': `${baseUrl}/en`, 'bn': `${baseUrl}/bn`, 'es': `${baseUrl}/es`, 'hi': `${baseUrl}/hi`, 'x-default': `${baseUrl}/`,
+        'en': `${baseUrl}/en`, 
+        'bn': `${baseUrl}/bn`, 
+        'es': `${baseUrl}/es`, 
+        'hi': `${baseUrl}/hi`, 
+        'x-default': `${baseUrl}/en`, // Point x-default to your primary default language folder
       },
     },
   };
@@ -67,11 +71,7 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        {/* 
-            GOOGLE ANALYTICS SCRIPT
-            Kept as raw HTML tags to ensure the "Google Analytics" 
-            ownership method stays verified in Search Console.
-        */}
+        {/* GOOGLE ANALYTICS SCRIPT */}
         {/* eslint-disable @next/next/next-script-for-ga */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CW0ES20MGM"></script>
         <script

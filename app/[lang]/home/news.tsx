@@ -15,7 +15,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { announcementApi, AnnouncementFeedItem } from "@/app/components/hooks/announcement-api";
-//import CreateAnnouncementForm from "@/app/components/forms/create-announcement-form";
 
 // --- TEXT PARSER HELPER ---
 const FormattedText = ({ text }: { text: string }) => {
@@ -24,12 +23,15 @@ const FormattedText = ({ text }: { text: string }) => {
   return (
     <div className="space-y-3">
       {lines.map((line, i) => {
-        // Headers (###)
+        // Fixed: Changed from h4 to h3 for correct heading sequence order
         if (line.startsWith("### ")) {
-          return <h4 key={i} className="text-lg font-black text-[#8A3D04] dark:text-amber-500 uppercase mt-4 mb-2">{line.replace("### ", "")}</h4>;
+          return (
+            <h3 key={i} className="text-lg font-black text-[#8A3D04] dark:text-amber-500 uppercase mt-4 mb-2">
+              {line.replace("### ", "")}
+            </h3>
+          );
         }
         
-        // Unordered Lists (* )
         if (line.trim().startsWith("* ")) {
             const content = line.trim().replace("* ", "");
             return (
@@ -42,7 +44,6 @@ const FormattedText = ({ text }: { text: string }) => {
             );
         }
 
-        // Regular Bold (**bold**)
         const parsedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-black text-stone-900 dark:text-white">$1</strong>');
         
         return (
@@ -132,7 +133,8 @@ export default function TheDispatch() {
         <div className="flex flex-col items-center text-center mb-16">
           <div className="flex items-center gap-3 text-[#8A3D04] mb-6">
              <Newspaper size={24} />
-             <span className="text-[10px] font-black uppercase tracking-[0.4em]">{t.subtitle}</span>
+             {/* Fixed Contrast: text-stone-400 -> text-stone-500 dark:text-stone-400 */}
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-stone-500 dark:text-stone-400">{t.subtitle}</span>
           </div>
           <h2 className="text-[#8A3D04] dark:text-[#e7d9c1] text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] uppercase whitespace-pre-line">
             {t.title}
@@ -144,7 +146,8 @@ export default function TheDispatch() {
           <div className="flex items-center gap-4 w-full md:w-auto">
             <Filter size={14} className="text-[#8A3D04]" />
             <Select value={filter} onValueChange={setFilter}>
-              <SelectTrigger className="w-45 bg-transparent border-none font-bold text-xs uppercase text-stone-600 dark:text-stone-400 focus:ring-0">
+              {/* Fixed: Replaced text-stone-600 with text-stone-700 for optimal contrast */}
+              <SelectTrigger className="w-45 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0">
                 <SelectValue placeholder={t.all} />
               </SelectTrigger>
               <SelectContent className="bg-[#fcfaf7] dark:bg-zinc-900">
@@ -160,7 +163,8 @@ export default function TheDispatch() {
           <div className="flex items-center gap-4 w-full md:w-auto md:justify-end">
             <SortDesc size={14} className="text-[#8A3D04]" />
             <Select value={sortOrder} onValueChange={setSortOrder}>
-              <SelectTrigger className="w-50 bg-transparent border-none font-bold text-xs uppercase text-stone-600 dark:text-stone-400 focus:ring-0">
+              {/* Fixed: Replaced text-stone-600 with text-stone-700 for optimal contrast */}
+              <SelectTrigger className="w-50 bg-transparent border-none font-bold text-xs uppercase text-stone-700 dark:text-stone-400 focus:ring-0">
                 <SelectValue placeholder={t.sorts.priority} />
               </SelectTrigger>
               <SelectContent className="bg-[#fcfaf7] dark:bg-zinc-900">
@@ -178,22 +182,22 @@ export default function TheDispatch() {
         <div className="flex flex-col gap-0 border-b border-stone-200 dark:border-zinc-800 min-h-100">
           <AnimatePresence mode="popLayout">
             {loading ? (
-               <div key="loading" className="py-20 text-center text-stone-400 text-xs uppercase animate-pulse"> {t.loading} </div>
+               <div key="loading" className="py-20 text-center text-stone-500 text-xs uppercase animate-pulse"> {t.loading} </div>
             ) : processedNotices.map((item, idx) => {
                 const isExpanded = expandedId === item.id;
-                // CLEANUP: Use media.thumbnail as source
                 const displayImage = item.media?.thumbnail;
 
                 return (
                   <motion.div key={item.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={`border-t border-stone-200 dark:border-zinc-800 ${isExpanded ? 'bg-stone-50 dark:bg-zinc-900/50' : ''}`}>
                     <div onClick={() => setExpandedId(isExpanded ? null : item.id)} className="flex gap-6 py-10 px-4 cursor-pointer group">
                         <div className="flex flex-col items-center shrink-0 w-8">
-                            <span className="text-[12px] font-black text-[#B28869]"> {getLocaleNumber(idx + 1)} </span>
+                            {/* Fixed Contrast: Changed from #B28869 to #8A3D04 for high-contrast numbering */}
+                            <span className="text-[12px] font-black text-[#8A3D04] dark:text-amber-500"> {getLocaleNumber(idx + 1)} </span>
                             <div className={`w-px h-full bg-stone-200 dark:bg-zinc-800 transition-colors ${isExpanded ? 'bg-[#8A3D04]' : 'group-hover:bg-[#8A3D04]'}`} />
                         </div>
                         <div className="flex flex-col grow gap-2">
                             <div className="flex justify-between items-start gap-4">
-                                <p className="text-sm md:text-lg font-medium text-stone-600 dark:text-stone-300 leading-relaxed uppercase tracking-tight">
+                                <p className="text-sm md:text-lg font-medium text-stone-700 dark:text-stone-300 leading-relaxed uppercase tracking-tight">
                                     <span className="font-black text-[#8A3D04] dark:text-amber-600 mr-2"> {item.category}: </span>
                                     {item.title}
                                 </p>
@@ -222,7 +226,6 @@ export default function TheDispatch() {
                                         <FormattedText text={item.longDescription} />
                                         
                                         <div className="flex flex-wrap gap-4 pt-4">
-                                            {/* UPDATED: Attachments Access */}
                                             {item.attachments?.pdfs?.map((url, i) => (
                                                 <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 text-[10px] font-black uppercase tracking-widest rounded border border-red-100">
                                                     <FileText size={14} /> {t.docs} {i + 1}
@@ -246,16 +249,13 @@ export default function TheDispatch() {
         </div>
 
         <div className="mt-16 flex justify-center">
-           <Link href="/notice" className="group flex items-center gap-2 text-[#B28869]">
+           {/* Fixed Contrast: Changed text-[#B28869] to text-[#8A3D04] for high-contrast action CTA */}
+           <Link href="/notice" className="group flex items-center gap-2 text-[#8A3D04] dark:text-amber-500">
               <span className="text-[11px] font-black uppercase tracking-[0.3em]">{t.archiveCta}</span>
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
            </Link>
         </div>
       </div>
-      {/** 
-       *       <CreateAnnouncementForm/>
-
-      */}
     </section>
   );
 }

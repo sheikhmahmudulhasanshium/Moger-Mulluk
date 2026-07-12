@@ -52,7 +52,11 @@ export default function LocalSwitcher() {
         onValueChange={onSelectChange} 
         disabled={isPending || !!loadingMessage}
       >
-        <SelectTrigger className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50 dark:text-amber-800 focus:ring-0 focus:ring-offset-0 border-none outline-none">
+        {/* Fixed Accessibility: Added aria-label to clear the PageSpeed warning without altering Radix children */}
+        <SelectTrigger 
+          className="w-auto min-w-10 bg-transparent hover:border-0 px-2 text-amber-950/50 dark:text-amber-800 focus:ring-0 focus:ring-offset-0 border-none outline-none"
+          aria-label="Select Language"
+        >
           <SelectValue>
             <div className="flex items-center gap-2">
               <Languages className="h-4 w-4 md:hidden" />

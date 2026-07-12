@@ -4,21 +4,17 @@ import { useLocale } from "next-intl";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 
-// --- TYPES ---
-
 interface CertItem {
   id: string;
   name: string;
   fact: string;
-  icon: React.ComponentType; // Strictly types the SVG component
+  icon: React.ComponentType;
 }
 
 interface TranslationData {
   title: string;
   items: CertItem[];
 }
-
-// --- BOLD, HIGH-CONTRAST SVGS ---
 
 const FoodSafetySVG = () => (
   <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full p-16">
@@ -81,7 +77,7 @@ const translations: Record<string, TranslationData> = {
   es: {
     title: "Acreditación \n Global",
     items: [
-      { id: "safety", name: "Seguridad", fact: "Certificado por FDA (EE. UU.), FSSAI (IND) y BSTI (BD) bajo rigurosos protocolos de higiene alimentaria.", icon: FoodSafetySVG },
+      { id: "safety", name: "Seguridad", fact: "Certificado por FDA (EE. UU.), FSSAI (IND) y BSTI (BD) bajo rigurosos de higiene alimentaria.", icon: FoodSafetySVG },
       { id: "halal", name: "Calidad Halal", fact: "Ingredientes 100% certificados Halal de origen global, atendiendo a nuestros mercados en Bangladesh y más allá.", icon: HalalSVG },
       { id: "carbon", name: "Carbono Neutro", fact: "Mantenemos una cadena de suministro neta cero para EE. UU. y España, compensando cada kilogramo de CO2.", icon: NetZeroSVG },
       { id: "packaging", name: "Residuo Cero", fact: "Uso exclusivo de envases 100% biodegradables y reciclados en todas nuestras ubicaciones internacionales.", icon: EcoPackagingSVG },
@@ -96,7 +92,7 @@ interface FlipCardProps {
 
 function FlipCard({ cert, isSouthAsian }: FlipCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const Icon = cert.icon; // Accessing component properly
+  const Icon = cert.icon;
 
   return (
     <div 
@@ -110,13 +106,15 @@ function FlipCard({ cert, isSouthAsian }: FlipCardProps) {
         )}
       >
         {/* FRONT */}
-        <div className="absolute inset-0 flex flex-col items-center justify-between p-10 bg-white dark:bg-zinc-900 border-2 border-stone-200 dark:border-zinc-800 backface-hidden">
+        {/* Fixed: Contrast on border-stone-200 modified */}
+        <div className="absolute inset-0 flex flex-col items-center justify-between p-10 bg-white dark:bg-zinc-900 border-2 border-stone-300 dark:border-zinc-800 backface-hidden">
           <div className="w-full h-full flex items-center justify-center text-[#512604] dark:text-amber-500">
             <Icon />
           </div>
-          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#512604] dark:text-stone-300 border-t-2 border-stone-100 dark:border-zinc-800 pt-6 w-full text-center">
+          {/* Fixed Accessibility: Changed from h4 to h3 for correct structural sequence order */}
+          <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#512604] dark:text-stone-300 border-t-2 border-stone-100 dark:border-zinc-800 pt-6 w-full text-center">
             {cert.name}
-          </h4>
+          </h3>
         </div>
 
         {/* BACK */}

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: title, // Matches OG
+      title: title,
       images: [`${baseUrl}/favicon/web-app-manifest-512x512.png`],
     },
   };
