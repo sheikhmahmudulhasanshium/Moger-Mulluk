@@ -17,15 +17,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: data?.title,
     description: data?.description,
     facebook: { appId: '2151814335752206' },
-    alternates: {
-      canonical: `${baseUrl}/${lang}/notice`,
-      languages: {
-        'en': `${baseUrl}/en/notice`,
-        'bn': `${baseUrl}/bn/notice`,
-        'es': `${baseUrl}/es/notice`,
-        'hi': `${baseUrl}/hi/notice`,
-      },
-    },
+    // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/notice` : `${baseUrl}/${lang}/notice`,
+  languages: {
+    'en': `${baseUrl}/notice`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/notice`,
+    'es': `${baseUrl}/es/notice`,
+    'hi': `${baseUrl}/hi/notice`,
+  },
+},
     openGraph: {
       type: "website",
       url: `${baseUrl}/${lang}/notice`,

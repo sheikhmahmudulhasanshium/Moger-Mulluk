@@ -19,15 +19,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: product.title,
       description: product.description,
-      alternates: {
-        canonical: `${baseUrl}/${lang}/menu/${id}`,
-        languages: {
-          'en': `${baseUrl}/en/menu/${id}`,
-          'bn': `${baseUrl}/bn/menu/${id}`,
-          'es': `${baseUrl}/es/menu/${id}`,
-          'hi': `${baseUrl}/hi/menu/${id}`
-        }
-      },
+      // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/menu/${id}` : `${baseUrl}/${lang}/menu/${id}`,
+  languages: {
+    'en': `${baseUrl}/menu/${id}`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/menu/${id}`,
+    'es': `${baseUrl}/es/menu/${id}`,
+    'hi': `${baseUrl}/hi/menu/${id}`,
+  },
+},
       facebook: {
         appId: '2151814335752206'
       },

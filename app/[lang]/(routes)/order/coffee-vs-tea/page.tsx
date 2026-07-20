@@ -16,9 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       url: `/${lang}/order/coffee-vs-tea`,
       images: [ "/favicon/web-app-manifest-512x512.png" ],
     },
-    alternates: {
-      canonical: `${baseUrl}/${lang}/order/coffee-vs-tea`,
-    }
+    // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/order/coffee-vs-tea` : `${baseUrl}/${lang}/order/coffee-vs-tea`,
+  languages: {
+    'en': `${baseUrl}/order/coffee-vs-tea`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/order/coffee-vs-tea`,
+    'es': `${baseUrl}/es/order/coffee-vs-tea`,
+    'hi': `${baseUrl}/hi/order/coffee-vs-tea`,
+  },
+}
   };
     };
 

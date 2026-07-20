@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         appId: '2151814335752206' 
     },
     alternates: {
-      canonical: `${baseUrl}/${lang}`,
+      canonical: lang === 'en' ? baseUrl : `${baseUrl}/${lang}`,
       languages: {
         'en': `${baseUrl}/en`, 
         'bn': `${baseUrl}/bn`, 

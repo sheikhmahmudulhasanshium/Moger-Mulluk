@@ -24,16 +24,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       appId: '2151814335752206',
     },
 
-    alternates: {
-      canonical: `${baseUrl}/${lang}/gallery`,
-      languages: {
-        'en': `${baseUrl}/en/gallery`,
-        'bn': `${baseUrl}/bn/gallery`,
-        'es': `${baseUrl}/es/gallery`,
-        'hi': `${baseUrl}/hi/gallery`,
-        'x-default': `${baseUrl}/en/gallery`,
-      },
-    },
+    // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/gallery` : `${baseUrl}/${lang}/gallery`,
+  languages: {
+    'en': `${baseUrl}/gallery`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/gallery`,
+    'es': `${baseUrl}/es/gallery`,
+    'hi': `${baseUrl}/hi/gallery`,
+  },
+},
 
     openGraph: {
       title: data?.title || "Gallery",

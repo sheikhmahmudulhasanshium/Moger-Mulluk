@@ -22,8 +22,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       type: "website",
       url: `${baseUrl}/${lang}/locations`
     },
-    alternates: { canonical: `${baseUrl}/${lang}/locations` ,languages:{'en': `${baseUrl}/en/locations`, 'bn': `${baseUrl}/bn/locations`, 'es': `${baseUrl}/es/locations`, 'hi': `${baseUrl}/hi/locations`}}, 
-    twitter: {
+// Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/locations` : `${baseUrl}/${lang}/locations`,
+  languages: {
+    'en': `${baseUrl}/locations`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/locations`,
+    'es': `${baseUrl}/es/locations`,
+    'hi': `${baseUrl}/hi/locations`,
+  },
+},    twitter: {
       title: data?.title,
       description: data?.description,      
       card: 'summary_large_image',

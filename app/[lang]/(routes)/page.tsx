@@ -17,6 +17,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: title,
     description: data?.description,
+    // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/` : `${baseUrl}/${lang}/menu`,
+  languages: {
+    'en': `${baseUrl}/`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/`,
+    'es': `${baseUrl}/es/`,
+    'hi': `${baseUrl}/hi/`,
+  },
+},
+    facebook: { appId: '2151814335752206' },
+    // Inside your menu/page.tsx generateMetadata function:
     openGraph: {
       type: 'website',
       title: title,

@@ -20,7 +20,8 @@ export const localesConfig = {
 // 2. Extract the list of codes ['en', 'bn', 'es'] automatically
 export const routing = defineRouting({
   locales: Object.keys(localesConfig), 
-  defaultLocale: 'en'
+  defaultLocale: 'en',
+  localePrefix: 'as-needed' // <-- This is the only setting that stops the server from redirecting /menu to /en/menu
 });
 
 export const {Link, redirect, usePathname, useRouter} = createNavigation(routing);

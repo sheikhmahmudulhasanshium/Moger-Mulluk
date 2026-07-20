@@ -51,6 +51,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       metadataBase: new URL(baseUrl),
       title: `${fullTitle} | Moger Mulluk`,
       description: description,
+      // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/offers` : `${baseUrl}/${lang}/offers`,
+  languages: {
+    'en': `${baseUrl}/offers`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/offers`,
+    'es': `${baseUrl}/es/offers`,
+    'hi': `${baseUrl}/hi/offers`,
+  },
+},
+      facebook: {
+        appId: '2151814335752206'
+      },
       openGraph: {
         title: fullTitle, // Shows the discount in the big bold link preview text
         description: description,

@@ -21,15 +21,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: data?.title,
     description: data?.description,
-    alternates: {
-      canonical: `${baseUrl}/${lang}/offers`,
-      languages: {
-        'en': `${baseUrl}/en/offers`,
-        'bn': `${baseUrl}/bn/offers`,
-        'es': `${baseUrl}/es/offers`,
-        'hi': `${baseUrl}/hi/offers`,
-      },
-    },
+    // Inside your menu/page.tsx generateMetadata function:
+alternates: {
+   canonical: lang === 'en' ? `${baseUrl}/offers` : `${baseUrl}/${lang}/offers`,
+  languages: {
+    'en': `${baseUrl}/offers`,      // UPDATE THIS: Remove "/en"
+    'bn': `${baseUrl}/bn/offers`,
+    'es': `${baseUrl}/es/offers`,
+    'hi': `${baseUrl}/hi/offers`,
+  },
+},
     openGraph: {
       type: "website",
       title: data?.title,
